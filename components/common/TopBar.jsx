@@ -9,7 +9,7 @@ const TopBar = () => {
           </div>
 
           <div className="hidden md:flex space-x-6 text-sm font-medium">
-            <Link href="/" className="text-amber-800 font-bold">
+            <Link href="/" className="text-[#724B00] font-bold">
               HOME
             </Link>
             <Link href="/products" className="text-amber-800">

@@ -12,7 +12,7 @@ export default function CartDropdown({ items, subtotal, onClose }) {
     >
       <div className="max-h-96 overflow-y-auto">
         {items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between p-4 border-b">
+          <div key={item.id} className="flex items-center justify-between p-4 border-b border-gray-100">
             <div className="flex items-center space-x-3">
               <div className="bg-amber-100 p-2 rounded-md">
                 <Image
@@ -23,9 +23,9 @@ export default function CartDropdown({ items, subtotal, onClose }) {
                   className="h-6 w-6 object-contain"
                 />
               </div>
-              <div>
-                <p className="text-sm font-medium">{item.name}</p>
-                <p className="text-xs text-gray-500">{item.price}</p>
+              <div className="">
+                <p className="text-sm font-semibold">{item.name}</p>
+                <p className="text-sm text-gray-500 font-semibold">{item.price}</p>
               </div>
             </div>
             <button className="text-gray-400 hover:text-gray-600">
@@ -34,7 +34,7 @@ export default function CartDropdown({ items, subtotal, onClose }) {
           </div>
         ))}
       </div>
-      <div className="p-4 border-t">
+      <div className="p-4 ">
         <div className="flex justify-between mb-4">
           <span className="font-medium">Subtotal:</span>
           <span className="font-medium">{subtotal}</span>

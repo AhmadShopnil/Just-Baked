@@ -21,13 +21,14 @@ export default function CategoryDropdown({ onClose }) {
 
   return (
     <div
-      className="absolute top-full left-0 mt-1 w-56 bg-white border rounded-md shadow-lg z-50"
+      className="absolute top-full left-0  w-full bg-white shadow-lg z-50"
       onClick={(e) => e.stopPropagation()}
     >
       <ul className="py-1">
         {categories.map((category, index) => (
           <li key={index}>
-            <Link href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <Link href="#" className="block px-4 py-2 text-sm text-gray-700
+             hover:bg-gray-100 border-b border-gray-200">
               {category}
             </Link>
           </li>

@@ -7,7 +7,7 @@ import Description from "@/components/product/Description";
 export default function ProductPage() {
   const [mainImage, setMainImage] = useState("/images/products/watch.jpg");
   const [quantity, setQuantity] = useState(1);
-//   const [activeTab, setActiveTab] = useState("description");
+  //   const [activeTab, setActiveTab] = useState("description");
 
   const images = [
     "/images/products/camera-2.jpg",
@@ -31,29 +31,12 @@ export default function ProductPage() {
 
   return (
     <div className="py-8 container mx-auto px-4">
-      {/* Breadcrumb */}
-      <div className="flex items-center text-sm mb-6 text-gray-500">
-        <Link href="/" className="hover:text-gray-700">
-          Home
-        </Link>
-        <span className="mx-1">/</span>
-        <Link href="/snacks" className="hover:text-gray-700">
-          Snacks & Drinks
-        </Link>
-        <span className="mx-1">/</span>
-        <Link href="/frozen-snacks" className="hover:text-gray-700">
-          Frozen Snacks
-        </Link>
-        <span className="mx-1">/</span>
-        <span className="text-gray-900">Chicken Roll</span>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 py-10">
         {/* Product Images Section */}
         <div className="w-full md:w-1/2">
           {/* Main Image */}
-          <div className="border rounded-lg p-4 mb-4 bg-white">
-            <div className="relative h-[350px] w-full">
+          <div className="shadow-xl rounded-lg p-4 mb-4 bg-white">
+            <div className="relative h-[450px] w-full">
               <Image
                 src={mainImage || "/placeholder.svg"}
                 alt="Chicken Roll"
@@ -87,6 +70,24 @@ export default function ProductPage() {
 
         {/* Product Details Section */}
         <div className="w-full md:w-1/2">
+          {/* Breadcrumb */}
+          <div className="flex items-center text-sm mb-6 text-gray-500">
+            <Link href="/" className="hover:text-gray-700">
+              Home
+            </Link>
+            <span className="mx-1">/</span>
+            <Link href="/snacks" className="hover:text-gray-700">
+              Snacks & Drinks
+            </Link>
+            <span className="mx-1">/</span>
+            <Link href="/frozen-snacks" className="hover:text-gray-700">
+              Frozen Snacks
+            </Link>
+            <span className="mx-1">/</span>
+            <span className="text-gray-900">Chicken Roll</span>
+          </div>
+          {/* Breadcrumb End */}
+
           <h1 className="text-3xl font-bold mb-2">Chicken Roll</h1>
           <div className="text-2xl font-bold mb-4">₹ 230/-</div>
 
@@ -104,9 +105,9 @@ export default function ProductPage() {
           </p>
 
           {/* Quantity Selector */}
-          <div className="flex items-center mb-6">
-            <span className="mr-4">Quantity:</span>
-            <div className="flex border border-gray-300 rounded">
+          <div className="flex items-center mb-6 gap-4">
+            {/* <span className="mr-4">Quantity:</span> */}
+            <div className="flex border border-gray-300 rounded ">
               <button
                 className="px-3 py-1 border-r border-gray-300"
                 onClick={decreaseQuantity}
@@ -115,21 +116,25 @@ export default function ProductPage() {
               </button>
               <span className="px-4 py-1">{quantity}</span>
               <button
-                className="px-3 py-1 border-l border-gray-300"
+                className="px-3 py- border-l border-gray-300"
                 onClick={increaseQuantity}
               >
                 +
               </button>
             </div>
+            {/* Add to Cart Button */}
+            <button
+              className="bg-[#724B00] text-white py-[7px] px-6 rounded
+             hover:bg-[#724B00] transition text-sm cursor-pointer "
+            >
+              ADD TO CART
+            </button>
           </div>
 
-          {/* Add to Cart Button */}
-          <button className="bg-amber-600 text-white py-2 px-6 rounded hover:bg-amber-700 transition mb-6">
-            ADD TO CART
-          </button>
+          <div className=" border border-gray-200  "></div>
 
           {/* Product Details */}
-          <div className="mb-4">
+          <div className="my-6">
             <div className="flex mb-2">
               <span className="font-semibold w-24">SKU:</span>
               <span>01-composite-order</span>
@@ -156,38 +161,6 @@ export default function ProductPage() {
       {/* Tabs */}
 
       <Description />
-
-      {/* <div className="mt-12">
-        <div className="flex border-b">
-          <button
-            className={`py-2 px-4 font-medium ${activeTab === "description" ? "bg-gray-100" : ""}`}
-            onClick={() => setActiveTab("description")}
-          >
-            DESCRIPTION
-          </button>
-          <button
-            className={`py-2 px-4 font-medium ${activeTab === "questions" ? "bg-amber-600 text-white" : ""}`}
-            onClick={() => setActiveTab("questions")}
-          >
-            QUESTIONS ABOUT THIS PRODUCT
-          </button>
-        </div>
-
-        <div className="p-4 border border-t-0">
-          {activeTab === "description" ? (
-            <div>
-              <p>Product description content goes here.</p>
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="font-bold">K</span>
-                <input type="text" placeholder="Add a comment" className="border p-2 rounded w-full" />
-              </div>
-            </div>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 }

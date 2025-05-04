@@ -83,9 +83,10 @@ export default function Header() {
 
       {/* Search and Navigation Bar */}
       <div className="container mx-auto flex justify-between items-center py-3 px-4">
-        <div className="flex space-x-2 relative">
-          <button
-            className="bg-amber-800 text-white px-4 py-2 rounded flex items-center text-sm"
+        <div className="flex space-x-2 ">
+        <div className="relative">
+        <button
+            className="bg-[#724B00] text-white px-4 py-2 rounded flex items-center text-sm"
             onClick={(e) => {
               e.stopPropagation()
               toggleCategories()
@@ -97,6 +98,7 @@ export default function Header() {
 
           {/* Categories Dropdown */}
           {isCategoriesOpen && <CategoryDropdown onClose={() => setIsCategoriesOpen(false)} />}
+        </div>
 
           <button className="bg-orange-500 text-white px-4 py-2 rounded flex items-center text-sm">
             <span>OFFER</span>
