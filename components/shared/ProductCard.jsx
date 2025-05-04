@@ -7,7 +7,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="bg-white border rounded-lg overflow-hidden">
-      <Link href={`/products/${id}`}>
+      <Link href={`/product/${id}`}>
         <div className="p-4 flex justify-center">
           <Image
             src={image || "/placeholder.svg"}
