@@ -1,3 +1,4 @@
+import FastFood from '@/components/home/FastFood';
 import HeroSection from '@/components/home/HeroSection';
 import NewArrivalsSection from '@/components/home/NewArrivalsSection';
 import React from 'react';
@@ -8,6 +9,7 @@ const Page = () => {
    
       <HeroSection />
       <NewArrivalsSection />
+      <FastFood/>
     </div>
   );
 }

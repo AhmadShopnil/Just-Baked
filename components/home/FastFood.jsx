@@ -1,7 +1,8 @@
+import React from 'react';
+import ProductSlider from './ProductSlider';
 
-import ProductSlider from "./ProductSlider";
+const FastFood = () => {
 
-export default function NewArrivalsSection() {
   // Sample product data
   const products = [
     {
@@ -35,9 +36,11 @@ export default function NewArrivalsSection() {
     },
   ];
 
-  return (
-    <div>
-      <ProductSlider products={products} title={"NEW ARRIVAL"}/>
-    </div>
-  );
+    return (
+        <div>
+               <ProductSlider products={products} title={"FAST FOOD"}/>
+        </div>
+    );
 }
+
+export default FastFood;

@@ -8,7 +8,7 @@ export default function CartDropdown({ items, subtotal, onClose }) {
   return (
     <div
       className="absolute top-full right-0 mt-2 w-80 bg-white border rounded-md shadow-lg z-50"
-      onClick={(e) => e.stopPropagation()}
+
     >
       <div className="max-h-96 overflow-y-auto">
         {items.map((item) => (
@@ -46,7 +46,7 @@ export default function CartDropdown({ items, subtotal, onClose }) {
           >
             View Cart
           </Link>
-          <Link href="/checkout" className="bg-amber-800 text-white py-2 text-center text-sm rounded">
+          <Link href="/checkout" className="bg-primary-strong text-white py-2 text-center text-sm rounded">
             Checkout
           </Link>
         </div>
