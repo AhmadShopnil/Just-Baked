@@ -1,3 +1,4 @@
+import ComboPackage from '@/components/home/ComboPackage';
 import FastFood from '@/components/home/FastFood';
 import HeroSection from '@/components/home/HeroSection';
 import NewArrivalsSection from '@/components/home/NewArrivalsSection';
@@ -10,6 +11,7 @@ const Page = () => {
       <HeroSection />
       <NewArrivalsSection />
       <FastFood/>
+      <ComboPackage/>
     </div>
   );
 }

@@ -29,6 +29,14 @@ body {
 
 
 @theme {
-  --font-poppins: "Poppins", sans-serif;
+  /* --font-poppins: "Poppins", sans-serif; */
   --color-primary-strong: #724b00;
+}
+
+
+
+@layer base {
+  body {
+    font-family: var(--font-poppins);
+  }
 }

@@ -13,7 +13,7 @@ export default function ProductCard({ product }) {
   } = product;
 
   return (
-    <div className="">
+    <Link className="" href={`/product/${id}`}>
       <div class="flex w-full h-[400px] flex-col justify-between items-center p-5 rounded-[10px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.10)] bg-white">
         <Image
           src="/image/newArrival/freshCroissant.webp"
@@ -51,6 +51,6 @@ export default function ProductCard({ product }) {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -177,7 +177,7 @@ export default function Description() {
               {/* Comments List */}
               <div className="space-y-6">
                 {comments.map((comment) => (
-                  <div key={comment.id} className="space-y-4">
+                  <div key={comment.id} className="space-y-4 border-b border-gray-100 pb-5">
                     {/* Main Comment */}
                     <div className="flex gap-4">
                       <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">

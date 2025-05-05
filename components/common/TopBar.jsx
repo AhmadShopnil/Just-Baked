@@ -4,7 +4,7 @@ import React from "react";
 
 const TopBar = () => {
   const menuItems = [
-    { name: "Home", href: "#", active: true },
+    { name: "Home", href: "/", active: true },
     { name: "Product", href: "#" },
     { name: "Gift", href: "#" },
     { name: "Corporate", href: "#" },
@@ -19,7 +19,7 @@ const TopBar = () => {
      items-center self-stretch"
     >
       {/* Logo */}
-      <Link href="#">
+      <Link href="/">
         <Image
           src="/image/Header Image/Vector.svg"
           alt="Logo"

@@ -1,198 +1,141 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Phone } from "lucide-react"
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-[#FFF8E7] pt-10">
-      <div className="container mx-auto px-4">
-        {/* Logo and Description */}
-        <div className="flex flex-col items-center mb-8">
-          <Image src="/logo.png" alt="Just Baked Logo" width={150} height={60} className="mb-4" />
-          <p className="text-center text-gray-700 max-w-3xl text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+    <div className="w-full  ">
+      <div className="w-full bg-[#FFF4DE] md:px-32 py-[60px] flex justify-center">
+        <div className="flex flex-col gap-[60px] w-full lg:max-w-[1378px] px-5 2xl:px-0">
+          {/* Logo */}
+          <div className="flex justify-center">
+            <Link href="/" className="cursor-pointer">
+              <Image src="/image/Footer/Logo.svg" alt="Logo" width={160} height={40} />
+            </Link>
+          </div>
+
+          <p className="text-center text-sm text-black leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore.
           </p>
-        </div>
 
-        {/* Footer Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          {/* Contact Us */}
-          <div>
-            <h3 className="font-bold text-amber-800 uppercase mb-4">Contact Us</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <div className="mt-1 mr-3">
-                  <Phone className="h-4 w-4 text-amber-800" />
-                </div>
-                <div>
-                  <p className="text-sm">+880 (70) 676 086</p>
-                  <p className="text-sm">+880 (70) 676 086</p>
-                </div>
-              </li>
-              <li className="flex items-center">
-                <div className="mr-3">
-                  <Image src="/email-icon.png" alt="Email" width={16} height={16} className="h-4 w-4" />
-                </div>
-                <p className="text-sm">info@justbaked.com</p>
-              </li>
-              <li className="flex items-center">
-                <div className="mr-3">
-                  <Image src="/web-icon.png" alt="Website" width={16} height={16} className="h-4 w-4" />
-                </div>
-                <p className="text-sm">justbaked</p>
-              </li>
-              <li className="flex items-start">
-                <div className="mt-1 mr-3">
-                  <Image src="/location-icon.png" alt="Location" width={16} height={16} className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-sm">W-123, Noorjahan Road</p>
-                  <p className="text-sm">Mohammadpur, Dhaka-1207</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          {/* Useful Links */}
-          <div>
-            <h3 className="font-bold text-amber-800 uppercase mb-4">Useful Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-sm hover:text-amber-800">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="text-sm hover:text-amber-800">
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/gift" className="text-sm hover:text-amber-800">
-                  Gift
-                </Link>
-              </li>
-              <li>
-                <Link href="/corporate" className="text-sm hover:text-amber-800">
-                  Corporate
-                </Link>
-              </li>
-              <li>
-                <Link href="/outlets" className="text-sm hover:text-amber-800">
-                  Outlets
-                </Link>
-              </li>
-              <li>
-                <Link href="/halal-investment" className="text-sm hover:text-amber-800">
-                  Halal Investment
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-sm hover:text-amber-800">
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* View Map */}
-          <div>
-            <h3 className="font-bold text-amber-800 uppercase mb-4">View Map</h3>
-            <div className="rounded overflow-hidden">
-              <Image src="/map.png" alt="Location Map" width={250} height={150} className="w-full h-auto" />
-              <div className="bg-white p-2 text-center">
-                <Link href="#" className="text-blue-500 text-xs">
-                  View larger map
-                </Link>
+          {/* About Section */}
+          <div className="h-full w-full flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
+            {/* Contact Us */}
+            <div className="w-[216px] flex flex-col gap-[20px]">
+              <h3 className="text-base text-black font-bold leading-4 uppercase">Contact Us</h3>
+              <div className="flex items-center gap-3">
+                <Image src="/image/Footer/Phone.svg" alt="" width={29} height={29} />
+                <span className="text-[12px] text-black font-medium leading-4">
+                  +880 1711 535 658 <br /> +880 1755 682 026
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Image src="/image/Footer/Mail.svg" alt="" width={29} height={29} />
+                <span className="text-[12px] text-black font-medium leading-4">
+                  info@justbakedbd.com
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Image src="/image/Footer/FB.svg" alt="" width={29} height={29} />
+                <span className="text-[12px] text-black font-medium leading-4">/justbaked</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Image src="/image/Footer/location.svg" alt="" width={29} height={29} />
+                <span className="text-[12px] text-black font-medium leading-4">
+                  W/20, Noorjahan Road Mohammadpur, Dhaka-1207
+                </span>
               </div>
             </div>
-          </div>
 
-          {/* Pay With */}
-          <div>
-            <h3 className="font-bold text-amber-800 uppercase mb-4">Pay With</h3>
-            <div className="grid grid-cols-4 gap-2">
-              <Image src="/payment/visa.png" alt="Visa" width={40} height={25} className="h-6 object-contain" />
-              <Image
-                src="/payment/mastercard.png"
-                alt="Mastercard"
-                width={40}
-                height={25}
-                className="h-6 object-contain"
-              />
-              <Image
-                src="/payment/amex.png"
-                alt="American Express"
-                width={40}
-                height={25}
-                className="h-6 object-contain"
-              />
-              <Image src="/payment/discover.png" alt="Discover" width={40} height={25} className="h-6 object-contain" />
-              <Image src="/payment/paypal.png" alt="PayPal" width={40} height={25} className="h-6 object-contain" />
-              <Image
-                src="/payment/apple-pay.png"
-                alt="Apple Pay"
-                width={40}
-                height={25}
-                className="h-6 object-contain"
-              />
-              <Image
-                src="/payment/google-pay.png"
-                alt="Google Pay"
-                width={40}
-                height={25}
-                className="h-6 object-contain"
-              />
-              <Image src="/payment/alipay.png" alt="Alipay" width={40} height={25} className="h-6 object-contain" />
-              <Image src="/payment/wechat.png" alt="WeChat Pay" width={40} height={25} className="h-6 object-contain" />
-              <Image src="/payment/stripe.png" alt="Stripe" width={40} height={25} className="h-6 object-contain" />
-              <Image src="/payment/klarna.png" alt="Klarna" width={40} height={25} className="h-6 object-contain" />
-              <Image src="/payment/afterpay.png" alt="Afterpay" width={40} height={25} className="h-6 object-contain" />
+            {/* Useful Links */}
+            <div className="flex flex-col gap-[10px]">
+              <h3 className="text-base text-black font-bold leading-4 uppercase">Useful Links</h3>
+              <div className="flex flex-col gap-1">
+                {[
+                  'Home',
+                  'Products',
+                  'Gift',
+                  'Corporate',
+                  'Outlets',
+                  'Halal Investment',
+                  'Blog',
+                ].map((link, idx) => (
+                  <Link key={idx} href="#" className="cursor-pointer">
+                    <span className="text-[12px] text-black font-medium leading-4">{link}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div className="mt-4 flex items-center justify-center">
-              <span className="text-xs mr-2">Verified by</span>
-              <Image
-                src="/mastercard-secure.png"
-                alt="Mastercard SecureCode"
-                width={80}
-                height={30}
-                className="h-6 object-contain"
-              />
+
+            {/* View Map */}
+            <div className="flex flex-col gap-[20px]">
+              <h3 className="text-base text-black font-bold leading-4 uppercase">View Map</h3>
+              <Image src="/image/Footer/Map.webp" alt="Map" width={220} height={140} />
+            </div>
+
+            {/* Payment Methods */}
+            <div className="flex flex-col gap-2.5">
+              <h3 className="text-base text-black font-bold leading-4 uppercase">Pay with</h3>
+              <div className="flex flex-col gap-1 mt-5">
+                {[...Array(5)].map((_, rowIdx) => (
+                  <div key={rowIdx} className="flex gap-1">
+                    {[...Array(5)].map((_, colIdx) => {
+                      const imgNum = rowIdx * 5 + colIdx + 1;
+                      const imgPath =
+                        imgNum === 21
+                          ? '/image/Payment/21 1.png'
+                          : `/image/Payment/${String(imgNum).padStart(2, '0')} 1.png`;
+                      return (
+                        <Image
+                          key={imgNum}
+                          src={imgPath}
+                          alt={`Pay ${imgNum}`}
+                          width={40}
+                          height={24}
+                        />
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-[5px] mt-2">
+                <span className="text-[10px] text-black font-normal">Verified by</span>
+                <Image src="/image/Payment/25 59.png" alt="Verified" width={60} height={20} />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright Bar */}
-      <div className="bg-amber-800 py-3">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white text-sm">© 2023 Just Baked All rights reserved</p>
-          <div className="flex space-x-4 mt-2 md:mt-0">
-            <Link href="#" className="text-white">
-              <div className="bg-blue-600 rounded-full p-1.5">
-                <Image src="/social/facebook.png" alt="Facebook" width={16} height={16} className="h-4 w-4" />
-              </div>
-            </Link>
-            <Link href="#" className="text-white">
-              <div className="bg-pink-600 rounded-full p-1.5">
-                <Image src="/social/instagram.png" alt="Instagram" width={16} height={16} className="h-4 w-4" />
-              </div>
-            </Link>
-            <Link href="#" className="text-white">
-              <div className="bg-red-600 rounded-full p-1.5">
-                <Image src="/social/youtube.png" alt="YouTube" width={16} height={16} className="h-4 w-4" />
-              </div>
-            </Link>
-            <Link href="#" className="text-white">
-              <div className="bg-blue-700 rounded-full p-1.5">
-                <Image src="/social/linkedin.png" alt="LinkedIn" width={16} height={16} className="h-4 w-4" />
-              </div>
-            </Link>
+      {/* Copyright */}
+      <div className="w-full bg-primary-strong py-2.5 md:px-32">
+        <div className="w-full px-5 2xl:px-0 md:max-w-[1378px] mx-auto">
+          <div className="w-full flex flex-col items-start md:flex-row md:justify-between">
+            <span className="text-white text-sm">
+              ©2021 Just Baked All rights reserved
+            </span>
+            <div className="flex items-center gap-2">
+              {/* Replace these SVGs or images with proper icon components if preferred */}
+              <button className="cursor-pointer">
+                <Image src="/image/Footer/FacebookIcon.svg" alt="FB" width={28} height={28} />
+              </button>
+              <button className="cursor-pointer">
+                <Image src="/image/Footer/InstraLogo.svg" alt="Instagram" width={28} height={28} />
+              </button>
+              <button className="cursor-pointer">
+                <Image src="/image/Footer/YoutubeIcon.svg" alt="YouTube" width={28} height={28} />
+              </button>
+              <button className="cursor-pointer">
+                <Image src="/image/Footer/TwitterIcon.svg" alt="Twitter" width={28} height={28} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </footer>
-  )
-}
+    </div>
+  );
+};
+
+export default Footer;

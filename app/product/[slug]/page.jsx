@@ -13,6 +13,8 @@ export default function ProductPage() {
     "/images/products/camera-2.jpg",
     "/images/products/item-2.jpg",
     "/images/products/lipstik.jpg",
+    "/images/products/camera-2.jpg",
+    "/images/products/item-2.jpg",
   ];
 
   const handleThumbnailClick = (image) => {
@@ -33,7 +35,7 @@ export default function ProductPage() {
     <div className="py-8 container mx-auto px-4">
       <div className="flex flex-col md:flex-row gap-8 py-10">
         {/* Product Images Section */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-2/5">
           {/* Main Image */}
           <div className="shadow-xl rounded-lg p-4 mb-4 bg-white">
             <div className="relative h-[450px] w-full">
@@ -48,11 +50,11 @@ export default function ProductPage() {
           </div>
 
           {/* Thumbnails */}
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             {images.map((image, index) => (
               <div
                 key={index}
-                className={`border cursor-pointer p-2 w-20 h-20 relative ${
+                className={`border cursor-pointer p-2 w-24 h-20 relative ${
                   mainImage === image ? "border-amber-600" : "border-gray-200"
                 }`}
                 onClick={() => handleThumbnailClick(image)}
@@ -69,7 +71,7 @@ export default function ProductPage() {
         </div>
 
         {/* Product Details Section */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-3/5">
           {/* Breadcrumb */}
           <div className="flex items-center text-sm mb-6 text-gray-500">
             <Link href="/" className="hover:text-gray-700">
