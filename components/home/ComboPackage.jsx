@@ -68,35 +68,33 @@ export default function ComboPackage() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-[35px]">
           {comboPackages.map((item, index) => (
             <div
-              key={index}
-              className="relative w-full h-[440px] flex justify-start items-center pl-5 sm:pl-[54px] bg-cover
+            key={index}
+            className="relative w-full h-[440px] flex justify-start items-center pl-5 sm:pl-[54px] bg-cover
                bg-center bg-no-repeat rounded-[20px] 
               shadow-[0px_10px_20px_0px_rgba(0,0,0,0.10)] overflow-hidden"
-            >
-              <Image
-                src={item?.image}
-                alt={item.title}
-                fill
-                className="object-cover object-center -z-10"
-                priority={index === 0}
-              />
-              <div className="w-[90%] max-w-[300px] flex flex-col justify-between gap-[30px]">
-                <h3 className="text-primary-strong font-semibold text-3xl sm:text-[38px]">
-                  {item.title}
-                </h3>
-                {item.description && (
-                  <p className="text-lg text-black font-normal">
-                    {item.description}
-                  </p>
-                )}
-                <Link
-                  href={item.link}
-                  className="mt-5 bg-primary-strong text-white w-fit py-2.5 px-5 text-sm font-bold uppercase rounded-[5px]"
-                >
-                  Order Now
-                </Link>
-              </div>
+          >
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover object-center z-0" // z-0 keeps it behind content but not too far
+            />
+            <div className="relative z-[1] w-[90%] max-w-[300px] flex flex-col justify-between gap-[30px]">
+              <h3 className="text-primary-strong font-semibold text-3xl sm:text-[38px]">
+                {item.title}
+              </h3>
+              {item.description && (
+                <p className="text-lg text-black font-normal">{item.description}</p>
+              )}
+              <Link
+                href={item.link}
+                className="mt-5 bg-primary-strong text-white w-fit py-2.5 px-5 text-sm font-bold uppercase rounded-[5px]"
+              >
+                Order Now
+              </Link>
             </div>
+          </div>
+          
           ))}
         </div>
       </div>
