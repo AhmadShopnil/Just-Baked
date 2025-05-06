@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Description from "@/components/product/Description";
+import { ChevronLeft, ChevronRight, Facebook, Instagram, LayoutGrid } from "lucide-react";
 
 export default function ProductPage() {
   const [mainImage, setMainImage] = useState("/images/products/watch.jpg");
@@ -73,20 +74,30 @@ export default function ProductPage() {
         {/* Product Details Section */}
         <div className="w-full md:w-3/5">
           {/* Breadcrumb */}
-          <div className="flex items-center text-sm mb-6 text-gray-500">
-            <Link href="/" className="hover:text-gray-700">
-              Home
-            </Link>
-            <span className="mx-1">/</span>
-            <Link href="/snacks" className="hover:text-gray-700">
-              Snacks & Drinks
-            </Link>
-            <span className="mx-1">/</span>
-            <Link href="/frozen-snacks" className="hover:text-gray-700">
-              Frozen Snacks
-            </Link>
-            <span className="mx-1">/</span>
-            <span className="text-gray-900">Chicken Roll</span>
+          <div className="flex justify-between">
+           
+            <div className="flex items-center text-sm mb-6 text-gray-500">
+              <Link href="/" className="hover:text-gray-700">
+                Home
+              </Link>
+              <span className="mx-1">/</span>
+              <Link href="/snacks" className="hover:text-gray-700">
+                Snacks & Drinks
+              </Link>
+              <span className="mx-1">/</span>
+              <Link href="/frozen-snacks" className="hover:text-gray-700">
+                Frozen Snacks
+              </Link>
+              <span className="mx-1">/</span>
+              <span className="text-gray-900">Chicken Roll</span>
+            </div>
+
+            <div className="flex gap-2">
+            <ChevronLeft />
+            <LayoutGrid />
+            <ChevronRight />
+            </div>
+           
           </div>
           {/* Breadcrumb End */}
 
@@ -151,10 +162,16 @@ export default function ProductPage() {
           <div className="flex items-center">
             <span className="mr-2">Share:</span>
             <div className="flex gap-2">
-              <button className="w-6 h-6 rounded-full bg-red-500"></button>
-              <button className="w-6 h-6 rounded-full bg-blue-500"></button>
+              <button className="w-6 h-6 rounded-full bg-red-500">
+              {/* <Youtube /> */}
+              </button>
+              <button className="w-6 h-6 rounded-full bg-blue-500">
+              {/* <Facebook className="text-white" /> */}
+              </button>
               <button className="w-6 h-6 rounded-full bg-green-500"></button>
-              <button className="w-6 h-6 rounded-full bg-purple-500"></button>
+              <button className="w-6 h-6 rounded-full bg-purple-500">
+                {/* <Instagram  className=""/> */}
+              </button>
             </div>
           </div>
         </div>
