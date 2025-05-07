@@ -1,5 +1,16 @@
 import React from "react";
 
+
+// Images
+
+import phoneIcon from "@/public/image/contact/phone.svg";
+import fbIcon from "@/public/image/contact/fb.svg";
+import emailIcon from "@/public/image/contact/email.svg";
+import locationIcon from "@/public/image/contact/location.svg";
+import Image from "next/image";
+
+
+
 const Map = () => {
   return (
     <div className="absolute w-full top-40 right-2">
@@ -22,7 +33,45 @@ const Map = () => {
           <div className="w-full max-w-sm bg-[#5c4d28] text-white p-6 rounded-lg shadow-lg md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10">
             {/* Content unchanged */}
             <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-            ...
+            <p className="text-white text-sm font-normal">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
+            </p>
+            <div className="flex flex-col gap-5">
+              {/* Phone */}
+              <div className="flex items-center gap-[30px]">
+                <Image src={phoneIcon} alt="Phone icon" />
+                <span className="text-white font-normal">
+                  +880 1711 535 658
+                  <br />
+                  +880 1755 682 026
+                </span>
+              </div>
+
+              {/* Facebook */}
+              <div className="flex items-center gap-[30px]">
+                <Image src={fbIcon} alt="Facebook icon" />
+                <span className="text-white font-normal">/Justbakedbd</span>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-center gap-[30px]">
+                <Image src={emailIcon} alt="Email icon" />
+                <span className="text-white font-normal">
+                  info@justbakedbd.com
+                </span>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-center gap-[30px]">
+                <Image src={locationIcon} alt="Location icon" />
+                <span className="text-white font-normal">
+                  W/20, Noorjahan Road
+                  <br />
+                  Mohammadpur, Dhaka-1207
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
