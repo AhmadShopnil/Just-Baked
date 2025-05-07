@@ -154,7 +154,7 @@ export default function ShoppingCart() {
           </table>
 
           {/* Promo Code */}
-          <div className="mt-8 p-6 shadow-2xl rounded-lg w-full lg:w-80">
+          <div className="mt-8 p-6 shadow-2xl rounded-lg w-full lg:w-90">
             <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
             <div className="flex ">
               <input
