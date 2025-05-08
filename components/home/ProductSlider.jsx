@@ -45,9 +45,9 @@ export default function ProductSlider({ products, title }) {
         </div>
       </div>
 
-      <div className="flex  gap-6">
+      <div className="flex flex-col md:flex-row gap-6">
    
-        <div className="w-1/5 h-[400px] flex items-center justify-center p-5 rounded-[10px]
+        <div className="w-full md:w-1/5 h-[400px] flex items-center justify-center p-5 rounded-[10px]
          bg-[#FFF5E6] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.10)]">
           <Image
             src="image/newArrival/newArrivalLogo.svg"
@@ -58,7 +58,7 @@ export default function ProductSlider({ products, title }) {
           />
         </div>
         {/* Product Cards */}
-        <div className="w-4/5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+        <div className="w-full md:w-4/5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
          gap-2 md:gap-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

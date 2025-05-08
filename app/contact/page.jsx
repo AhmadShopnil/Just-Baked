@@ -10,7 +10,7 @@ export default function ContactSection() {
   return (
     // Main layer
     <div
-      className="bg-[#FFE6C5] min-h-[800px] "
+      className="bg-[#FFE6C5] min-h-[1100px] md:min-h-[800px] "
       style={{
         backgroundImage: "url('/image/contact/overlay.png')",
         backgroundSize: "cover",
