@@ -22,7 +22,7 @@ export default function CategoryDropdown({ onClose }) {
 
   return (
     <div
-      className="absolute top-0 left-0  w-full bg-white shadow-lg z-50"
+      className="absolute sm:top-48 md:top-0 left-0  w-full bg-white shadow-lg z-50"
       onClick={(e) => e.stopPropagation()}
     >
       <ul className="py-1">

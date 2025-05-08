@@ -1,18 +1,22 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { X } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { X } from "lucide-react";
 
-export default function CartDropdown({ items, subtotal, onClose }) {
+export default function CartDropdown({ cartItems, subtotal, onClose }) {
   return (
     <div
-      className="absolute top-full right-0 mt-2 w-80 bg-white border rounded-md shadow-lg z-50"
-
+      className="absolute right-0 top-[50px] bg-white rounded-b-sm shadow-xl z-50 p-4 w-64"
+      onClick={(e) => e.stopPropagation()}
     >
-      <div className="max-h-96 overflow-y-auto">
-        {items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between p-4 border-b border-gray-100">
+      {/* CartDropdown */}
+      <div className="overflow-y-auto rounded-b-sm">
+        {cartItems?.map((item) => (
+          <div
+            key={item.id}
+            className="flex items-center justify-between p-4 border-b border-gray-100"
+          >
             <div className="flex items-center space-x-3">
               <div className="bg-amber-100 p-2 rounded-md">
                 <Image
@@ -23,34 +27,37 @@ export default function CartDropdown({ items, subtotal, onClose }) {
                   className="h-6 w-6 object-contain"
                 />
               </div>
-              <div className="">
+              <div>
                 <p className="text-sm font-semibold">{item.name}</p>
-                <p className="text-sm text-gray-500 font-semibold">{item.price}</p>
+                <p className="text-sm text-gray-500 font-semibold">
+                  {item.price}
+                </p>
               </div>
             </div>
-            <button className="text-gray-400 hover:text-gray-600">
-              <X className="h-4 w-4" />
-            </button>
+            <button className="text-gray-400 hover:text-gray-600">X</button>
           </div>
         ))}
       </div>
-      <div className="p-4 ">
+      <div className="p-4">
         <div className="flex justify-between mb-4">
           <span className="font-medium">Subtotal:</span>
-          <span className="font-medium">{subtotal}</span>
+          <span className="font-medium">5000</span>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 font-semibold">
           <Link
             href="/cart"
-            className="bg-white border border-amber-800 text-amber-800 py-2 text-center text-sm rounded"
+            className="bg-gray-200 py-2 text-center text-sm rounded"
           >
             View Cart
           </Link>
-          <Link href="/checkout" className="bg-primary-strong text-white py-2 text-center text-sm rounded">
+          <Link
+            href="/checkout"
+            className="primary-strong bg-primary-strong text-white py-2 text-center text-sm rounded"
+          >
             Checkout
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

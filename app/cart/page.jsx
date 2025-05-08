@@ -7,24 +7,24 @@ export default function ShoppingCart() {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: "Chicken Roll",
+      name: "Burger",
       price: 230,
       quantity: 2,
-      image: "/images/chicken-roll-1.jpg",
+      image: "/image/fastFood/burger.webp",
     },
     {
       id: 2,
-      name: "Chicken Roll",
+      name: "Chowmin",
       price: 230,
       quantity: 2,
-      image: "/images/chicken-roll-1.jpg",
+      image: "/image/fastFood/chowmin.webp",
     },
     {
       id: 3,
-      name: "Chicken Roll",
+      name: "Pizza",
       price: 230,
       quantity: 2,
-      image: "/images/chicken-roll-1.jpg",
+      image: "/image/fastFood/pizza.webp",
     },
   ]);
 
@@ -33,18 +33,14 @@ export default function ShoppingCart() {
   const [showShippingCalculator, setShowShippingCalculator] = useState(false);
   const [shipping, setShipping] = useState(0);
 
-  // Calculate subtotal
   const subtotal = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
   }, 0);
 
-  // Calculate total
   const total = subtotal + shipping - discount;
 
-  // Update quantity
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity < 1) return;
-
     setCartItems(
       cartItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
@@ -52,15 +48,11 @@ export default function ShoppingCart() {
     );
   };
 
-  // Remove item
   const removeItem = (id) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
-  // Apply promo code
   const applyPromoCode = () => {
-    // This would typically validate against an API
-    // For demo purposes, any code gives 10% off
     if (promoCode.trim()) {
       setDiscount(Math.round(subtotal * 0.1));
     } else {
@@ -68,10 +60,7 @@ export default function ShoppingCart() {
     }
   };
 
-  // Calculate shipping
   const calculateShipping = () => {
-    // This would typically call an API with address details
-    // For demo purposes, set a flat rate
     setShipping(50);
     setShowShippingCalculator(false);
   };
@@ -80,7 +69,7 @@ export default function ShoppingCart() {
     <div className="py-8">
       {/* Progress Steps */}
       <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
-        <div className="flex items-center text-center ">
+        <div className="flex items-center text-center">
           <span className="font-bold">SHOPPING CART</span>
           <span className="mx-4">→</span>
           <span className="text-amber-300">CHECKOUT</span>
@@ -89,83 +78,92 @@ export default function ShoppingCart() {
         </div>
       </div>
 
-      <div className="container px-2 lg:px-5 xl:px-16 2xl:px-[130px] mx-auto flex flex-col lg:flex-row gap-8">
+      <div className="container px-4 md:px-8 xl:px-16 2xl:px-[130px] mx-auto flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
         <div className="w-full lg:w-2/3">
-          <table className="w-full border-collapse shadow-2xl rounded-md">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="px-6 py-4 text-left font-bold">PRODUCT</th>
-                <th className="px-6 py-4 text-left font-bold">PRICE</th>
-                <th className="px-6 py-4 text-left font-bold">QUANTITY</th>
-                <th className="px-6 py-4 text-left font-bold">SUBTOTAL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item) => (
-                <tr key={item.id} className="border-b border-gray-100 last:border-b-0">
-                  <td className="px-6 py-4 font-semibold">
-                    <div className="flex items-center gap-4">
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-gray-400 hover:text-gray-600"
-                      >
-                      <Trash2 size={18} />
-                      </button>
-                      <div className="w-16 h-16 relative">
-                        <Image
-                          src="/image/newArrival/freshCroissant.webp"
-                          alt={item.name}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                      <span>{item.name}</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4">₹ {item.price}/-</td>
-                  <td className="px-4 py-4">
-                    <div className="flex items-center border border-gray-300 w-fit">
-                      <button
-                        className="px-2 py-1 border-r border-gray-300"
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <span className="px-3 py-1">{item.quantity}</span>
-                      <button
-                        className="px-2 py-1 border-l border-gray-300"
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity + 1)
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4">
-                    ₹ {item.price * item.quantity}/-
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <div className="min-w-[640px]">
+              <table className="w-full border-collapse shadow-2xl rounded-md">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="px-4 py-4 text-left font-bold">PRODUCT</th>
+                    <th className="px-4 py-4 text-left font-bold">PRICE</th>
+                    <th className="px-4 py-4 text-left font-bold">QUANTITY</th>
+                    <th className="px-4 py-4 text-left font-bold">SUBTOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item) => (
+                    <tr
+                      key={item.id}
+                      className="border-b border-gray-100 last:border-b-0"
+                    >
+                      <td className="px-4 py-4 font-semibold">
+                        <div className="flex items-center gap-4">
+                          <button
+                            onClick={() => removeItem(item.id)}
+                            className="text-gray-400 hover:text-gray-600"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                          <div className="w-16 h-16 relative shrink-0">
+                            <Image
+                              src={item?.image}
+                              alt={item?.name}
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                          <span>{item?.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        ₹ {item.price}/-
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center border border-gray-300 w-fit">
+                          <button
+                            className="px-2 py-1 border-r border-gray-300"
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity - 1)
+                            }
+                          >
+                            -
+                          </button>
+                          <span className="px-3 py-1">{item.quantity}</span>
+                          <button
+                            className="px-2 py-1 border-l border-gray-300"
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity + 1)
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        ₹ {item.price * item.quantity}/-
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
           {/* Promo Code */}
-          <div className="mt-8 p-6 shadow-2xl rounded-lg w-full lg:w-90">
+          <div className="mt-6 p-6 shadow-2xl rounded-lg w-full">
             <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
-            <div className="flex ">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 placeholder="Coupon Code"
-                className="border border-gray-200 p-2 flex-grow rounded-l-xl"
+                className="border border-gray-200 p-2 flex-grow rounded-xl sm:rounded-l-xl sm:rounded-r-none"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />
               <button
-                className="bg-primary-strong text-white px-4 py-2 rounded-r-xl"
+                className="bg-primary-strong text-white px-4 py-2 rounded-xl sm:rounded-l-none sm:rounded-r-xl"
                 onClick={applyPromoCode}
               >
                 Apply

@@ -2,21 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 const TopBar = () => {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Cart", href: "/cart" },
     { name: "Product", href: "/product" },
-    // { name: "Gift", href: "/gift" },
-    // { name: "Corporate", href: "/corporate" },
     { name: "Outlets", href: "/outlets" },
     { name: "Halal investment", href: "/halal-investment" },
-    // { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -33,8 +32,8 @@ const TopBar = () => {
         />
       </Link>
 
-      {/* Menu */}
-      <div className="flex justify-center items-center gap-[10px]">
+      {/* Desktop Menu */}
+      <div className="hidden lg:flex justify-center items-center gap-[10px]">
         {menuItems.map((item, index) => {
           const isActive = pathname === item.href;
 
@@ -60,7 +59,7 @@ const TopBar = () => {
       </div>
 
       {/* Contact Info */}
-      <div className="flex items-center gap-[6px]">
+      <div className="hidden lg:flex items-center gap-[6px]">
         <Image
           src="/image/Header Image/Vector (1).svg"
           alt="Phone Icon"
@@ -75,6 +74,57 @@ const TopBar = () => {
           </span>
         </div>
       </div>
+
+      {/* Mobile Menu Icon */}
+      <button
+        className="lg:hidden text-2xl"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle Menu"
+      >
+        {menuOpen ? <HiOutlineX /> : <HiOutlineMenu />}
+      </button>
+
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="absolute top-20 left-0 w-full bg-white shadow-md z-50 px-4 py-4 lg:hidden">
+          <div className="flex flex-col space-y-3">
+            {menuItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <h5
+                    className={`${
+                      isActive
+                        ? "text-primary-strong font-bold"
+                        : "text-[#949494] font-normal"
+                    } text-base leading-normal uppercase`}
+                  >
+                    {item.name}
+                  </h5>
+                </Link>
+              );
+            })}
+            {/* Contact for mobile */}
+            <div className="flex items-start gap-[6px] pt-3 border-t border-gray-200">
+              <Image
+                src="/image/Header Image/Vector (1).svg"
+                alt="Phone Icon"
+                width={30}
+                height={30}
+              />
+              <div className="text-black text-sm font-medium leading-[16px]">
+                +880 1711 535 658,
+                <br />
+                +880 1755 682 026
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
