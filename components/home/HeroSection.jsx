@@ -4,7 +4,7 @@ import Button from "../shared/Button";
 export default function HeroSection() {
   return (
     <div
-      className="w-full py-5 flex items-center 
+      className="w-full py-12 flex items-center 
     justify-center bg-cover bg-center bg-[url('/image/BannerImage/Banner.jpg')]"
     >
       <div

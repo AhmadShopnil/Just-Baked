@@ -21,7 +21,7 @@ const comboPackages = [
 
 export default function ComboPackage() {
   return (
-    <section className="max-w-[1700px] mx-auto w-full py-5 px-4 sm:px-7 md:px-10  ">
+    <section className="max-w-[1700px] mx-auto w-full py-5 px-4 sm:px-7 md:px-10 my-5  ">
       <div className="w-full flex flex-col gap-[30px]">
         {/* Section header */}
         <div className="w-full flex justify-between items-center">

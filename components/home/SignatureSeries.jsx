@@ -38,7 +38,7 @@ const SignatureSeries = () => {
   return (
     <div >
       <ProductSlider
-        titleImage={`/image/fastFood/fastFoodLogo.svg`}
+        titleImage={`/image/signatureSeries/signatureLogo.svg`}
         products={products}
         title={"SIGNATURE SERIES"}
         bg={"bg-[#FFF5E6]"}

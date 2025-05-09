@@ -7,33 +7,7 @@ import {
   FaTwitter,
 } from 'react-icons/fa';
 
-// Reusable Components
-const FooterSection = ({ title, children }) => (
-  <div className="flex flex-col gap-[12px]">
-    <h3 className="text-base text-black font-bold uppercase leading-4">{title}</h3>
-    {children}
-  </div>
-);
 
-const ContactItem = ({ icon, text }) => (
-  <div className="flex items-start gap-3">
-    <Image src={icon} alt="" width={24} height={24} />
-    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">{text}</span>
-  </div>
-);
-
-const FooterLinkList = ({ links }) => (
-  <div className="flex flex-col gap-[8px]">
-    <h3 className="text-base text-black font-bold leading-2.5 uppercase">Useful Links</h3>
-    <div className="flex flex-col">
-      {links.map((link, idx) => (
-        <Link key={idx} href={link.href}>
-          <span className="text-[11px] text-black font-medium leading-2.5">{link.label}</span>
-        </Link>
-      ))}
-    </div>
-  </div>
-);
 
 // Footer Data
 const footerData = {
@@ -57,7 +31,24 @@ incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...`,
   ],
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.4092513513743!2d90.36424031536325!3d23.803579392546565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c12dc8c3b109%3A0x3178df3025e4f282!2sJust%20Baked!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd",
-  paymentImages: Array.from({ length: 15 }, (_, i) => `/image/payment/${i + 1}.png`),
+  paymentImages: [
+    "/image/Payment/1.png",
+    "/image/Payment/2.png",
+    "/image/Payment/3.png",
+    "/image/Payment/4.png",
+    "/image/Payment/5.png",
+    "/image/Payment/6.png",
+    "/image/Payment/7.png",
+    "/image/Payment/8.png",
+    "/image/Payment/9.png",
+    "/image/Payment/10.png",
+    "/image/Payment/12.png",
+    "/image/Payment/13.png",
+    "/image/Payment/14.png",
+    "/image/Payment/15.png",
+
+
+  ],
   verifiedImage: "/image/Payment/25 59.png",
   socials: [
     { icon: <FaFacebookF />, label: 'Facebook', href: '#' },
@@ -139,13 +130,13 @@ const Footer = () => {
             {/* Payment Methods */}
             <FooterSection title="Pay with">
               <div className="grid grid-cols-5 gap-1 mt-5">
-                {footerData.paymentImages.map((img, idx) => (
+                {footerData?.paymentImages?.map((img, idx) => (
                   <Image key={img} src={img} alt="payment" width={40} height={24} />
                 ))}
               </div>
               <div className="flex items-center gap-[5px] mt-2">
                 <span className="text-[10px] text-black font-normal">Verified by</span>
-                <Image src={footerData.verifiedImage} alt="Verified" width={60} height={20} />
+                <Image src={footerData?.verifiedImage} alt="Verified" width={60} height={20} />
               </div>
             </FooterSection>
           </div>
@@ -172,5 +163,35 @@ const Footer = () => {
     </div>
   );
 };
+
+
+// Reusable Components
+const FooterSection = ({ title, children }) => (
+  <div className="flex flex-col gap-[12px]">
+    <h3 className="text-base text-black font-bold uppercase leading-4">{title}</h3>
+    {children}
+  </div>
+);
+
+const ContactItem = ({ icon, text }) => (
+  <div className="flex items-start gap-3">
+    <Image src={icon} alt="" width={24} height={24} />
+    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">{text}</span>
+  </div>
+);
+
+const FooterLinkList = ({ links }) => (
+  <div className="flex flex-col gap-[8px]">
+    <h3 className="text-base text-black font-bold leading-2.5 uppercase">Useful Links</h3>
+    <div className="flex flex-col">
+      {links.map((link, idx) => (
+        <Link key={idx} href={link.href}>
+          <span className="text-[11px] text-black font-medium leading-2.5">{link.label}</span>
+        </Link>
+      ))}
+    </div>
+  </div>
+);
+
 
 export default Footer;

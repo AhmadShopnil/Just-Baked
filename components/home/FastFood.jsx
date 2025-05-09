@@ -41,7 +41,7 @@ const FastFood = () => {
         titleImage={`/image/fastFood/fastFoodLogo.svg`}
         products={products}
         title={"FAST FOOD"}
-        bg={"bg-[#F3F3F3]"}
+        bg={"bg-white"}
       />
     </div>
   );
