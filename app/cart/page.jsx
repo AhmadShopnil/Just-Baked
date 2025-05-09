@@ -75,7 +75,7 @@ export default function ShoppingCart() {
         </Link>
         <span className="mx-1">/</span>
         <Link href="/snacks" className="hover:text-gray-700">
-         SHOPPING CART
+         Shopping Cart
         </Link>
       
         

@@ -18,7 +18,7 @@ export default function ProductCard({ product, i }) {
       {/*product Image  */}
       <div className="h-[60%]   flex justify-center items-center">
           <Image
-          src="/image/newArrival/freshCroissant.webp"
+          src={image}
           alt="Product Image"
           width={150}
           height={150}

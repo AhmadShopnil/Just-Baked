@@ -12,10 +12,11 @@ const TopBar = () => {
 
   const menuItems = [
     { name: "Home", href: "/" },
+    { name: "Shop", href: "/shop" },
     { name: "Cart", href: "/cart" },
     { name: "Product", href: "/product" },
     { name: "Outlets", href: "/outlets" },
-    { name: "Halal investment", href: "/halal-investment" },
+    // { name: "Halal investment", href: "/halal-investment" },
     { name: "Contact", href: "/contact" },
   ];
 
