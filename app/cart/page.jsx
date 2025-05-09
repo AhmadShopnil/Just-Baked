@@ -69,7 +69,7 @@ export default function ShoppingCart() {
     <div className="py-8">
       {/* Progress Steps */}
       <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
-        <div className="flex items-center text-center">
+        <div className="flex items-center text-center text-xs md:text-sm">
           <span className="font-bold">SHOPPING CART</span>
           <span className="mx-4">→</span>
           <span className="text-amber-300">CHECKOUT</span>
@@ -154,16 +154,17 @@ export default function ShoppingCart() {
           {/* Promo Code */}
           <div className="mt-6 p-6 shadow-2xl rounded-lg w-full">
             <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
               <input
                 type="text"
                 placeholder="Coupon Code"
-                className="border border-gray-200 p-2 flex-grow rounded-xl sm:rounded-l-xl sm:rounded-r-none"
+                className="border border-gray-200 p-2 flex-grow 
+                 sm:rounded-l-xl sm:rounded-r-none"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />
               <button
-                className="bg-primary-strong text-white px-4 py-2 rounded-xl sm:rounded-l-none sm:rounded-r-xl"
+                className="bg-primary-strong text-white px-4 py-2  sm:rounded-l-none sm:rounded-r-xl"
                 onClick={applyPromoCode}
               >
                 Apply

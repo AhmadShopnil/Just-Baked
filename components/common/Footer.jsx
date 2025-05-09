@@ -138,7 +138,7 @@ const Footer = () => {
 
             {/* Payment Methods */}
             <FooterSection title="Pay with">
-              <div className="grid grid-cols-3 md:grid-cols-5 gap-1 mt-5">
+              <div className="grid grid-cols-5 gap-1 mt-5">
                 {footerData.paymentImages.map((img, idx) => (
                   <Image key={img} src={img} alt="payment" width={40} height={24} />
                 ))}

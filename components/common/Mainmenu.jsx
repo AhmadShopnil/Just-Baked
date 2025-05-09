@@ -147,10 +147,13 @@ const Mainmenu = () => {
 
       {/* Mobile Menu */}
 
-      <div className="lg:hidden w-full px-4 pb-4 space-y-4 ">
+      <div className="lg:hidden w-full  pb-4 space-y-4 ">
         {/* Login & Cart */}
         <div className="flex  justify-between">
-          <button className="flex items-center gap-2 text-primary-strong font-bold uppercase">
+          <button 
+          className="flex items-center gap-2 text-primary-strong font-bold uppercase"
+          onClick={() => setIsLoginModalOpen(true)}
+          >
             <Image
               src="/image/Header Image/Vector (4).svg"
               alt="Login"
@@ -159,6 +162,12 @@ const Mainmenu = () => {
             />
             Logon/Register
           </button>
+        <div className="px-3">
+        <LoginModal
+            isOpen={isLoginModalOpen}
+            onClose={() => setIsLoginModalOpen(false)}
+          />
+        </div>
           <Link href="/cart" className="flex items-center gap-2 cursor-pointer">
             <Image
               src="/image/Header Image/Vector (5).svg"
@@ -188,7 +197,7 @@ const Mainmenu = () => {
         </div>
         {isCategoriesOpen && (
           <div
-            className="bg-white shadow-md rounded p-3"
+            className="bg-white shadow-md rounded px-2 py-1"
             onClick={(e) => e.stopPropagation()}
           >
             <CategoryDropdown onClose={() => setIsCategoriesOpen(false)} />
