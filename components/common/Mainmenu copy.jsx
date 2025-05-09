@@ -14,9 +14,9 @@ const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
 
   // Sample cart data
   const cartItems = [
-    { id: 1, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
-    { id: 2, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
-    { id: 3, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
+    { id: 1, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
+    { id: 2, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
+    { id: 3, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
   ];
 
   const subtotal = "৳ 230/-";

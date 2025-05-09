@@ -37,7 +37,9 @@ export default function NewArrivalsSection() {
 
   return (
     <div>
-      <ProductSlider titleImage={`/image/newArrival/newArrivalLogo.svg`} products={products} title={"NEW ARRIVAL"}/>
+      <ProductSlider titleImage={`/image/newArrival/newArrivalLogo.svg`}
+      bg={"bg-[#FFF5E6]"}
+       products={products} title={"NEW ARRIVAL"}/>
     </div>
   );
 }

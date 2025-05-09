@@ -37,7 +37,7 @@ const BestSelling = () => {
   ];
 
     return (
-        <div>
+        <div className="bg-[url('/image/fastFood/fastFoodBg.webp')]">
                <ProductSlider titleImage={`/image/bestSelling/BestsellingLogo.png`} products={products} title={"BEST SELLING"}/>
         </div>
     );

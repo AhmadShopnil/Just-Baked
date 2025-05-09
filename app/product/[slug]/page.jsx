@@ -3,19 +3,25 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Description from "@/components/product/Description";
-import { ChevronLeft, ChevronRight, Facebook, Instagram, LayoutGrid } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Facebook,
+  Instagram,
+  LayoutGrid,
+} from "lucide-react";
 
 export default function ProductPage() {
-  const [mainImage, setMainImage] = useState("/images/products/watch.jpg");
+  const [mainImage, setMainImage] = useState("/image/food/a1.png");
   const [quantity, setQuantity] = useState(1);
   //   const [activeTab, setActiveTab] = useState("description");
 
   const images = [
-    "/images/products/camera-2.jpg",
-    "/images/products/item-2.jpg",
-    "/images/products/lipstik.jpg",
-    "/images/products/camera-2.jpg",
-    "/images/products/item-2.jpg",
+    "/image/food/a1.png",
+    "/image/food/a2.png",
+    "/image/food/a3.png",
+    // "/image/food/a1.png",
+    "/image/food/a4.png",
   ];
 
   const handleThumbnailClick = (image) => {
@@ -33,12 +39,37 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="py-8 container mx-auto px-4">
+    <div className="py-8  max-w-[1700px] mx-auto w-full px-4 md:px-10    ">
+      {/* <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
+        <div className="flex items-center text-center text-xs md:text-sm">
+          <span className="font-bold">SHOPPING CART</span>
+          <span className="mx-4">→</span>
+          <span className="text-amber-300">CHECKOUT</span>
+          <span className="mx-4">→</span>
+          <span className="text-amber-300">ORDER COMPLETE</span>
+        </div>
+      </div> */}
+      <div className="flex items-center text-xs md:text-[14px]  text-gray-500">
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
+        <span className="mx-1">/</span>
+        <Link href="/snacks" className="hover:text-gray-700">
+          Snacks & Drinks
+        </Link>
+        <span className="mx-1">/</span>
+        <Link href="/frozen-snacks" className="hover:text-gray-700">
+          Frozen Snacks
+        </Link>
+        <span className="mx-1">/</span>
+        <span className="text-gray-900">Chicken Roll</span>
+      </div>
+
       <div className="flex flex-col md:flex-row gap-8 py-10">
         {/* Product Images Section */}
         <div className="w-full md:w-2/5">
           {/* Main Image */}
-          <div className="shadow-xl rounded-lg p-4 mb-4 bg-white">
+          <div className="shadow-md rounded-md p-4 mb-4 bg-white">
             <div className="relative h-[450px] w-full">
               <Image
                 src={mainImage || "/placeholder.svg"}
@@ -51,11 +82,11 @@ export default function ProductPage() {
           </div>
 
           {/* Thumbnails */}
-          <div className="flex gap-4">
+          <div className="flex gap-4  ">
             {images.map((image, index) => (
               <div
                 key={index}
-                className={`border cursor-pointer p-2 w-24 h-20 relative ${
+                className={`shadow-md border rounded-md cursor-pointer p-2 w-full h-20 relative ${
                   mainImage === image ? "border-amber-600" : "border-gray-200"
                 }`}
                 onClick={() => handleThumbnailClick(image)}
@@ -74,8 +105,8 @@ export default function ProductPage() {
         {/* Product Details Section */}
         <div className="w-full md:w-3/5">
           {/* Breadcrumb */}
-          <div className="flex justify-between">
-           
+
+          {/* <div className="flex justify-between">
             <div className="flex items-center text-sm mb-6 text-gray-500">
               <Link href="/" className="hover:text-gray-700">
                 Home
@@ -97,8 +128,8 @@ export default function ProductPage() {
             <LayoutGrid />
             <ChevronRight />
             </div>
-           
-          </div>
+          </div> */}
+
           {/* Breadcrumb End */}
 
           <h1 className="text-3xl font-bold mb-2">Chicken Roll</h1>
@@ -147,14 +178,18 @@ export default function ProductPage() {
           <div className=" border border-gray-200  "></div>
 
           {/* Product Details */}
-          <div className="my-6">
-            <div className="flex mb-2">
-              <span className="font-semibold w-24">SKU:</span>
+          <div className="my-6 ">
+            <div className="flex mb-2 gap-6">
+              <span className="font-semibold w-24 ">SKU</span>
               <span>01-composite-order</span>
             </div>
-            <div className="flex">
-              <span className="font-semibold w-24">Categories:</span>
+            <div className="flex gap-6">
+              <span className="font-semibold w-24  ">Categories</span>
               <span>Hot meals, snack roll</span>
+            </div>
+            <div className="flex gap-6">
+              <span className="font-semibold w-24  ">Ingredients</span>
+              <span>Potato, Oil</span>
             </div>
           </div>
 
@@ -163,10 +198,10 @@ export default function ProductPage() {
             <span className="mr-2">Share:</span>
             <div className="flex gap-2">
               <button className="w-6 h-6 rounded-full bg-red-500">
-              {/* <Youtube /> */}
+                {/* <Youtube /> */}
               </button>
               <button className="w-6 h-6 rounded-full bg-blue-500">
-              {/* <Facebook className="text-white" /> */}
+                {/* <Facebook className="text-white" /> */}
               </button>
               <button className="w-6 h-6 rounded-full bg-green-500"></button>
               <button className="w-6 h-6 rounded-full bg-purple-500">

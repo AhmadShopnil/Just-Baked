@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 
 export default function ShoppingCart() {
   const [cartItems, setCartItems] = useState([
@@ -66,9 +67,21 @@ export default function ShoppingCart() {
   };
 
   return (
-    <div className="py-8">
+    <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
       {/* Progress Steps */}
-      <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
+     <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4">
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
+        <span className="mx-1">/</span>
+        <Link href="/snacks" className="hover:text-gray-700">
+         SHOPPING CART
+        </Link>
+      
+        
+      </div>
+
+      {/* <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
         <div className="flex items-center text-center text-xs md:text-sm">
           <span className="font-bold">SHOPPING CART</span>
           <span className="mx-4">→</span>
@@ -76,12 +89,13 @@ export default function ShoppingCart() {
           <span className="mx-4">→</span>
           <span className="text-amber-300">ORDER COMPLETE</span>
         </div>
-      </div>
+      </div> */}
 
-      <div className="container px-4 md:px-8 xl:px-16 2xl:px-[130px] mx-auto flex flex-col lg:flex-row gap-8">
+      <div className="  flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
-        <div className="w-full lg:w-2/3">
-          <div className="overflow-x-auto">
+        <div className="w-full lg:w-2/3 ">
+
+          <div className="overflow-x-auto shadow-sm">
             <div className="min-w-[640px]">
               <table className="w-full border-collapse shadow-2xl rounded-md">
                 <thead>
@@ -152,7 +166,7 @@ export default function ShoppingCart() {
           </div>
 
           {/* Promo Code */}
-          <div className="mt-6 p-6 shadow-2xl rounded-lg w-full">
+          <div className="mt-6 p-6 shadow-sm rounded-md w-full">
             <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
             <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
               <input
@@ -175,7 +189,7 @@ export default function ShoppingCart() {
 
         {/* Cart Total */}
         <div className="w-full lg:w-1/3">
-          <div className="shadow-2xl rounded-lg p-6 font-semibold">
+          <div className="shadow-sm rounded-lg p-6 font-semibold">
             <h3 className="font-bold text-xl mb-6">CART TOTAL</h3>
 
             <div className="flex justify-between mb-4">

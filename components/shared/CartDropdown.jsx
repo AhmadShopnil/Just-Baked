@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 
 export default function CartDropdown({ cartItems, subtotal, onClose }) {
   return (
@@ -17,28 +17,30 @@ export default function CartDropdown({ cartItems, subtotal, onClose }) {
             key={item.id}
             className="flex items-center justify-between p-4 border-b border-gray-100"
           >
-            <div className="flex items-center space-x-3">
-              <div className="bg-amber-100 p-2 rounded-md">
+            <div className="flex items-center space-x-3 text-[12px]">
+              <div className="bg-white shadow-lg p-1 rounded-sm">
                 <Image
-                  src="/chicken-roll.png"
+                  src={item?.image}
                   alt={item.name}
-                  width={30}
-                  height={30}
-                  className="h-6 w-6 object-contain"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 object-contain"
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold">{item.name}</p>
-                <p className="text-sm text-gray-500 font-semibold">
+                <p className="font-semibold">{item.name}</p>
+                <p className=" text-gray-500 font-semibold">
                   {item.price}
                 </p>
               </div>
             </div>
-            <button className="text-gray-400 hover:text-gray-600">X</button>
+            <button className="text-gray-400 hover:text-gray-600">
+              <Trash2 size={18} />
+            </button>
           </div>
         ))}
       </div>
-      <div className="p-4">
+      <div className="p-4 text-[12px]">
         <div className="flex justify-between mb-4">
           <span className="font-medium">Subtotal:</span>
           <span className="font-medium">5000</span>
@@ -46,13 +48,13 @@ export default function CartDropdown({ cartItems, subtotal, onClose }) {
         <div className="grid grid-cols-2 gap-2 font-semibold">
           <Link
             href="/cart"
-            className="bg-gray-200 py-2 text-center text-sm rounded"
+            className="bg-gray-200 py-2 text-center  rounded"
           >
             View Cart
           </Link>
           <Link
             href="/checkout"
-            className="primary-strong bg-primary-strong text-white py-2 text-center text-sm rounded"
+            className="primary-strong bg-primary-strong text-white py-2 text-center  rounded"
           >
             Checkout
           </Link>

@@ -80,15 +80,15 @@ export default function ComboPackage() {
               className="object-cover object-center z-0" // z-0 keeps it behind content but not too far
             />
             <div className="relative z-[1] w-[90%] max-w-[300px] flex flex-col justify-between gap-[30px]">
-              <h3 className="text-primary-strong font-semibold text-3xl sm:text-[38px]">
+              <h3 className="text-primary-strong font-semibold text-2xl sm:text-[38px]">
                 {item.title}
               </h3>
               {item.description && (
-                <p className="text-lg text-black font-normal">{item.description}</p>
+                <p className="text-sm md:text-lg text-black font-normal">{item.description}</p>
               )}
               <Link
                 href={item.link}
-                className="mt-5 bg-primary-strong text-white w-fit py-2.5 px-5 text-sm font-bold uppercase rounded-[5px]"
+                className="mt-5 bg-primary-strong text-white w-fit py-2 md:py-2.5 px-5 text-sm font-bold uppercase rounded-[5px]"
               >
                 Order Now
               </Link>

@@ -18,8 +18,8 @@ export default function ContactSection() {
       }}
     >
       {/* log */}
-      <div className="flex items-center justify-center ">
-        <Image src={logo} alt="Just Baked Logo" width={200} height={200} />
+      <div className="flex items-center justify-center h-20 ">
+        {/* <Image src={logo} alt="Just Baked Logo" width={200} height={200} /> */}
       </div>
 
       {/* get in touch */}

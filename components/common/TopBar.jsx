@@ -20,13 +20,13 @@ const TopBar = () => {
   ];
 
   return (
-    <div className="flex  py-6 justify-between items-center self-stretch">
+    <div className="flex py-3 md:py-4 justify-between items-center self-stretch">
       {/* Logo */}
       <Link href="/">
         <Image
           src="/image/Header Image/Vector.svg"
           alt="Logo"
-          width={100}
+          width={95}
           height={40}
           className="cursor-pointer"
         />
@@ -40,7 +40,7 @@ const TopBar = () => {
           return (
             <React.Fragment key={item.name}>
               <Link href={item.href} className="cursor-pointer">
-                <h5
+                <span
                   className={`${
                     isActive
                       ? "text-primary-strong font-bold"
@@ -48,7 +48,7 @@ const TopBar = () => {
                   } text-base leading-normal uppercase transition-colors`}
                 >
                   {item.name}
-                </h5>
+                </span>
               </Link>
               {index !== menuItems.length - 1 && (
                 <div className="border border-gray-200 h-4" />
@@ -64,7 +64,7 @@ const TopBar = () => {
           src="/image/Header Image/Vector (1).svg"
           alt="Phone Icon"
           width={50}
-          height={50}
+          height={40}
         />
         <div className="grid-cols-1">
           <span className="text-black text-sm font-medium leading-[16px]">

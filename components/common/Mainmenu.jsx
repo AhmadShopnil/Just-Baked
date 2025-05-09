@@ -10,11 +10,11 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import LoginModal from "../shared/LoginModal";
 
 // Sample cart data
-const cartItems = [
-  { id: 1, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
-  { id: 2, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
-  { id: 3, name: "Chicken Roll", price: "৳ 230/-", quantity: 1 },
-];
+  const cartItems = [
+    { id: 1, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
+    { id: 2, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
+    { id: 3, name: "Chicken Roll", price: "৳ 230/-", quantity: 1,image:"/image/food/a1.png" },
+  ];
 
 const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -48,9 +48,10 @@ const Mainmenu = () => {
       {/* Main container */}
       <div className="flex py-2 lg:py-5 justify-between items-center self-stretch w-full relative">
         {/* Left group (Browse & Offer) */}
-        <div className="hidden lg:flex gap-[30px] relative">
-          {/* Browse Category */}
-          <div
+        <div className="  hidden lg:flex gap-[30px] ">
+         <div className="relative">
+           {/* Browse Category */}
+           <div
             className="flex h-[38px] px-5 py-[7px] items-center gap-10 rounded-[5px] bg-primary-strong cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
@@ -63,9 +64,9 @@ const Mainmenu = () => {
               width={18}
               height={18}
             />
-            <h4 className="text-white text-base font-bold leading-normal uppercase">
+            <span className="text-white text-base font-bold leading-normal uppercase">
               Browse category
-            </h4>
+            </span>
             <Image
               src="/image/Header Image/Rectangle 1425.svg"
               alt="Dropdown Icon"
@@ -76,15 +77,17 @@ const Mainmenu = () => {
 
           {isCategoriesOpen && (
             <div
-              className="absolute top-[50px] left-0 bg-white shadow-lg z-50 p-4 w-64"
+              className="absolute top-[50px] left-0 bg-white shadow-lg z-50 p-4 
+              w-full"
               onClick={(e) => e.stopPropagation()}
             >
               <CategoryDropdown onClose={() => setIsCategoriesOpen(false)} />
             </div>
           )}
 
-          {/* Offer */}
-          <button className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] bg-orange-600 cursor-pointer">
+         </div>
+  {/* Offer */}
+  <button className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] bg-orange-600 cursor-pointer">
             <Image
               src="/image/Header Image/Vector (2).svg"
               alt="Offer Icon"
@@ -95,7 +98,10 @@ const Mainmenu = () => {
               Offer
             </h4>
           </button>
+
+
         </div>
+       
 
         {/* Search */}
         <div className="hidden lg:block">
@@ -118,7 +124,7 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            <h4 className="uppercase text-primary-strong">logon/register</h4>
+            <h4 className="uppercase text-primary-strong">login/register</h4>
           </button>
           <LoginModal
             isOpen={isLoginModalOpen}
@@ -160,7 +166,7 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            Logon/Register
+            Login/Register
           </button>
         <div className="px-3">
         <LoginModal

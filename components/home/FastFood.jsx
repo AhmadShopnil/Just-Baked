@@ -1,8 +1,7 @@
-import React from 'react';
-import ProductSlider from './ProductSlider';
+import React from "react";
+import ProductSlider from "./ProductSlider";
 
 const FastFood = () => {
-
   // Sample product data
   const products = [
     {
@@ -36,11 +35,16 @@ const FastFood = () => {
     },
   ];
 
-    return (
-        <div>
-               <ProductSlider titleImage={`/image/fastFood/fastFoodLogo.svg`} products={products} title={"FAST FOOD"}/>
-        </div>
-    );
-}
+  return (
+    <div className="bg-[url('/image/fastFood/fastFoodBg.webp')]">
+      <ProductSlider
+        titleImage={`/image/fastFood/fastFoodLogo.svg`}
+        products={products}
+        title={"FAST FOOD"}
+        bg={"bg-[#F3F3F3]"}
+      />
+    </div>
+  );
+};
 
 export default FastFood;

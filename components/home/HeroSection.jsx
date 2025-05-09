@@ -21,14 +21,14 @@ export default function HeroSection() {
           md:px-[76px] bg-[url('/image/BannerImage/fastFood.webp')] rounded-2xl"
           >
             <div className="flex flex-col justify-center gap-[30px] max-w-[446px] h-full">
-              <h1 className="text-3xl md:text-[38px] text-primary-strong font-semibold text-wrap">
+              <h1 className="text-2xl md:text-[38px] text-primary-strong font-semibold text-wrap">
                 Freshly Baked Delights, Delivered to You!
               </h1>
-              <p className="text-lg text-black font-normal">
+              <p className="text-sm  md:text-lg text-black font-normal">
                 Croissants, pizza, burgers, patties, chow mein, and fresh bread
                 daily.
               </p>
-              <button className="cursor-pointer py-2.5 px-5 rounded-[5px] bg-primary-strong mt-5 w-fit">
+              <button className="cursor-pointer py-2 md:py-2.5 px-5 rounded-[5px] bg-primary-strong mt-5 w-fit">
                 <span className="text-sm font-bold text-white">SHOP NOW</span>
               </button>
             </div>
@@ -42,13 +42,14 @@ export default function HeroSection() {
           bg-[url('/image/BannerImage/PizzaSlice.webp')] rounded-2xl"
           >
             <div className="h-full flex flex-col gap-[30px] justify-center">
-              <h3 className="text-3xl md:text-[38px] text-white font-semibold uppercase">
+              <h3 className="text-2xl md:text-[38px] text-white font-semibold uppercase">
                 20% Off
               </h3>
-              <p className="text-lg text-white font-normal max-w-60">
+              <p className="text-sm  md:text-lg text-white font-normal max-w-60">
                 Enjoy 20% off when you buy one Spinach Pizza.
               </p>
-              <button className="w-fit cursor-pointer bg-white rounded-[5px] mt-5 py-2.5 px-5">
+              <button className="w-fit cursor-pointer bg-white rounded-[5px]
+               mt-5 py-2 md:py-2.5 px-5">
                 <span className="uppercase text-sm font-bold text-primary-strong">
                   Shop now
                 </span>
