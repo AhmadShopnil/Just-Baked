@@ -20,7 +20,7 @@ const TopBar = () => {
   ];
 
   return (
-    <div className="flex px-2 lg:px-5 xl:px-16 2xl:px-[130px] py-6 justify-between items-center self-stretch">
+    <div className="flex  py-6 justify-between items-center self-stretch">
       {/* Logo */}
       <Link href="/">
         <Image

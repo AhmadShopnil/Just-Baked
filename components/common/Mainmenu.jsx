@@ -7,6 +7,7 @@ import CategoryDropdown from "../shared/CategoryDropdown";
 import CartDropdown from "../shared/CartDropdown";
 import Link from "next/link";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import LoginModal from "../shared/LoginModal";
 
 // Sample cart data
 const cartItems = [
@@ -19,6 +20,7 @@ const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
@@ -44,7 +46,7 @@ const Mainmenu = () => {
       }}
     >
       {/* Main container */}
-      <div className="flex py-2 lg:py-5 px-2 lg:px-5 xl:px-16 2xl:px-[130px] justify-between items-center self-stretch w-full relative">
+      <div className="flex py-2 lg:py-5 justify-between items-center self-stretch w-full relative">
         {/* Left group (Browse & Offer) */}
         <div className="hidden lg:flex gap-[30px] relative">
           {/* Browse Category */}
@@ -106,7 +108,10 @@ const Mainmenu = () => {
 
         {/* Login & Cart */}
         <div className="hidden lg:flex items-center gap-[26px] relative">
-          <button className="cursor-pointer flex items-center gap-2.5">
+          <button
+            className="cursor-pointer flex items-center gap-2.5"
+            onClick={() => setIsLoginModalOpen(true)}
+          >
             <Image
               src="/image/Header Image/Vector (4).svg"
               alt="Login Icon"
@@ -115,6 +120,11 @@ const Mainmenu = () => {
             />
             <h4 className="uppercase text-primary-strong">logon/register</h4>
           </button>
+          <LoginModal
+            isOpen={isLoginModalOpen}
+            onClose={() => setIsLoginModalOpen(false)}
+          />
+
           <div
             className="flex items-center gap-2.5 cursor-pointer relative"
             onClick={(e) => {
@@ -134,8 +144,6 @@ const Mainmenu = () => {
           </div>
         </div>
       </div>
-
-
 
       {/* Mobile Menu */}
 

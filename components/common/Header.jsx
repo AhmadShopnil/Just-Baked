@@ -39,7 +39,10 @@ export default function Header() {
   };
 
   return (
-    <header onClick={closeDropdowns}>
+    <header
+    className="max-w-[1700px] mx-auto w-full px-4 md:px-10  "
+    
+    onClick={closeDropdowns}>
       {/* Top Header with Contact Info */}
 
       <TopBar />

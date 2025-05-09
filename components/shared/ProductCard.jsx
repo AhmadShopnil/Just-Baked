@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "./Button";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, i }) {
   const {
     id,
     name,
     image,
     originalPrice,
     discountedPrice,
-    buttonVariant = "primary",
+    buttonVariant = "primary-strong",
   } = product;
 
   return (
@@ -23,8 +23,8 @@ export default function ProductCard({ product }) {
           className="object-contain h-32"
         />
         <div class="flex flex-col items-center gap-5 self-stretch">
-          <h4 class="text-center text-xl font-bold leading-[14px] text-[#000]">
-            Fresh Croissant
+          <h4 class="text-center text-md font-bold leading-7 text-[#000]">
+          {name}
           </h4>
           <div class="flex justify-center items-center gap-5 self-stretch">
             {/* <!-- Price --> */}
@@ -33,7 +33,7 @@ export default function ProductCard({ product }) {
                 ৳
               </span>
               <span class="text-center text-[12px] font-semibold leading-3.5 text-[#000]">
-                165
+               {discountedPrice}
               </span>
             </div>
             {/* <!-- quantity --> */}
@@ -46,9 +46,16 @@ export default function ProductCard({ product }) {
               </span>
             </div>
           </div>
-          <button class="flex py-[9.5px] px-5 justify-center items-center gap-2.5 self-stretch rounded-[5px] bg-orange-600 cursor-pointer">
-            <img src="image/newArrival/Vector.svg" alt="" />
-          </button>
+
+          {i === 0 ? (
+            <button class="flex py-[9.5px] px-5 justify-center items-center gap-2.5 self-stretch rounded-[5px] bg-orange-600 cursor-pointer">
+              <img src="image/newArrival/Vector.svg" alt="" />
+            </button>
+          ) : (
+            <Button  className="w-full bg-primary-strong text-white">
+              Add To Cart
+            </Button>
+          )}
         </div>
       </div>
     </Link>

@@ -2,9 +2,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import ProductCard from "../shared/ProductCard";
 
-export default function ProductSlider({ products, title }) {
+export default function ProductSlider({ products, title,titleImage }) {
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="max-w-[1700px] mx-auto py-12 px-4 sm:px-7 md:px-10 ">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold text-amber-800">{title}</h2>
      
@@ -50,8 +50,8 @@ export default function ProductSlider({ products, title }) {
         <div className="w-full md:w-1/5 h-[400px] flex items-center justify-center p-5 rounded-[10px]
          bg-[#FFF5E6] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.10)]">
           <Image
-            src="image/newArrival/newArrivalLogo.svg"
-            alt="New arrival"
+            src={titleImage}
+            alt={title}
             width={150}
             height={150}
             className="object-contain h-32"
@@ -60,8 +60,8 @@ export default function ProductSlider({ products, title }) {
         {/* Product Cards */}
         <div className="w-full md:w-4/5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
          gap-2 md:gap-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product,i) => (
+          <ProductCard key={product.id} product={product} i={i} />
         ))}
         </div>
       </div>

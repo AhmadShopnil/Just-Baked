@@ -8,20 +8,20 @@ const comboPackages = [
     title: "Spinach Pizza & Burger",
     description:
       "Goodbye to mom's worries! Serve your child healthy, nutritious snacks and tiffin.",
-    image: "/image/ComboPackage/SpinachPizzaBurger.webp",
+    image: "/image/ComboPackage/2.webp",
     link: "/order/spinach-pizza-burger",
   },
   {
     title: "Chicken mixed vegetable chowmein and Chicken drumsticks",
     description: "",
-    image: "/image/ComboPackage/ChickenMixedVegetables.webp",
+    image: "/image/ComboPackage/1.webp",
     link: "/order/chicken-veg-chowmein",
   },
 ];
 
 export default function ComboPackage() {
   return (
-    <section className="w-full p-5 xl:px-16 2xl:px-[130px] lg:py-14 2xl:py-[60px]">
+    <section className="max-w-[1700px] mx-auto w-full py-5 px-4 sm:px-7 md:px-10  ">
       <div className="w-full flex flex-col gap-[30px]">
         {/* Section header */}
         <div className="w-full flex justify-between items-center">

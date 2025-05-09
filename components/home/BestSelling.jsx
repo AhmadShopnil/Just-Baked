@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductSlider from './ProductSlider';
 
-const FastFood = () => {
+const BestSelling = () => {
 
   // Sample product data
   const products = [
@@ -38,9 +38,9 @@ const FastFood = () => {
 
     return (
         <div>
-               <ProductSlider titleImage={`/image/fastFood/fastFoodLogo.svg`} products={products} title={"FAST FOOD"}/>
+               <ProductSlider titleImage={`/image/bestSelling/BestsellingLogo.png`} products={products} title={"BEST SELLING"}/>
         </div>
     );
 }
 
-export default FastFood;
+export default BestSelling;

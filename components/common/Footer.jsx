@@ -1,110 +1,153 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaTwitter,
+} from 'react-icons/fa';
+
+// Reusable Components
+const FooterSection = ({ title, children }) => (
+  <div className="flex flex-col gap-[12px]">
+    <h3 className="text-base text-black font-bold uppercase leading-4">{title}</h3>
+    {children}
+  </div>
+);
+
+const ContactItem = ({ icon, text }) => (
+  <div className="flex items-start gap-3">
+    <Image src={icon} alt="" width={24} height={24} />
+    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">{text}</span>
+  </div>
+);
+
+const FooterLinkList = ({ links }) => (
+  <div className="flex flex-col gap-[8px]">
+    <h3 className="text-base text-black font-bold leading-2.5 uppercase">Useful Links</h3>
+    <div className="flex flex-col">
+      {links.map((link, idx) => (
+        <Link key={idx} href={link.href}>
+          <span className="text-[11px] text-black font-medium leading-2.5">{link.label}</span>
+        </Link>
+      ))}
+    </div>
+  </div>
+);
+
+// Footer Data
+const footerData = {
+  logo: "/image/Footer/Logo.svg",
+  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...`,
+  contact: [
+    { icon: "/image/Footer/Phone.svg", text: "+880 1711 535 658\n+880 1755 682 026" },
+    { icon: "/image/Footer/Mail.svg", text: "info@justbakedbd.com" },
+    { icon: "/image/Footer/FB.svg", text: "/justbaked" },
+    { icon: "/image/Footer/location.svg", text: "W/20, Noorjahan Road\nMohammadpur, Dhaka-1207" },
+  ],
+  links: [
+    { label: "Home", href: "#" },
+    { label: "Products", href: "#" },
+    { label: "Gift", href: "#" },
+    { label: "Corporate", href: "#" },
+    { label: "Outlets", href: "#" },
+    { label: "Halal Investment", href: "#" },
+    { label: "Blog", href: "#" },
+  ],
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.4092513513743!2d90.36424031536325!3d23.803579392546565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c12dc8c3b109%3A0x3178df3025e4f282!2sJust%20Baked!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd",
+  paymentImages: Array.from({ length: 15 }, (_, i) => `/image/payment/${i + 1}.png`),
+  verifiedImage: "/image/Payment/25 59.png",
+  socials: [
+    { icon: <FaFacebookF />, label: 'Facebook', href: '#' },
+    { icon: <FaInstagram />, label: 'Instagram', href: '#' },
+    { icon: <FaYoutube />, label: 'YouTube', href: '#' },
+    { icon: <FaTwitter />, label: 'Twitter', href: '#' },
+  ],
+
+  // socials: [
+  //   {
+  //     icon: <FaFacebookF className="text-[#1877F2]" />,
+  //     label: "Facebook",
+  //     href: "#",
+  //   },
+  //   {
+  //     icon: <FaInstagram className="text-[#E4405F]" />,
+  //     label: "Instagram",
+  //     href: "#",
+  //   },
+  //   {
+  //     icon: <FaYoutube className="text-[#FF0000]" />,
+  //     label: "YouTube",
+  //     href: "#",
+  //   },
+  //   {
+  //     icon: <FaTwitter className="text-[#1DA1F2]" />,
+  //     label: "Twitter",
+  //     href: "#",
+  //   },
+  // ],
+
+
+};
 
 const Footer = () => {
   return (
-    <div className="w-full  ">
+    <div className="w-full">
       <div className="w-full bg-[#FFF4DE] md:px-32 py-[60px] flex justify-center">
         <div className="flex flex-col gap-[60px] w-full lg:max-w-[1378px] px-5 2xl:px-0">
           {/* Logo */}
           <div className="flex justify-center">
             <Link href="/" className="cursor-pointer">
-              <Image src="/image/Footer/Logo.svg" alt="Logo" width={160} height={40} />
+              <Image src={footerData.logo} alt="Logo" width={160} height={40} />
             </Link>
           </div>
 
-          <p className="text-center text-sm text-black leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore.
+          {/* Description */}
+          <p className="text-center text-sm text-black leading-relaxed whitespace-pre-line">
+            {footerData.description}
           </p>
 
-          {/* About Section */}
-          <div className="h-full w-full flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
+          {/* Footer Sections */}
+          <div className="flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
             {/* Contact Us */}
-            <div className="w-[216px] flex flex-col gap-[20px]">
-              <h3 className="text-base text-black font-bold leading-4 uppercase">Contact Us</h3>
-              <div className="flex items-center gap-3">
-                <Image src="/image/Footer/Phone.svg" alt="" width={29} height={29} />
-                <span className="text-[12px] text-black font-medium leading-4">
-                  +880 1711 535 658 <br /> +880 1755 682 026
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Image src="/image/Footer/Mail.svg" alt="" width={29} height={29} />
-                <span className="text-[12px] text-black font-medium leading-4">
-                  info@justbakedbd.com
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Image src="/image/Footer/FB.svg" alt="" width={29} height={29} />
-                <span className="text-[12px] text-black font-medium leading-4">/justbaked</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Image src="/image/Footer/location.svg" alt="" width={29} height={29} />
-                <span className="text-[12px] text-black font-medium leading-4">
-                  W/20, Noorjahan Road Mohammadpur, Dhaka-1207
-                </span>
-              </div>
+            <div className="w-[216px]">
+              <FooterSection title="Contact Us">
+                {footerData.contact.map((item, idx) => (
+                  <ContactItem key={idx} icon={item.icon} text={item.text} />
+                ))}
+              </FooterSection>
             </div>
 
             {/* Useful Links */}
-            <div className="flex flex-col gap-[10px]">
-              <h3 className="text-base text-black font-bold leading-4 uppercase">Useful Links</h3>
-              <div className="flex flex-col gap-1">
-                {[
-                  'Home',
-                  'Products',
-                  'Gift',
-                  'Corporate',
-                  'Outlets',
-                  'Halal Investment',
-                  'Blog',
-                ].map((link, idx) => (
-                  <Link key={idx} href="#" className="cursor-pointer">
-                    <span className="text-[12px] text-black font-medium leading-4">{link}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <FooterLinkList links={footerData.links} />
 
             {/* View Map */}
-            <div className="flex flex-col gap-[20px]">
-              <h3 className="text-base text-black font-bold leading-4 uppercase">View Map</h3>
-              <Image src="/image/Footer/Map.webp" alt="Map" width={220} height={140} />
-            </div>
+            <FooterSection title="View Map">
+              <iframe
+                src={footerData.mapEmbedUrl}
+                width="100%"
+                height="155"
+                className="rounded-md border-none"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </FooterSection>
 
             {/* Payment Methods */}
-            <div className="flex flex-col gap-2.5">
-              <h3 className="text-base text-black font-bold leading-4 uppercase">Pay with</h3>
-              <div className="flex flex-col gap-1 mt-5">
-                {[...Array(5)].map((_, rowIdx) => (
-                  <div key={rowIdx} className="flex gap-1">
-                    {[...Array(5)].map((_, colIdx) => {
-                      const imgNum = rowIdx * 5 + colIdx + 1;
-                      const imgPath =
-                        imgNum === 21
-                          ? '/image/Payment/21 1.png'
-                          : `/image/Payment/${String(imgNum).padStart(2, '0')} 1.png`;
-                      return (
-                        <Image
-                          key={imgNum}
-                          src={imgPath}
-                          alt={`Pay ${imgNum}`}
-                          width={40}
-                          height={24}
-                        />
-                      );
-                    })}
-                  </div>
+            <FooterSection title="Pay with">
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-1 mt-5">
+                {footerData.paymentImages.map((img, idx) => (
+                  <Image key={img} src={img} alt="payment" width={40} height={24} />
                 ))}
               </div>
               <div className="flex items-center gap-[5px] mt-2">
                 <span className="text-[10px] text-black font-normal">Verified by</span>
-                <Image src="/image/Payment/25 59.png" alt="Verified" width={60} height={20} />
+                <Image src={footerData.verifiedImage} alt="Verified" width={60} height={20} />
               </div>
-            </div>
+            </FooterSection>
           </div>
         </div>
       </div>
@@ -116,20 +159,12 @@ const Footer = () => {
             <span className="text-white text-sm">
               ©2021 Just Baked All rights reserved
             </span>
-            <div className="flex items-center gap-2">
-              {/* Replace these SVGs or images with proper icon components if preferred */}
-              <button className="cursor-pointer">
-                <Image src="/image/Footer/FacebookIcon.svg" alt="FB" width={28} height={28} />
-              </button>
-              <button className="cursor-pointer">
-                <Image src="/image/Footer/InstraLogo.svg" alt="Instagram" width={28} height={28} />
-              </button>
-              <button className="cursor-pointer">
-                <Image src="/image/Footer/YoutubeIcon.svg" alt="YouTube" width={28} height={28} />
-              </button>
-              <button className="cursor-pointer">
-                <Image src="/image/Footer/TwitterIcon.svg" alt="Twitter" width={28} height={28} />
-              </button>
+            <div className="flex items-center gap-3 text-white text-lg">
+              {footerData.socials.map((item, idx) => (
+                <Link key={idx} href={item.href} aria-label={item.label}>
+                  <span className="hover:text-gray-300">{item.icon}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
