@@ -69,7 +69,7 @@ export default function ShoppingCart() {
   return (
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
       {/* Progress Steps */}
-     <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4">
+     <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4 justify-center md:justify-start">
         <Link href="/" className="hover:text-gray-700">
           Home
         </Link>

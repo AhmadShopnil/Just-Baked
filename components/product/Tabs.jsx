@@ -1,6 +1,6 @@
 export default function Tabs({ activeTab, setActiveTab }) {
   return (
-    <div className="flex rounded-t-lg">
+    <div className="flex rounded-t-lg text-sm md:text-md">
       {["description", "questions"].map((tab) => (
         <button
           key={tab}

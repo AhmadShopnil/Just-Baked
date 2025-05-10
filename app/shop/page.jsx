@@ -16,7 +16,7 @@ export default function ShopPage() {
   const products = [
     {
       id: 1,
-      name: "Fresh Croissant",
+      name: "Fresh Croissantd",
       image: "/image/fastFood/burger.webp",
       originalPrice: 15,
       discountedPrice: 12,
@@ -201,7 +201,7 @@ export default function ShopPage() {
   return (
     <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 py-8">
 
-       <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4 ">
+       <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4  justify-center md:justify-start ">
           <Link href="/" className="hover:text-gray-700">
             Home
           </Link>
@@ -210,9 +210,9 @@ export default function ShopPage() {
             Shop
           </Link>
         </div>
+
       <div className="flex justify-center md:justify-end items-center mb-8">
        
-
         <div className="flex items-center gap-2">
           <button
             onClick={() => setViewMode("grid")}
@@ -345,11 +345,11 @@ export default function ShopPage() {
                     </div>
                   </div>
                   <div className={`p-4 ${viewMode === "list" ? "flex-1" : ""}`}>
-                    <h3 className="font-medium text-lg mb-2 text-center lg:text-left">
-                      {product.name}
+                    <h3 className=" text-sm md:text-[16px] mb-2 text-center font-semibold ">
+                      {product.name.slice(0,15)}
                     </h3>
 
-                    <div className="flex justify-center lg:justify-start items-center gap-4 my-3">
+                    <div className="flex justify-center  items-center gap-4 my-3 text-sm md:text-md">
                       <div className="flex py-1 px-2.5 items-center gap-0.5 rounded-md border border-gray-300">
                         <span className="text-sm font-semibold">$</span>
                         <span className="text-sm font-semibold">
@@ -374,10 +374,11 @@ export default function ShopPage() {
                     <div className="flex items-center gap-2 mt-4">
                       <button
                         onClick={() => addToCart(product)}
-                        className="flex-1 py-2 bg-[#724b00] text-white rounded-md hover:bg-[#5e3d00] transition-colors flex items-center justify-center gap-2 group"
+                        className="flex-1 py-2 bg-[#724b00] text-white rounded-md hover:bg-[#5e3d00] 
+                        transition-colors flex items-center justify-center gap-2 group"
                       >
                         <ShoppingCart className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
-                        <span className="font-medium">Add to Cart</span>
+                        <span className="font-medium text-xs md:text-[13px]">Add to Cart</span>
                       </button>
                       {/* <button
                         onClick={() => toggleWishlist(product.id)}

@@ -140,7 +140,7 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            <h4 className="uppercase text-primary-strong  md:hidden lg:flex">login/register</h4>
+            <h4 className="uppercase text-primary-strong hidden xl:flex">login/register</h4>
           </button>
           <LoginModal
             isOpen={isLoginModalOpen}
@@ -167,8 +167,8 @@ const Mainmenu = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
 
+      {/* Mobile Menu */}
       <div className="lg:hidden w-full  pb-4 space-y-4 ">
         {/* Login & Cart */}
         <div className="flex  justify-between">

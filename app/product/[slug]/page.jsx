@@ -49,7 +49,7 @@ export default function ProductPage() {
           <span className="text-amber-300">ORDER COMPLETE</span>
         </div>
       </div> */}
-      <div className="flex items-center text-xs md:text-[14px]  text-gray-500">
+      <div className="flex items-center text-xs md:text-[14px]  text-gray-500 justify-center md:justify-start">
         <Link href="/" className="hover:text-gray-700">
           Home
         </Link>
@@ -194,8 +194,8 @@ export default function ProductPage() {
           </div>
 
           {/* Share */}
-          <div className="flex items-center">
-            <span className="mr-2">Share:</span>
+          <div className="flex items-center gap-5">
+            <span className=" w-24">Share:</span>
             <div className="flex gap-2">
               <button className="w-6 h-6 rounded-full bg-red-500">
                 {/* <Youtube /> */}

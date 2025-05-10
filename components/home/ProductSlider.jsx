@@ -46,14 +46,14 @@ export default function ProductSlider({
         <div className="flex items-center gap-2.5">
           <button
             onClick={handlePrev}
-            className="bg-[#F3F3F3] py-2.5 px-3 rounded-[5px] cursor-pointer"
+            className="bg-[#F3F3F3] py-2.5 px-3 rounded-[5px] cursor-pointer hover:bg-gray-200"
             disabled={currentIndex === 0} // Disable if already at the first page
           >
             <ChevronLeft size={18} color="#949494" />
           </button>
           <button
             onClick={handleNext}
-            className="bg-[#F3F3F3] py-2.5 px-3 rounded-[5px] cursor-pointer"
+            className="bg-[#F3F3F3] py-2.5 px-3 rounded-[5px] cursor-pointer hover:bg-gray-200"
             disabled={currentIndex + itemsPerPage >= products.length} // Disable if already at the last page
           >
             <ChevronRight size={18} color="#949494" />
