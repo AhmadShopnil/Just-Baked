@@ -1,12 +1,12 @@
-"use client"
-import { X, Facebook } from "lucide-react"
+"use client";
+import { X, Facebook } from "lucide-react";
 
 export default function LoginModal({ isOpen, onClose }) {
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-md w-full max-w-md p-6 relative">
+    <div className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300">
+      <div className="bg-white rounded-md w-full max-w-md p-6 relative animate-fade-in scale-95 shadow-2xl">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold">Log In</h2>
@@ -21,7 +21,8 @@ export default function LoginModal({ isOpen, onClose }) {
             <Facebook size={20} />
             <span>FACEBOOK</span>
           </button>
-          <button className="flex items-center justify-center gap-2 bg-blue-400 text-white  py-2 px-4 rounded">
+          <button className="flex items-center justify-center gap-2 bg-blue-400 text-white py-2 px-4 rounded">
+            {/* Google Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -46,41 +47,47 @@ export default function LoginModal({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Phone Login Button */}
-        <button className="w-full border border-primary-strong text-primary-strong
-         py-2 rounded mb-4 text-sm">LOG IN WITH PHONE</button>
+        {/* Phone Login */}
+        <button className="w-full border border-primary-strong text-primary-strong py-2 rounded mb-4 text-sm">
+          LOG IN WITH PHONE
+        </button>
 
         {/* Divider */}
         <div className="flex items-center justify-center mb-4">
           <span className="text-black-500 font-semibold text-sm">OR LOG IN WITH EMAIL</span>
         </div>
 
-        {/* Email Login Form */}
+        {/* Email Login */}
         <form className="space-y-4 text-sm">
-          <div>
-            {/* <label className="block text-sm text-gray-600 mb-1">Email Address</label> */}
-            <input type="email" className="w-full border border-gray-300 rounded p-2"
-            placeholder="Email Address" required />
-          </div>
-          <div>
-           
-            <input type="password" className="w-full border border-gray-300 rounded p-2"
-            placeholder="Password"
-            required />
-          </div>
-          <button type="submit" className="w-full text-sm bg-primary-strong
-           text-white py-2 rounded">
+          <input type="email" className="w-full border border-gray-300 rounded p-2" placeholder="Email Address" required />
+          <input type="password" className="w-full border border-gray-300 rounded p-2" placeholder="Password" required />
+          <button type="submit" className="w-full text-sm bg-primary-strong text-white py-2 rounded">
             LOG IN
           </button>
         </form>
 
         {/* Forgot Password */}
         <div className="mt-4 text-center">
-          <a href="#" className="text-blue-500 text-sm">
-            Forgot Password?
-          </a>
+          <a href="#" className="text-blue-500 text-sm">Forgot Password?</a>
         </div>
       </div>
+
+      {/* Custom Animation */}
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
-  )
+  );
 }

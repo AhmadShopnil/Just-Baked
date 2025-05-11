@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Grid, List, Eye, ShoppingCart, Heart } from "lucide-react";
+import ProductCard from "@/components/shop/ProductCard";
+import ProductListCard from "@/components/shop/ProductListCard";
 
 export default function ShopPage() {
   const [viewMode, setViewMode] = useState("grid");
@@ -200,19 +202,17 @@ export default function ShopPage() {
 
   return (
     <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 py-8">
-
-       <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4  justify-center md:justify-start ">
-          <Link href="/" className="hover:text-gray-700">
-            Home
-          </Link>
-          <span className="mx-1">/</span>
-          <Link href="/snacks" className="hover:text-gray-700">
-            Shop
-          </Link>
-        </div>
+      <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4  justify-center md:justify-start ">
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
+        <span className="mx-1">/</span>
+        <Link href="/snacks" className="hover:text-gray-700">
+          Shop
+        </Link>
+      </div>
 
       <div className="flex justify-center md:justify-end items-center mb-8">
-       
         <div className="flex items-center gap-2">
           <button
             onClick={() => setViewMode("grid")}
@@ -312,92 +312,12 @@ export default function ShopPage() {
           >
             {currentProducts.length > 0 ? (
               currentProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className={`group bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow ${
-                    viewMode === "list" ? "flex gap-4" : ""
-                  }`}
-                >
-                  <div
-                    className={`relative ${
-                      viewMode === "list" ? "w-48 h-48" : "aspect-square"
-                    } overflow-hidden`}
-                  >
-                    {product.isNew && (
-                      <span className="absolute top-2 left-2 bg-[#724b00] text-white text-xs px-2 py-1 rounded-full z-10">
-                        New
-                      </span>
-                    )}
-                    <Image
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Link
-                        href={`/product/${product.id}`}
-                        className="bg-white text-gray-800 px-4 py-2 rounded-full hover:bg-[#724b00] hover:text-white transition-colors duration-300 flex items-center gap-2"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View Details
-                      </Link>
-                    </div>
-                  </div>
-                  <div className={`p-4 ${viewMode === "list" ? "flex-1" : ""}`}>
-                    <h3 className=" text-sm md:text-[16px] mb-2 text-center font-semibold ">
-                      {product.name.slice(0,15)}
-                    </h3>
 
-                    <div className="flex justify-center  items-center gap-4 my-3 text-sm md:text-md">
-                      <div className="flex py-1 px-2.5 items-center gap-0.5 rounded-md border border-gray-300">
-                        <span className="text-sm font-semibold">$</span>
-                        <span className="text-sm font-semibold">
-                          {product.discountedPrice}
-                        </span>
-                      </div>
-                      {product.originalPrice > product.discountedPrice && (
-                        <span className="text-sm text-gray-500 line-through">
-                          ${product.originalPrice}
-                        </span>
-                      )}
-                    </div>
-
-                    {viewMode === "list" && (
-                      <p className="text-gray-600 mb-4">
-                        Delicious freshly baked {product.name.toLowerCase()}{" "}
-                        made with premium ingredients. Perfect for breakfast or
-                        as a snack.
-                      </p>
-                    )}
-
-                    <div className="flex items-center gap-2 mt-4">
-                      <button
-                        onClick={() => addToCart(product)}
-                        className="flex-1 py-2 bg-[#724b00] text-white rounded-md hover:bg-[#5e3d00] 
-                        transition-colors flex items-center justify-center gap-2 group"
-                      >
-                        <ShoppingCart className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
-                        <span className="font-medium text-xs md:text-[13px]">Add to Cart</span>
-                      </button>
-                      {/* <button
-                        onClick={() => toggleWishlist(product.id)}
-                        className={`p-2 border ${
-                          wishlist.includes(product.id)
-                            ? "bg-[#724b00] text-white border-[#724b00]"
-                            : "border-gray-300 text-gray-500"
-                        } rounded-full hover:bg-[#724b00] hover:border-[#724b00] hover:text-white transition-colors duration-300`}
-                        aria-label={
-                          wishlist.includes(product.id)
-                            ? "Remove from wishlist"
-                            : "Add to wishlist"
-                        }
-                      >
-                        <Heart className="w-5 h-5" />
-                      </button> */}
-                    </div>
-                  </div>
-                </div>
+                
+                  viewMode == "grid"? <ProductCard key={product.id} product={product} i={1} />
+                  : <ProductListCard key={product.id} product={product} />
+                
+               
               ))
             ) : (
               <div className="col-span-full py-10 text-center text-gray-500">
