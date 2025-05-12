@@ -1,12 +1,25 @@
 "use client";
 
+import { addToCart } from "@/redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+
 // import { addToCart } from "@/utils/cart";
 
 export default function ConfirmAddToCartModal({ show, onClose, product }) {
   if (!show) return null;
 
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity: 1 }));
+  };
+
+
+
   const handleConfirm = () => {
     // addToCart(product);
+    handleAddToCart()
     onClose();
   };
 

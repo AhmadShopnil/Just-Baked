@@ -49,7 +49,8 @@ export default function ProductSlider({
         <div className="flex items-center gap-2.5">
           <button
             onClick={handlePrev}
-            className="bg-gray-200 py-2.5 px-3 rounded-[5px] cursor-pointer hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-gray-200 py-2.5 px-3 rounded-[5px] cursor-pointer
+             hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={currentIndex === 0}
           >
             <ChevronLeft size={18} color="#949494" />
@@ -57,7 +58,8 @@ export default function ProductSlider({
 
           <button
             onClick={handleNext}
-            className="bg-gray-200 py-2.5 px-3 rounded-[5px] cursor-pointer hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-gray-200 py-2.5 px-3 rounded-[5px] cursor-pointer
+             hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={currentIndex + itemsPerPage >= products.length}
           >
             <ChevronRight size={18} color="#949494" />

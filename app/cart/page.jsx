@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function ShoppingCart() {
   const [cartItems, setCartItems] = useState([
@@ -33,6 +34,8 @@ export default function ShoppingCart() {
   const [discount, setDiscount] = useState(0);
   const [showShippingCalculator, setShowShippingCalculator] = useState(false);
   const [shipping, setShipping] = useState(0);
+
+
 
   const subtotal = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -65,6 +68,13 @@ export default function ShoppingCart() {
     setShipping(50);
     setShowShippingCalculator(false);
   };
+
+
+const cart = useSelector((state) => state.cart);
+console.log("from cart:", cart);
+
+
+
 
   return (
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
@@ -165,26 +175,7 @@ export default function ShoppingCart() {
             </div>
           </div>
 
-          {/* Promo Code */}
-          <div className="mt-6 p-6 shadow-sm rounded-md w-full">
-            <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
-            <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
-              <input
-                type="text"
-                placeholder="Coupon Code"
-                className="border border-gray-200 p-2 flex-grow 
-                 sm:rounded-l-xl sm:rounded-r-none"
-                value={promoCode}
-                onChange={(e) => setPromoCode(e.target.value)}
-              />
-              <button
-                className="bg-primary-strong text-white px-4 py-2  sm:rounded-l-none sm:rounded-r-xl"
-                onClick={applyPromoCode}
-              >
-                Apply
-              </button>
-            </div>
-          </div>
+         
         </div>
 
         {/* Cart Total */}
@@ -238,8 +229,27 @@ export default function ShoppingCart() {
               <span>Total</span>
               <span>₹ {total}/-</span>
             </div>
-
-            <button className="bg-primary-strong text-white py-2 w-full mt-6 font-bold">
+ {/* Promo Code */}
+          <div className="mt-6 p-6 shadow-sm rounded-md w-full">
+            <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
+              <input
+                type="text"
+                placeholder="Coupon Code"
+                className="border border-gray-200 p-2 flex-grow 
+                 sm:rounded-l-lg sm:rounded-r-none"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+              />
+              <button
+                className="bg-primary-strong text-white px-4 py-2  sm:rounded-l-none sm:rounded-r-lg"
+                onClick={applyPromoCode}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+            <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
               PROCEED TO CHECKOUT
             </button>
           </div>

@@ -74,6 +74,7 @@ export default function ProductCard({ product,i }) {
           <div className="flex items-center gap-2 mt-4">
             {i === 0 ? (
               <button
+                onClick={() => setOpenModal(true)}
                 className="flex-1 py-1 rounded-md transition-colors flex items-center justify-center gap-2 group bg-orange-600 cursor-pointer"
               >
                 <img src="image/newArrival/Vector.svg" alt="" />

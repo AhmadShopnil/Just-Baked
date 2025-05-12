@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 import { CartProvider } from "@/context/CartContext";
+import ReduxProvider from "@/providers/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,13 +34,15 @@ export default function RootLayout({ children }) {
         // className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
         className={` ${poppins.variable} antialiased`}
       >
-        <div className="bg-white flex flex-col">
-          <Header />
-          <main>
-            <CartProvider>{children}</CartProvider>
-          </main>
-          <Footer />
-        </div>
+        <ReduxProvider >
+          <div className="bg-white flex flex-col">
+            <Header />
+            <main>
+              <CartProvider>{children}</CartProvider>
+            </main>
+            <Footer />
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   );
