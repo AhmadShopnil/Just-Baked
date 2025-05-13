@@ -25,7 +25,7 @@ function cartReducer(state, action) {
       }
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantity: 1 }],
+        items: [...state.items, { ...action.payload, quantity: action.payload?.quantity || 1 }],
       };
     }
 

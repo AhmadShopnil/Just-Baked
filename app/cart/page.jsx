@@ -83,7 +83,7 @@ export default function ShoppingCart() {
                           </button>
                           <div className="w-16 h-16 relative shrink-0">
                             <Image
-                              src={item.images[0]}
+                              src={item.image}
                               alt={item.name}
                               fill
                               className="object-contain"
@@ -92,7 +92,7 @@ export default function ShoppingCart() {
                           <span>{item.name}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap">₹ {item.price}/-</td>
+                      <td className="px-4 py-4 whitespace-nowrap">৳ {item.price}/-</td>
                       <td className="px-4 py-4">
                         <div className="flex items-center border border-gray-300 w-fit">
                           <button
@@ -111,7 +111,7 @@ export default function ShoppingCart() {
                         </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
-                        ₹ {item.price * item.quantity}/-
+                        ৳ {item.price * item.quantity}/-
                       </td>
                     </tr>
                   ))}
@@ -133,13 +133,13 @@ export default function ShoppingCart() {
 
             <div className="flex justify-between mb-4">
               <span>Subtotal</span>
-              <span>₹ {subtotal}/-</span>
+              <span>৳ {subtotal}/-</span>
             </div>
 
             <div className="flex justify-between mb-4">
               <span>Shipping</span>
               {shipping > 0 ? (
-                <span>₹ {shipping}/-</span>
+                <span>৳ {shipping}/-</span>
               ) : (
                 <button
                   className="text-amber-500 hover:underline"
@@ -167,13 +167,13 @@ export default function ShoppingCart() {
             {discount > 0 && (
               <div className="flex justify-between mb-4">
                 <span>Discount</span>
-                <span>-₹ {discount}/-</span>
+                <span>-৳ {discount}/-</span>
               </div>
             )}
 
             <div className="flex justify-between font-bold text-lg border-t pt-4 mt-4">
               <span>Total</span>
-              <span>₹ {total}/-</span>
+              <span>৳ {total}/-</span>
             </div>
 
             {/* Promo Code Section */}

@@ -9,6 +9,9 @@ export default function ConfirmAddToCartModal({ show, onClose, product }) {
   if (!show) return null;
 
 
+console.log("from modal", product)
+
+
   const { dispatch } = useCart();
    const handleAddTocart = () => {
      dispatch({ type: 'ADD_ITEM', payload: product });
@@ -19,7 +22,7 @@ export default function ConfirmAddToCartModal({ show, onClose, product }) {
 
   const handleConfirm = () => {
     // addToCart(product);
-    // handleAddTocart()
+    handleAddTocart()
     onClose();
   };
 
@@ -38,7 +41,7 @@ export default function ConfirmAddToCartModal({ show, onClose, product }) {
             <h3 className="text-lg font-semibold text-gray-900">{product?.name}</h3>
             <p className="text-sm text-gray-600 mt-1 line-clamp-2">{product?.short_description || "No description available."}</p>
             <div className="mt-2 text-sm text-gray-700">
-              <p>Price: <span className="font-medium">${product.price}</span></p>
+              <p>Price: <span className="font-medium">৳ {product.price}</span></p>
               <p>Quantity: <span className="font-medium">{product.quantity}</span></p>
             </div>
           </div>

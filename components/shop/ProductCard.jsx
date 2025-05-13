@@ -7,7 +7,7 @@ import ConfirmAddToCartModal from "../shared/ConfirmAddToCartModal";
 export default function ProductCard({ product,i }) {
   const [openModal, setOpenModal] = useState(false);
 
-  const cartItem = {
+  const selectedItem = {
     id: product.id,
     name: product.name,
     price: product.discountedPrice,
@@ -59,14 +59,14 @@ export default function ProductCard({ product,i }) {
 
           <div className="flex justify-center  items-center gap-4 my-3 text-sm md:text-md">
             <div className="flex py-1 px-2.5 items-center gap-0.5 rounded-md border border-gray-300">
-              <span className="text-sm font-semibold"></span>
+              <span className="text-sm font-semibold">৳</span>
               <span className="text-sm font-semibold">
                 {product.discountedPrice}
               </span>
             </div>
             {product.originalPrice > product.discountedPrice && (
               <span className="text-sm text-gray-500 line-through">
-                {product.originalPrice}
+               ৳{product.originalPrice}
               </span>
             )}
           </div>
@@ -99,7 +99,7 @@ export default function ProductCard({ product,i }) {
       <ConfirmAddToCartModal
         show={openModal}
         onClose={() => setOpenModal(false)}
-        product={cartItem}
+        product={selectedItem}
       />
     </>
   );

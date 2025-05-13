@@ -2,43 +2,26 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import React from "react";
 import CategoryDropdown from "../shared/CategoryDropdown";
 import CartDropdown from "../shared/CartDropdown";
 import Link from "next/link";
-import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import LoginModal from "../shared/LoginModal";
-
-// Sample cart data
-const cartItems = [
-  {
-    id: 1,
-    name: "Chicken Roll",
-    price: "৳ 230/-",
-    quantity: 1,
-    image: "/image/food/a1.png",
-  },
-  {
-    id: 2,
-    name: "Chicken Roll",
-    price: "৳ 230/-",
-    quantity: 1,
-    image: "/image/food/a1.png",
-  },
-  {
-    id: 3,
-    name: "Chicken Roll",
-    price: "৳ 230/-",
-    quantity: 1,
-    image: "/image/food/a1.png",
-  },
-];
+import { useCart } from "@/hooks/useCart";
+import { useMemo } from "react";
 
 const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { state } = useCart();
+
+  const cart = state.items;
+  const subtotal = useMemo(
+    () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    [cart]
+  );
+
+
 
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
@@ -54,6 +37,7 @@ const Mainmenu = () => {
     setIsCategoriesOpen(false);
     setIsCartOpen(false);
   };
+
 
   return (
     <div
@@ -160,9 +144,9 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            <span className="text-black font-bold">330</span>
+            <span className="text-black font-bold">{subtotal}</span>
 
-            {isCartOpen && <CartDropdown cartItems={cartItems} />}
+            {isCartOpen && <CartDropdown cart={cart} subtotal={subtotal} onClose={()=>setIsCartOpen(false)}/>}
           </div>
         </div>
       </div>

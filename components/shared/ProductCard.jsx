@@ -14,15 +14,12 @@ export default function ProductCard({ product, i }) {
     buttonVariant = "primary-strong",
   } = product;
 
+
+
+
   const [openModal, setOpenModal] = useState(false);
 
-  const cartItem = {
-    id: product.id,
-    name: product.name,
-    price: product.discountedPrice,
-    image: product.image,
-    quantity: 1,
-  };
+
 
   return (
     <>
@@ -56,7 +53,7 @@ export default function ProductCard({ product, i }) {
               {/* <!-- quantity --> */}
               <div className="flex py-[5px] px-2.5 justify-center items-start gap-[2px] rounded-[5px] border border-[#949494]">
                 <span className="text-center text-[12px] font-semibold leading-3.5 text-[#000]">
-                  10
+                  100000
                 </span>
                 <span className="text-center text-[12px] font-semibold leading-3.5 text-[#000]">
                   PC
@@ -85,7 +82,7 @@ export default function ProductCard({ product, i }) {
       <ConfirmAddToCartModal
         show={openModal}
         onClose={() => setOpenModal(false)}
-        product={cartItem}
+        product={product}
       />
     </>
   );

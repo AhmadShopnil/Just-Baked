@@ -5,38 +5,42 @@ import Link from "next/link";
 import Description from "@/components/product/Description";
 import { useCart } from "@/hooks/useCart";
 
-
-
-  // Replace this with fetched API data in the future
-  const product = {
-    id: "1",
-    name: "Chicken Roll",
-    price: 230,
-    description1:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    description2:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    images: [
-      "/image/food/a1.png",
-      "/image/food/a2.png",
-      "/image/food/a3.png",
-      "/image/food/a4.png",
-    ],
-    sku: "01-composite-order",
-    categories: "Hot meals, snack roll",
-    ingredients: "Potato, Oil",
-  };
-
+// Replace this with fetched API data in the future
+const product = {
+  id: "1",
+  name: "Chicken Roll",
+  price: 230,
+  description1:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description2:
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  images: [
+    "/image/food/a1.png",
+    "/image/food/a2.png",
+    "/image/food/a3.png",
+    "/image/food/a4.png",
+  ],
+  sku: "01-composite-order",
+  categories: "Hot meals, snack roll",
+  ingredients: "Potato, Oil",
+};
 
 export default function ProductPage() {
   const { dispatch } = useCart();
-
-  const handleAddTocart = () => {
-    dispatch({ type: 'ADD_ITEM', payload: product });
-  };
-
   const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState(1);
+
+  const selectedItem = {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: product.images[0],
+    quantity: quantity,
+  };
+
+  const handleAddTocart = () => {
+    dispatch({ type: "ADD_ITEM", payload: selectedItem });
+  };
 
   const handleThumbnailClick = (image) => {
     setMainImage(image);
@@ -55,11 +59,17 @@ export default function ProductPage() {
   return (
     <div className="py-8  max-w-[1700px] mx-auto w-full px-4 md:px-10">
       <div className="flex items-center text-xs md:text-[14px]  text-gray-500 justify-center md:justify-start">
-        <Link href="/" className="hover:text-gray-700">Home</Link>
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
         <span className="mx-1">/</span>
-        <Link href="/snacks" className="hover:text-gray-700">Snacks & Drinks</Link>
+        <Link href="/snacks" className="hover:text-gray-700">
+          Snacks & Drinks
+        </Link>
         <span className="mx-1">/</span>
-        <Link href="/frozen-snacks" className="hover:text-gray-700">Frozen Snacks</Link>
+        <Link href="/frozen-snacks" className="hover:text-gray-700">
+          Frozen Snacks
+        </Link>
         <span className="mx-1">/</span>
         <span className="text-gray-900">{product.name}</span>
       </div>
@@ -125,12 +135,14 @@ export default function ProductPage() {
               </button>
             </div>
 
-            <button
+            <Link
+              href={"/cart"}
               onClick={handleAddTocart}
-              className="bg-[#724B00] text-white py-[7px] px-6 rounded hover:bg-[#724B00] transition text-sm cursor-pointer"
+              className="bg-[#724B00] text-white py-[7px] px-6 rounded hover:bg-[#724B12]
+                transition-transform duration-150 ease-in-out text-sm cursor-pointer active:scale-95"
             >
               ADD TO CART
-            </button>
+            </Link>
           </div>
 
           <div className="border border-gray-200"></div>
