@@ -1,110 +1,64 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useCart } from "@/hooks/useCart";
 
 export default function ShoppingCart() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Burger",
-      price: 230,
-      quantity: 2,
-      image: "/image/fastFood/burger.webp",
-    },
-    {
-      id: 2,
-      name: "Chowmin",
-      price: 230,
-      quantity: 2,
-      image: "/image/fastFood/chowmin.webp",
-    },
-    {
-      id: 3,
-      name: "Pizza",
-      price: 230,
-      quantity: 2,
-      image: "/image/fastFood/pizza.webp",
-    },
-  ]);
-
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [showShippingCalculator, setShowShippingCalculator] = useState(false);
   const [shipping, setShipping] = useState(0);
+  const { state, dispatch } = useCart();
 
+  const cart = state.items;
 
-
-  const subtotal = cartItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
+  const subtotal = useMemo(
+    () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    [cart]
+  );
 
   const total = subtotal + shipping - discount;
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const increaseQuantity = (id) => {
+    dispatch({ type: "INCREASE_QUANTITY", payload: id });
   };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  const decreaseQuantity = (id) => {
+    dispatch({ type: "DECREASE_QUANTITY", payload: id });
   };
 
-  const applyPromoCode = () => {
-    if (promoCode.trim()) {
-      setDiscount(Math.round(subtotal * 0.1));
-    } else {
-      setDiscount(0);
-    }
+  const removeFromCart = (id) => {
+    dispatch({ type: "REMOVE_ITEM", payload: id });
   };
 
   const calculateShipping = () => {
     setShipping(50);
-    setShowShippingCalculator(false);
   };
 
-
-const cart = useSelector((state) => state.cart);
-console.log("from cart:", cart);
-
-
-
+  const applyPromoCode = () => {
+    if (promoCode.trim().toLowerCase() === "save10") {
+      setDiscount(10);
+    } else {
+      setDiscount(0);
+      alert("Invalid promo code");
+    }
+  };
 
   return (
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
-      {/* Progress Steps */}
-     <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4 justify-center md:justify-start">
-        <Link href="/" className="hover:text-gray-700">
-          Home
-        </Link>
+      {/* Breadcrumbs */}
+      <div className="flex items-center text-xs md:text-[14px] text-gray-500 mb-4 justify-center md:justify-start">
+        <Link href="/" className="hover:text-gray-700">Home</Link>
         <span className="mx-1">/</span>
-        <Link href="/snacks" className="hover:text-gray-700">
-         Shopping Cart
-        </Link>
-      
-        
+        <Link href="/snacks" className="hover:text-gray-700">Shopping Cart</Link>
       </div>
 
-      {/* <div className="bg-primary-strong text-white p-4 mb-8 flex justify-center items-center">
-        <div className="flex items-center text-center text-xs md:text-sm">
-          <span className="font-bold">SHOPPING CART</span>
-          <span className="mx-4">→</span>
-          <span className="text-amber-300">CHECKOUT</span>
-          <span className="mx-4">→</span>
-          <span className="text-amber-300">ORDER COMPLETE</span>
-        </div>
-      </div> */}
-
-      <div className="  flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
-        <div className="w-full lg:w-2/3 ">
-
+        <div className="w-full lg:w-2/3">
           <div className="overflow-x-auto shadow-sm">
             <div className="min-w-[640px]">
               <table className="w-full border-collapse shadow-2xl rounded-md">
@@ -117,49 +71,40 @@ console.log("from cart:", cart);
                   </tr>
                 </thead>
                 <tbody>
-                  {cartItems.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="border-b border-gray-100 last:border-b-0"
-                    >
+                  {cart.map((item) => (
+                    <tr key={item.id} className="border-b border-gray-100 last:border-b-0">
                       <td className="px-4 py-4 font-semibold">
                         <div className="flex items-center gap-4">
                           <button
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => removeFromCart(item.id)}
                             className="text-gray-400 hover:text-gray-600"
                           >
                             <Trash2 size={18} />
                           </button>
                           <div className="w-16 h-16 relative shrink-0">
                             <Image
-                              src={item?.image}
-                              alt={item?.name}
+                              src={item.images[0]}
+                              alt={item.name}
                               fill
                               className="object-contain"
                             />
                           </div>
-                          <span>{item?.name}</span>
+                          <span>{item.name}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap">
-                        ₹ {item.price}/-
-                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap">₹ {item.price}/-</td>
                       <td className="px-4 py-4">
                         <div className="flex items-center border border-gray-300 w-fit">
                           <button
                             className="px-2 py-1 border-r border-gray-300"
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
+                            onClick={() => decreaseQuantity(item.id)}
                           >
                             -
                           </button>
                           <span className="px-3 py-1">{item.quantity}</span>
                           <button
                             className="px-2 py-1 border-l border-gray-300"
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
+                            onClick={() => increaseQuantity(item.id)}
                           >
                             +
                           </button>
@@ -172,13 +117,16 @@ console.log("from cart:", cart);
                   ))}
                 </tbody>
               </table>
+              {cart.length === 0 && (
+                <p className="text-center py-6 font-medium text-gray-500">
+                  Your cart is empty.
+                </p>
+              )}
             </div>
           </div>
-
-         
         </div>
 
-        {/* Cart Total */}
+        {/* Cart Total Section */}
         <div className="w-full lg:w-1/3">
           <div className="shadow-sm rounded-lg p-6 font-semibold">
             <h3 className="font-bold text-xl mb-6">CART TOTAL</h3>
@@ -206,9 +154,7 @@ console.log("from cart:", cart);
 
             {showShippingCalculator && (
               <div className="mb-4 p-4 bg-gray-50">
-                <p className="mb-2">
-                  Shipping will be calculated based on your address.
-                </p>
+                <p className="mb-2">Shipping will be calculated based on your address.</p>
                 <button
                   className="bg-primary-strong text-white px-4 py-2 w-full"
                   onClick={calculateShipping}
@@ -229,26 +175,27 @@ console.log("from cart:", cart);
               <span>Total</span>
               <span>₹ {total}/-</span>
             </div>
- {/* Promo Code */}
-          <div className="mt-6 p-6 shadow-sm rounded-md w-full">
-            <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
-            <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
-              <input
-                type="text"
-                placeholder="Coupon Code"
-                className="border border-gray-200 p-2 flex-grow 
-                 sm:rounded-l-lg sm:rounded-r-none"
-                value={promoCode}
-                onChange={(e) => setPromoCode(e.target.value)}
-              />
-              <button
-                className="bg-primary-strong text-white px-4 py-2  sm:rounded-l-none sm:rounded-r-lg"
-                onClick={applyPromoCode}
-              >
-                Apply
-              </button>
+
+            {/* Promo Code Section */}
+            <div className="mt-6 p-6 shadow-sm rounded-md w-full">
+              <h3 className="font-bold text-lg mb-4">Using A Promo Code?</h3>
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-0">
+                <input
+                  type="text"
+                  placeholder="Coupon Code"
+                  className="border border-gray-200 p-2 flex-grow sm:rounded-l-lg sm:rounded-r-none"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                />
+                <button
+                  className="bg-primary-strong text-white px-4 py-2 sm:rounded-l-none sm:rounded-r-lg"
+                  onClick={applyPromoCode}
+                >
+                  Apply
+                </button>
+              </div>
             </div>
-          </div>
+
             <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
               PROCEED TO CHECKOUT
             </button>

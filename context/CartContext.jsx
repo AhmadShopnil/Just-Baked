@@ -1,85 +1,74 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react"
 
-const CartContext = createContext()
+import { createContext, useReducer } from 'react';
 
-export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([])
-  const [subtotal, setSubtotal] = useState("৳ 0")
+export const CartContext = createContext();
 
-  // Load cart from localStorage on initial render
-  useEffect(() => {
-    const savedCart = localStorage.getItem("cart")
-    if (savedCart) {
-      try {
-        const parsedCart = JSON.parse(savedCart)
-        setCartItems(parsedCart)
-        calculateSubtotal(parsedCart)
-      } catch (error) {
-        console.error("Failed to parse cart from localStorage:", error)
-      }
-    }
-  }, [])
+const initialState = {
+  items: [],
+};
 
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems))
-    calculateSubtotal(cartItems)
-  }, [cartItems])
-
-  const calculateSubtotal = (items) => {
-    // This is a simplified calculation - in a real app you'd parse the price strings properly
-    const total = items.reduce((sum, item) => sum + (item.quantity || 1), 0) * 230
-    setSubtotal(`৳ ${total}/-`)
-  }
-
-  const addToCart = (product) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id)
+function cartReducer(state, action) {
+  switch (action.type) {
+    case 'ADD_ITEM': {
+      const existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: (item.quantity || 1) + 1 } : item,
-        )
-      } else {
-        return [...prevItems, { ...product, quantity: 1 }]
+        return {
+          ...state,
+          items: state.items.map(item =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        };
       }
-    })
-  }
-
-  const removeFromCart = (productId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId))
-  }
-
-  const updateQuantity = (productId, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(productId)
-      return
+      return {
+        ...state,
+        items: [...state.items, { ...action.payload, quantity: 1 }],
+      };
     }
 
-    setCartItems((prevItems) => prevItems.map((item) => (item.id === productId ? { ...item, quantity } : item)))
-  }
+    case 'REMOVE_ITEM':
+      return {
+        ...state,
+        items: state.items.filter(item => item.id !== action.payload),
+      };
 
-  const clearCart = () => {
-    setCartItems([])
-  }
+    case 'INCREASE_QUANTITY':
+      return {
+        ...state,
+        items: state.items.map(item =>
+          item.id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
+        ),
+      };
 
-  const value = {
-    cartItems,
-    subtotal,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-  }
+    case 'DECREASE_QUANTITY':
+      return {
+        ...state,
+        items: state.items
+          .map(item =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter(item => item.quantity > 0),
+      };
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+    case 'CLEAR_CART':
+      return initialState;
+
+    default:
+      console.warn(`Unhandled action: ${action.type}`);
+      return state;
+  }
 }
 
-export function useCart() {
-  const context = useContext(CartContext)
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
-  }
-  return context
+export function CartProvider({ children }) {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+  return (
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
+  );
 }

@@ -3,8 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
-import { CartProvider } from "@/context/CartContext";
+
 import ReduxProvider from "@/providers/ReduxProvider";
+import { CartProvider } from "@/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,14 +35,14 @@ export default function RootLayout({ children }) {
         // className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
         className={` ${poppins.variable} antialiased`}
       >
-        <ReduxProvider >
-          <div className="bg-white flex flex-col">
-            <Header />
-            <main>
-              <CartProvider>{children}</CartProvider>
-            </main>
-            <Footer />
-          </div>
+        <ReduxProvider>
+          <CartProvider>
+            <div className="bg-white flex flex-col">
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </CartProvider>
         </ReduxProvider>
       </body>
     </html>
