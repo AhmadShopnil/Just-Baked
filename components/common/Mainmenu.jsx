@@ -181,7 +181,7 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            <span className="font-bold">330</span>
+            <span className="font-bold">{subtotal}</span>
           </Link>
         </div>
 

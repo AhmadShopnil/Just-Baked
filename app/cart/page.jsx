@@ -183,12 +183,12 @@ export default function ShoppingCart() {
                 <input
                   type="text"
                   placeholder="Coupon Code"
-                  className="border border-gray-200 p-2 flex-grow sm:rounded-l-lg sm:rounded-r-none"
+                  className="border border-gray-200 p-2 flex-grow rounded-md sm:rounded-l-lg sm:rounded-r-none"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                 />
                 <button
-                  className="bg-primary-strong text-white px-4 py-2 sm:rounded-l-none sm:rounded-r-lg"
+                  className="bg-primary-strong text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-lg"
                   onClick={applyPromoCode}
                 >
                   Apply
