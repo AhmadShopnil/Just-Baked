@@ -51,9 +51,13 @@ export default function ShoppingCart() {
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
       {/* Breadcrumbs */}
       <div className="flex items-center text-xs md:text-[14px] text-gray-500 mb-4 justify-center md:justify-start">
-        <Link href="/" className="hover:text-gray-700">Home</Link>
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
         <span className="mx-1">/</span>
-        <Link href="/snacks" className="hover:text-gray-700">Shopping Cart</Link>
+        <Link href="/snacks" className="hover:text-gray-700">
+          Shopping Cart
+        </Link>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -72,7 +76,10 @@ export default function ShoppingCart() {
                 </thead>
                 <tbody>
                   {cart.map((item) => (
-                    <tr key={item.id} className="border-b border-gray-100 last:border-b-0">
+                    <tr
+                      key={item.id}
+                      className="border-b border-gray-100 last:border-b-0"
+                    >
                       <td className="px-4 py-4 font-semibold">
                         <div className="flex items-center gap-4">
                           <button
@@ -92,7 +99,9 @@ export default function ShoppingCart() {
                           <span>{item.name}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap">৳ {item.price}/-</td>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        ৳ {item.price}/-
+                      </td>
                       <td className="px-4 py-4">
                         <div className="flex items-center border border-gray-300 w-fit">
                           <button
@@ -154,7 +163,9 @@ export default function ShoppingCart() {
 
             {showShippingCalculator && (
               <div className="mb-4 p-4 bg-gray-50">
-                <p className="mb-2">Shipping will be calculated based on your address.</p>
+                <p className="mb-2">
+                  Shipping will be calculated based on your address.
+                </p>
                 <button
                   className="bg-primary-strong text-white px-4 py-2 w-full"
                   onClick={calculateShipping}
@@ -195,10 +206,13 @@ export default function ShoppingCart() {
                 </button>
               </div>
             </div>
-
-            <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
-              PROCEED TO CHECKOUT
-            </button>
+            <Link href={"/checkout"}
+            className="cursor-pointer"
+            >
+              <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
+                PROCEED TO CHECKOUT
+              </button>
+            </Link>
           </div>
         </div>
       </div>

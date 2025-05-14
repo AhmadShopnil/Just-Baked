@@ -14,9 +14,8 @@ const TopBar = () => {
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
     { name: "Cart", href: "/cart" },
-    { name: "Product", href: "/product" },
-    { name: "Outlets", href: "/outlets" },
-    // { name: "Halal investment", href: "/halal-investment" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Dashboard2", href: "/dashboard2" },
     { name: "Contact", href: "/contact" },
   ];
 
