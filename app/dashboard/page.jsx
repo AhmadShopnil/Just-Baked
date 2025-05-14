@@ -1,3 +1,6 @@
+"use client";
+
+
 import Link from "next/link";
 import {
   BarChart3,
@@ -11,7 +14,13 @@ import {
   Clock,
   CheckCircle2,
 } from "lucide-react";
-import DownloadInvoiceButton from "@/components/shared/DownloadInvoiceButton";
+// import DownloadInvoiceButton from "@/components/shared/DownloadInvoiceButton";
+import dynamic from "next/dynamic";
+// Dynamically import with SSR disabled
+const DownloadInvoiceButton = dynamic(() => import('@/components/shared/DownloadInvoiceButton'), {
+  ssr: false,
+});
+
 
 // Sample data object
 const dashboardData = {

@@ -144,7 +144,7 @@ const Mainmenu = () => {
               width={16}
               height={16}
             />
-            <span className="text-black font-bold">{subtotal}</span>
+            <span className="text-black font-bold">{cart?.length}</span>
 
             {isCartOpen && <CartDropdown cart={cart} subtotal={subtotal} onClose={()=>setIsCartOpen(false)}/>}
           </div>

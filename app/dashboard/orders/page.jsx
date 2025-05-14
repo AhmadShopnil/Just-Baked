@@ -1,3 +1,6 @@
+"use client";
+
+
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -6,7 +9,18 @@ import {
   Search,
   Filter,
 } from "lucide-react";
-import DownloadInvoiceButton from "@/components/shared/DownloadInvoiceButton";
+// import DownloadInvoiceButton from "@/components/shared/DownloadInvoiceButton";
+
+import dynamic from "next/dynamic";
+
+// Dynamically import with SSR disabled
+const DownloadInvoiceButton = dynamic(() => import('@/components/shared/DownloadInvoiceButton'), {
+  ssr: false,
+});
+
+
+
+
 
 const ordersData = [
   {
