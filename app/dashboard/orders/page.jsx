@@ -69,8 +69,8 @@ const statusColor = {
 
 export default function Orders() {
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen  py-4 md:py-6 max-w-[1700px] mx-auto w-full px-4 md:px-10">
+      <div className="">
         {/* Header */}
         <div className="flex items-center mb-6">
           <Link
