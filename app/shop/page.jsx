@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+
 import Link from "next/link";
-import { Grid, List, Eye, ShoppingCart, Heart } from "lucide-react";
+import { Grid, List } from "lucide-react";
 import ProductCard from "@/components/shop/ProductCard";
 import ProductListCard from "@/components/shop/ProductListCard";
 
@@ -202,18 +202,22 @@ export default function ShopPage() {
 
   return (
     <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 py-8">
-      <div className="flex items-center text-xs md:text-[14px]  text-gray-500 mb-4  justify-center md:justify-start ">
-        <Link href="/" className="hover:text-gray-700">
-          Home
-        </Link>
-        <span className="mx-1">/</span>
-        <Link href="/snacks" className="hover:text-gray-700">
-          Shop
-        </Link>
-      </div>
+      <div className="md:flex justify-between   items-center mb-8">
 
-      <div className="flex justify-center md:justify-end items-center mb-8">
-        <div className="flex items-center gap-2">
+        {/* breadcumb */}
+        <div className="flex mb-4 md:mb-0 items-center text-xs md:text-[14px] 
+         text-gray-500  justify-center md:justify-start ">
+          <Link href="/" className="hover:text-gray-700">
+            Home
+          </Link>
+          <span className="mx-1">/</span>
+          <Link href="/snacks" className="hover:text-gray-700">
+            Shop
+          </Link>
+        </div>
+
+     {/*  filter */}
+        <div className="flex items-center justify-center gap-2">
           <button
             onClick={() => setViewMode("grid")}
             className={`p-2 ${
@@ -238,7 +242,7 @@ export default function ShopPage() {
             className="border rounded-md px-3 py-2 text-sm bg-white"
             aria-label="Sort products"
           >
-            <option value="newest">Newest Arrivals</option>
+            <option value="newest " >Newest Arrivals</option>
             <option value="price-low-high">Price: Low to High</option>
             <option value="price-high-low">Price: High to Low</option>
           </select>
@@ -246,7 +250,7 @@ export default function ShopPage() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Filters */}
+        {/*Categories Filters */}
         <div className="w-full lg:w-64 space-y-6">
           <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
             <h2 className="font-semibold text-lg mb-3">Categories</h2>
@@ -311,14 +315,13 @@ export default function ShopPage() {
             }`}
           >
             {currentProducts.length > 0 ? (
-              currentProducts.map((product) => (
-
-                
-                  viewMode == "grid"? <ProductCard key={product.id} product={product} i={1} />
-                  : <ProductListCard key={product.id} product={product} />
-                
-               
-              ))
+              currentProducts.map((product) =>
+                viewMode == "grid" ? (
+                  <ProductCard key={product.id} product={product} i={1} />
+                ) : (
+                  <ProductListCard key={product.id} product={product} />
+                )
+              )
             ) : (
               <div className="col-span-full py-10 text-center text-gray-500">
                 <p className="text-lg">
