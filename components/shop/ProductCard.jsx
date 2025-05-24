@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eye, ShoppingCart } from "lucide-react";
 import ConfirmAddToCartModal from "../shared/ConfirmAddToCartModal";
+import { getMetaValueFromExtraFields } from "@/helpers/metaHelpers";
 
 export default function ProductCard({ product,i }) {
   const [openModal, setOpenModal] = useState(false);
@@ -14,6 +15,12 @@ export default function ProductCard({ product,i }) {
     image: product.image,
     quantity: 1,
   };
+
+
+const original_price =getMetaValueFromExtraFields(product,"original_price")
+const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
+
+
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function ProductCard({ product,i }) {
             </span>
           )}
           <Image
-            src={product.image || "/placeholder.svg"}
+            src={product.featured_image || "/placeholder.svg"}
             alt={product.name}
            width={180}
               height={180}
@@ -61,12 +68,12 @@ export default function ProductCard({ product,i }) {
             <div className="flex py-1 px-2.5 items-center gap-0.5 rounded-md border border-gray-300">
               <span className="text-sm font-semibold">৳</span>
               <span className="text-sm font-semibold">
-                {product.discountedPrice}
+                {discounted_price}
               </span>
             </div>
-            {product.originalPrice > product.discountedPrice && (
+            {original_price > discounted_price && (
               <span className="text-sm text-gray-500 line-through">
-               ৳{product.originalPrice}
+               ৳{original_price}
               </span>
             )}
           </div>

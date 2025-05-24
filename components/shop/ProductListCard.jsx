@@ -16,6 +16,9 @@ export default function ProductListCard({ product }) {
     description: product.description,
   };
 
+
+  
+
   return (
     <>
       <div className="flex flex-row items-start gap-4 border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md bg-white transition-all w-full">
@@ -59,11 +62,11 @@ export default function ProductListCard({ product }) {
           <div className="md:flex items-center justify-between  gap-2 mt-2">
             <div className="flex items-center gap-3 mb-1 md:mb-0">
               <span className="text-base font-semibold text-gray-900">
-                ${product.discountedPrice}
+                ${discounted_price}
               </span>
-              {product.originalPrice > product.discountedPrice && (
+              {original_price> discounted_price && (
                 <span className="text-sm text-gray-500 line-through">
-                  ${product.originalPrice}
+                  ${original_price}
                 </span>
               )}
             </div>

@@ -2,13 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { useSettings } from "@/hooks/useSettings";
+import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
+import axiosInstance from "@/helpers/axiosInstance";
 
 const TopBar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+ const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/frontend/settings")
+      .then((response) => {
+        setSettings(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching settings:", error);
+      });
+  }, []);
+
+// const { settings, loading, error } = useSettings();
+const phone = getMetaValueByMetaName(settings, "company_phone") || "";
+const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
+
+
+
+// console.log("settfing from topbar: ",settings)
 
   const menuItems = [
     { name: "Home", href: "/" },
@@ -68,9 +92,10 @@ const TopBar = () => {
         />
         <div className="grid-cols-1">
           <span className="text-black text-sm font-medium leading-[16px]">
-            +880 1711 535 658,
+            {phone}
+            {/* +880 1711 535 658, */}
             <br />
-            +880 1755 682 026
+          {phone2}
           </span>
         </div>
       </div>

@@ -1,13 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-  FaTwitter,
-} from 'react-icons/fa';
+"use client";
 
-
+import axiosInstance from "@/helpers/axiosInstance";
+import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
+// import { useSettigs } from '@/hooks/useSettings';
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from "react-icons/fa";
 
 // Footer Data
 const footerData = {
@@ -15,10 +14,16 @@ const footerData = {
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...`,
   contact: [
-    { icon: "/image/Footer/Phone.svg", text: "+880 1711 535 658\n+880 1755 682 026" },
+    {
+      icon: "/image/Footer/Phone.svg",
+      text: "+880 1711 535 658\n+880 1755 682 026",
+    },
     { icon: "/image/Footer/Mail.svg", text: "info@justbakedbd.com" },
     { icon: "/image/Footer/FB.svg", text: "/justbaked" },
-    { icon: "/image/Footer/location.svg", text: "W/20, Noorjahan Road\nMohammadpur, Dhaka-1207" },
+    {
+      icon: "/image/Footer/location.svg",
+      text: "W/20, Noorjahan Road\nMohammadpur, Dhaka-1207",
+    },
   ],
   links: [
     { label: "Home", href: "#" },
@@ -46,15 +51,13 @@ incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...`,
     "/image/Payment/13.png",
     "/image/Payment/14.png",
     "/image/Payment/15.png",
-
-
   ],
   verifiedImage: "/image/Payment/25 59.png",
   socials: [
-    { icon: <FaFacebookF />, label: 'Facebook', href: '#' },
-    { icon: <FaInstagram />, label: 'Instagram', href: '#' },
-    { icon: <FaYoutube />, label: 'YouTube', href: '#' },
-    { icon: <FaTwitter />, label: 'Twitter', href: '#' },
+    { icon: <FaFacebookF />, label: "Facebook", href: "#" },
+    { icon: <FaInstagram />, label: "Instagram", href: "#" },
+    { icon: <FaYoutube />, label: "YouTube", href: "#" },
+    { icon: <FaTwitter />, label: "Twitter", href: "#" },
   ],
 
   // socials: [
@@ -79,11 +82,34 @@ incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...`,
   //     href: "#",
   //   },
   // ],
-
-
 };
 
 const Footer = () => {
+  // const settings= await useSettigs()
+
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/frontend/settings")
+      .then((response) => {
+        setSettings(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching settings:", error);
+      });
+  }, []);
+
+  console.log("settings from footer: ", settings);
+  const phone = getMetaValueByMetaName(settings, "company_phone") || "";
+  // const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
+  const company_email = getMetaValueByMetaName(settings, "company_email") || "";
+  const facebookLink = getMetaValueByMetaName(settings, "facebook_url") || "#";
+  const linkedinLink = getMetaValueByMetaName(settings, "linkedin_url") || "#";
+  const instagramLink =
+    getMetaValueByMetaName(settings, "instagram_url") || "#";
+ const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
+
   return (
     <div className="w-full">
       <div className="w-full bg-[#FFF4DE] md:px-32 py-[60px] flex justify-center">
@@ -105,9 +131,18 @@ const Footer = () => {
             {/* Contact Us */}
             <div className="w-[216px]">
               <FooterSection title="Contact Us">
-                {footerData.contact.map((item, idx) => (
-                  <ContactItem key={idx} icon={item.icon} text={item.text} />
-                ))}
+                <ContactItem
+                  icon={"/image/Footer/Phone.svg"}
+                  text={`${phone} `}
+                />
+                <ContactItem
+                  icon={"/image/Footer/Mail.svg"}
+                  text={company_email}
+                />
+                <ContactItem
+                  icon={"/image/Footer/FB.svg"}
+                  text={facebookLink}
+                />
               </FooterSection>
             </div>
 
@@ -129,14 +164,27 @@ const Footer = () => {
 
             {/* Payment Methods */}
             <FooterSection title="Pay with">
-              <div className="grid grid-cols-5 gap-1 mt-5">
+              <div className="grid grid-cols-5 gap-1 ">
                 {footerData?.paymentImages?.map((img, idx) => (
-                  <Image key={img} src={img} alt="payment" width={40} height={24} />
+                  <Image
+                    key={img}
+                    src={img}
+                    alt="payment"
+                    width={40}
+                    height={24}
+                  />
                 ))}
               </div>
               <div className="flex items-center gap-[5px] mt-2">
-                <span className="text-[10px] text-black font-normal">Verified by</span>
-                <Image src={footerData?.verifiedImage} alt="Verified" width={60} height={20} />
+                <span className="text-[10px] text-black font-normal">
+                  Verified by
+                </span>
+                <Image
+                  src={footerData?.verifiedImage}
+                  alt="Verified"
+                  width={60}
+                  height={20}
+                />
               </div>
             </FooterSection>
           </div>
@@ -151,11 +199,27 @@ const Footer = () => {
               ©2021 Just Baked All rights reserved
             </span>
             <div className="flex items-center gap-3 text-white text-lg">
-              {footerData.socials.map((item, idx) => (
-                <Link key={idx} href={item.href} aria-label={item.label}>
-                  <span className="hover:text-gray-300">{item.icon}</span>
-                </Link>
-              ))}
+              <Link href={facebookLink} aria-label={""}>
+                <span className="hover:text-gray-300">
+                  <FaFacebookF />
+                </span>
+              </Link>
+
+              <Link href={instagramLink} aria-label={""}>
+                <span className="hover:text-gray-300">
+                 <FaInstagram />
+                </span>
+              </Link>
+              <Link href={youtubeLink} aria-label={""}>
+                <span className="hover:text-gray-300">
+                  <FaYoutube />
+                </span>
+              </Link>
+              {/* <Link href={facebookLink} aria-label={""}>
+                <span className="hover:text-gray-300">
+                  <FaFacebookF />
+                </span>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -164,11 +228,12 @@ const Footer = () => {
   );
 };
 
-
 // Reusable Components
 const FooterSection = ({ title, children }) => (
   <div className="flex flex-col gap-[12px]">
-    <h3 className="text-base text-black font-bold uppercase leading-4">{title}</h3>
+    <h3 className="text-base text-black font-bold uppercase leading-4">
+      {title}
+    </h3>
     {children}
   </div>
 );
@@ -176,22 +241,27 @@ const FooterSection = ({ title, children }) => (
 const ContactItem = ({ icon, text }) => (
   <div className="flex items-start gap-3">
     <Image src={icon} alt="" width={24} height={24} />
-    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">{text}</span>
+    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">
+      {text}
+    </span>
   </div>
 );
 
 const FooterLinkList = ({ links }) => (
   <div className="flex flex-col gap-[8px]">
-    <h3 className="text-base text-black font-bold leading-2.5 uppercase">Useful Links</h3>
+    <h3 className="text-base text-black font-bold leading-2.5 uppercase">
+      Useful Links
+    </h3>
     <div className="flex flex-col">
       {links.map((link, idx) => (
         <Link key={idx} href={link.href}>
-          <span className="text-[11px] text-black font-medium leading-2.5">{link.label}</span>
+          <span className="text-[11px] text-black font-medium leading-2.5">
+            {link.label}
+          </span>
         </Link>
       ))}
     </div>
   </div>
 );
-
 
 export default Footer;

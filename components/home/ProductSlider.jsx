@@ -40,6 +40,12 @@ export default function ProductSlider({
     }
   };
 
+
+
+
+
+
+
   return (
     <div className="max-w-[1700px] mx-auto py-12 px-4 sm:px-7 md:px-10 ">
       <div className="flex justify-between items-center mb-6">
