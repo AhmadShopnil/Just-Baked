@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +22,7 @@ const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
 
 
 
-
+// console.log("from  slider card :", product);
 
 
   return (
@@ -41,7 +43,7 @@ const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
             </span>
           )}
           <Image
-            src={product.featured_image || "/placeholder.svg"}
+            src={product?.featured_image || "/placeholder.svg"}
             alt={product.name}
            width={180}
               height={180}
