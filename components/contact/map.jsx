@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 
 
 // Images
@@ -8,10 +10,40 @@ import fbIcon from "@/public/image/contact/fb.svg";
 import emailIcon from "@/public/image/contact/email.svg";
 import locationIcon from "@/public/image/contact/location.svg";
 import Image from "next/image";
+import axiosInstance from "@/helpers/axiosInstance";
+import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
 
 
 
 const Map = () => {
+ const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/frontend/settings")
+      .then((response) => {
+        setSettings(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching settings:", error);
+      });
+  }, []);
+
+  // console.log("settings from footer: ", settings);
+  const phone = getMetaValueByMetaName(settings, "company_phone") || "";
+  const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
+  const company_email = getMetaValueByMetaName(settings, "company_email") || "";
+  const facebookLink = getMetaValueByMetaName(settings, "facebook_url") || "#";
+  const linkedinLink = getMetaValueByMetaName(settings, "linkedin_url") || "#";
+  const instagramLink =
+    getMetaValueByMetaName(settings, "instagram_url") || "#";
+ const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
+
+const office_location = getMetaValueByMetaName(settings, "office_location") || "";
+
+
+
+
   return (
     <div className="absolute w-full top-40 right:0 md:right-2  ">
       <div className="relative max-w-screen-lg mx-auto">
@@ -30,36 +62,37 @@ const Map = () => {
           </div>
 
           {/* Contact Box */}
-          <div className="w-[85%] max-w-sm bg-[#5c4d28] text-white p-6 rounded-lg 
-          shadow-lg absolute left-1/2 transform -translate-x-1/2  md:translate-x-0  top-6 md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10">
+          <div className="w-[90%] max-w-sm bg-[#5c4d28] text-white p-6 rounded-lg 
+          shadow-lg absolute left-1/2 transform -translate-x-1/2  md:translate-x-0 
+           top-6 md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10">
             {/* Content unchanged */}
             <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
             <p className="text-white text-sm font-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod
             </p>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 mt-2 text-sm">
               {/* Phone */}
               <div className="flex items-center gap-[30px]">
                 <Image src={phoneIcon} alt="Phone icon" />
                 <span className="text-white font-normal">
-                  +880 1711 535 658
+                 {phone}
                   <br />
-                  +880 1755 682 026
+                  {phone2}
                 </span>
               </div>
 
               {/* Facebook */}
               <div className="flex items-center gap-[30px]">
                 <Image src={fbIcon} alt="Facebook icon" />
-                <span className="text-white font-normal">/Justbakedbd</span>
+                <span className="text-white font-normal">{facebookLink}</span>
               </div>
 
               {/* Email */}
               <div className="flex items-center gap-[30px]">
                 <Image src={emailIcon} alt="Email icon" />
                 <span className="text-white font-normal">
-                  info@justbakedbd.com
+                  {company_email}
                 </span>
               </div>
 
@@ -67,9 +100,10 @@ const Map = () => {
               <div className="flex items-center gap-[30px]">
                 <Image src={locationIcon} alt="Location icon" />
                 <span className="text-white font-normal">
-                  W/20, Noorjahan Road
+                  {office_location}
+                  {/* W/20, Noorjahan Road
                   <br />
-                  Mohammadpur, Dhaka-1207
+                  Mohammadpur, Dhaka-1207 */}
                 </span>
               </div>
             </div>

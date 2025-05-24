@@ -1,46 +1,57 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Description from "./Description";
 import { useCart } from "@/hooks/useCart";
+import { getMetaValueFromExtra_Fields } from "@/helpers/metaHelpers";
 
 
 
 // Replace this with fetched API data in the future
-const product = {
-  id: "1",
-  name: "Chicken Roll",
-  price: 230,
-  description1:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  description2:
-    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  images: [
-    "/image/food/a1.png",
-    "/image/food/a2.png",
-    "/image/food/a3.png",
-    "/image/food/a4.png",
-  ],
-  sku: "01-composite-order",
-  categories: "Hot meals, snack roll",
-  ingredients: "Potato, Oil",
-};
+// const product = {
+//   id: "1",
+//   name: "Chicken Roll",
+//   price: 230,
+//   description1:
+//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//   description2:
+//     "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+//   images: [
+//     "/image/food/a1.png",
+//     "/image/food/a2.png",
+//     "/image/food/a3.png",
+//     "/image/food/a4.png",
+//   ],
+//   sku: "01-composite-order",
+//   categories: "Hot meals, snack roll",
+//   ingredients: "Potato, Oil",
+// };
 
-export default async function Product({}) {
-
-
+export default  function Product({product}) {
   const { dispatch } = useCart();
-  const [mainImage, setMainImage] = useState(product.images[0]);
+  const [mainImage, setMainImage] = useState(product?.featured_image);
   const [quantity, setQuantity] = useState(1);
+const images =getMetaValueFromExtra_Fields(product,"extra_images")
+
+const original_price =getMetaValueFromExtra_Fields(product,"original_price")
+const discounted_price =getMetaValueFromExtra_Fields(product,"discounted_price")
+
+
+  // console.log("Single product images: ", images)
+
 
   const selectedItem = {
     id: product.id,
     name: product.name,
     price: product.price,
-    image: product.images[0],
+    image: product?.featured_image,
     quantity: quantity,
   };
+
+// useEffect(()=>{
+//   setMainImage(product?.featured_image)
+// },[])
 
   const handleAddTocart = () => {
     dispatch({ type: "ADD_ITEM", payload: selectedItem });
@@ -84,7 +95,7 @@ export default async function Product({}) {
           <div className="shadow-md rounded-md p-4 mb-4 bg-white">
             <div className="relative h-[450px] w-full">
               <Image
-                src={mainImage || "/placeholder.svg"}
+                src={product?.featured_image || "/placeholder.svg"}
                 alt={product.name}
                 fill
                 className="object-contain"
@@ -94,7 +105,7 @@ export default async function Product({}) {
           </div>
 
           <div className="flex gap-4">
-            {product.images.map((image, index) => (
+            {images.map((image, index) => (
               <div
                 key={index}
                 className={`shadow-md border rounded-md cursor-pointer p-2 w-full h-20 relative ${
@@ -115,11 +126,11 @@ export default async function Product({}) {
 
         {/* Product Details Section */}
         <div className="w-full md:w-3/5">
-          <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-          <div className="text-2xl font-bold mb-4">₹ {product.price}/-</div>
+          <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
+          <div className="text-2xl font-bold mb-4">৳ {discounted_price}/-</div>
 
-          <p className="text-gray-600 mb-6">{product.description1}</p>
-          <p className="text-gray-600 mb-6">{product.description2}</p>
+          <p className="text-gray-600 mb-6">{product?.description}</p>
+          {/* <p className="text-gray-600 mb-6">{product.description2}</p> */}
 
           {/* Quantity Selector and Add to Cart  */}
           <div className="flex items-center mb-6 gap-4">

@@ -88,6 +88,7 @@ const Footer = () => {
   // const settings= await useSettigs()
 
   const [settings, setSettings] = useState(null);
+  const [paymentMethods, setPaymentMethods] = useState([]);
 
   useEffect(() => {
     axiosInstance
@@ -98,9 +99,20 @@ const Footer = () => {
       .catch((error) => {
         console.error("Error fetching settings:", error);
       });
+
+    axiosInstance
+      .get("/posts?term_type=pay_with")
+      .then((response) => {
+        setPaymentMethods(response?.data?.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching payment methods:", error);
+      });
   }, []);
 
-  console.log("settings from footer: ", settings);
+  // console.log("paymentMethods from footer: ", paymentMethods);
+
+
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
   // const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
   const company_email = getMetaValueByMetaName(settings, "company_email") || "";
@@ -108,7 +120,7 @@ const Footer = () => {
   const linkedinLink = getMetaValueByMetaName(settings, "linkedin_url") || "#";
   const instagramLink =
     getMetaValueByMetaName(settings, "instagram_url") || "#";
- const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
+  const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
 
   return (
     <div className="w-full">
@@ -129,7 +141,7 @@ const Footer = () => {
           {/* Footer Sections */}
           <div className="flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
             {/* Contact Us */}
-            <div className="w-[216px]">
+            <div className="w-[216px] mt-3">
               <FooterSection title="Contact Us">
                 <ContactItem
                   icon={"/image/Footer/Phone.svg"}
@@ -165,11 +177,11 @@ const Footer = () => {
             {/* Payment Methods */}
             <FooterSection title="Pay with">
               <div className="grid grid-cols-5 gap-1 ">
-                {footerData?.paymentImages?.map((img, idx) => (
+                {paymentMethods?.map((method) => (
                   <Image
-                    key={img}
-                    src={img}
-                    alt="payment"
+                    key={method?.id}
+                    src={method?.featured_image}
+                    alt={method?.name}
                     width={40}
                     height={24}
                   />
@@ -207,7 +219,7 @@ const Footer = () => {
 
               <Link href={instagramLink} aria-label={""}>
                 <span className="hover:text-gray-300">
-                 <FaInstagram />
+                  <FaInstagram />
                 </span>
               </Link>
               <Link href={youtubeLink} aria-label={""}>
@@ -248,7 +260,7 @@ const ContactItem = ({ icon, text }) => (
 );
 
 const FooterLinkList = ({ links }) => (
-  <div className="flex flex-col gap-[8px]">
+  <div className="flex flex-col gap-[8px] mt-1">
     <h3 className="text-base text-black font-bold leading-2.5 uppercase">
       Useful Links
     </h3>

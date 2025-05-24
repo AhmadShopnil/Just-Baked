@@ -7,18 +7,19 @@ import { getMetaValueFromExtraFields } from "@/helpers/metaHelpers";
 
 export default function ProductCard({ product,i }) {
   const [openModal, setOpenModal] = useState(false);
+const original_price =getMetaValueFromExtraFields(product,"original_price")
+const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
 
   const selectedItem = {
     id: product.id,
     name: product.name,
-    price: product.discountedPrice,
+    price: discounted_price,
     image: product.image,
     quantity: 1,
   };
 
 
-const original_price =getMetaValueFromExtraFields(product,"original_price")
-const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
+
 
 
 
@@ -48,7 +49,7 @@ const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
           />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Link
-              href={`/product/${product.id}`}
+              href={`/product/${product?.slug}`}
               className="bg-white text-gray-800 px-4 py-2 rounded-full hover:bg-[#724b00] hover:text-white transition-colors duration-300 flex items-center gap-2"
             >
               <Eye className="w-4 h-4" />
