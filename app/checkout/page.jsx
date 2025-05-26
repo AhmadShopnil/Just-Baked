@@ -5,67 +5,132 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
   const handleSubmitOrder = () => {
+
+
     const orderData = {
-      billing: {
-        firstName: "", 
-        lastName: "",
-        email: "",
-        phone: "",
-        address1: "",
-        address2: "",
-        city: "",
-        postalCode: "",
-        country: "",
-      },
       shipping: {
-        recipientName: "",
+        Name: "",
         address: "",
-        city: "",
-        postalCode: "",
+        phone: "",
+        thana: "",
+        district: "",
         country: "",
       },
       paymentMethod,
       products: [
-        { name: "Product 1", price: 40 },
-        { name: "Product 2", price: 25 },
+        { name: "Product 1", price: 40, discount_price: 30, id: 1, qty: 2 },
+        { name: "Product 2", price: 25, discount_price: 20, id: 2, qty: 3 },
       ],
-      shippingCost: 5,
+      promoCode: "",
+      promoType: "Fixed", // percentage or fixed
+      promoAmount: 10,
+      shippingCost: 50,
       total: 70,
     };
-
-    // Replace this with your API call
-    console.log("Submitting order:", orderData);
   };
+  
+
+  // billing: {
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   phone: "",
+  //   address1: "",
+  //   address2: "",
+  //   city: "",
+  //   postalCode: "",
+  //   country: "",
+  // },
+
+  //   const shipping={
+  //   dhaka:"1000",
+  //   Tangail:"50"
+  // }
 
   return (
     <div className=" py-10 max-w-[1700px] mx-auto w-full px-4 md:px-10">
       <div className="  grid grid-cols-1 lg:grid-cols-3 gap-8">
-
         {/* Left: Billing & Shipping */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-4">Billing Details</h2>
             <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="First Name" className="border p-2 rounded-md w-full" />
-              <input type="text" placeholder="Last Name" className="border p-2 rounded-md w-full" />
-              <input type="email" placeholder="Email Address" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="Phone Number" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="Address Line 1" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="Address Line 2" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="City" className="border p-2 rounded-md w-full" />
-              <input type="text" placeholder="Zip/Postal Code" className="border p-2 rounded-md w-full" />
-              <input type="text" placeholder="Country" className="border p-2 rounded-md w-full md:col-span-2" />
+              <input
+                type="text"
+                placeholder="First Name"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="Phone Number"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="Address Line 1"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="Address Line 2"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="City"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="text"
+                placeholder="Zip/Postal Code"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="text"
+                placeholder="Country"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
             </form>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-4">Shipping Details</h2>
             <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="Recipient Name" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="Shipping Address" className="border p-2 rounded-md w-full md:col-span-2" />
-              <input type="text" placeholder="City" className="border p-2 rounded-md w-full" />
-              <input type="text" placeholder="Zip/Postal Code" className="border p-2 rounded-md w-full" />
-              <input type="text" placeholder="Country" className="border p-2 rounded-md w-full md:col-span-2" />
+              <input
+                type="text"
+                placeholder="Recipient Name"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="Shipping Address"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
+              <input
+                type="text"
+                placeholder="City"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="text"
+                placeholder="Zip/Postal Code"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                type="text"
+                placeholder="Country"
+                className="border p-2 rounded-md w-full md:col-span-2"
+              />
             </form>
           </div>
         </div>

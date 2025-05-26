@@ -15,6 +15,8 @@ export default function ShoppingCart() {
 
   const cart = state.items;
 
+  // console.log("cart item ", cart);
+
   const subtotal = useMemo(
     () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
     [cart]
@@ -206,9 +208,7 @@ export default function ShoppingCart() {
                 </button>
               </div>
             </div>
-            <Link href={"/checkout"}
-            className="cursor-pointer"
-            >
+            <Link href={"/checkout"} className="cursor-pointer">
               <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
                 PROCEED TO CHECKOUT
               </button>

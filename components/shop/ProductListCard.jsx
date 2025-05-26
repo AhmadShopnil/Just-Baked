@@ -3,17 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eye, ShoppingCart } from "lucide-react";
 import ConfirmAddToCartModal from "../shared/ConfirmAddToCartModal";
+import { getMetaValueFromExtraFields } from "@/helpers/metaHelpers";
 
 export default function ProductListCard({ product }) {
   const [openModal, setOpenModal] = useState(false);
 
-  const cartItem = {
+const original_price =getMetaValueFromExtraFields(product,"original_price")
+const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
+
+
+
+   const selectedItem = {
     id: product.id,
     name: product.name,
-    price: product.discountedPrice,
-    image: product.image,
+    price: discounted_price,
+    original_price: original_price,
+    image: product.featured_image,
     quantity: 1,
-    description: product.description,
   };
 
 
@@ -25,8 +31,8 @@ export default function ProductListCard({ product }) {
         {/* Image Section */}
         <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 rounded-lg overflow-hidden">
           <Image
-            src={product.image || "/placeholder.svg"}
-            alt={product.name}
+            src={product?.featured_image || "/placeholder.svg"}
+            alt={product?.name}
             fill
             className="object-cover rounded-lg hover:scale-105 transition-transform"
           />
@@ -86,7 +92,7 @@ export default function ProductListCard({ product }) {
       <ConfirmAddToCartModal
         show={openModal}
         onClose={() => setOpenModal(false)}
-        product={cartItem}
+        product={selectedItem}
       />
     </>
   );

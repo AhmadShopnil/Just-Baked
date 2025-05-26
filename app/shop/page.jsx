@@ -1,36 +1,100 @@
-import Shop from '@/components/shop/Shop';
-import { BASE_URL } from '@/helpers/baseUrl';
-import React from 'react';
+"use client";
 
-const Page =async () => {
+import Shop from "@/components/shop/Shop";
+import axiosInstance from "@/helpers/axiosInstance";
+import { BASE_URL } from "@/helpers/baseUrl";
+import React, { useState, useEffect } from "react";
 
- const url = `${BASE_URL}/posts?term_type=product`;
-  // const url = `http://justbakedbd.com/api/v1/posts?term_type=product`;
-  let products = [];
-  try {
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error("Failed to fetch products");
-    }
-    const data = await res.json();
-    products = data?.data || [];
+const Page = () => {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [sortBy, setSortBy] = useState("newest");
+  const [productsPerPage, setProductPerPage] = useState(2);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoryUrl = `/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No`;
+        const res = await axiosInstance.get(categoryUrl);
+        setCategories(res.data?.data || []);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
+  // Fetch products
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        let query = `/posts?term_type=product&per_page=${productsPerPage}&page=${currentPage}&is_status=publish`;
 
-    // console.log("products from shop page: ", products)
+        // Category filters
+        if (selectedCategories.length === 1) {
+          query += `&category_slug=${selectedCategories[0]}`;
+        }
 
-  } catch (error) {
-    console.error("Error fetching best selling products:", error);
-  }
+        // Sorting
+        if (sortBy === "newest") {
+          query += "&order_by=id:desc";
+        } else if (sortBy === "price-low-high") {
+          query += "&order_by=original_price:asc";
+        } else if (sortBy === "price-high-low") {
+          query += "&order_by=original_price:desc";
+        }
 
+        // Price filtering
+        if (priceRange[0] > 0 || priceRange[1] < 1000) {
+          query += `&extra_field=original_price:gte:${priceRange[0]}|original_price:lte:${priceRange[1]}`;
+        }
 
+        const res = await axiosInstance.get(query);
+        setProducts(res.data?.data || []);
+        setTotalPages(
+          Math.ceil(res.data?.meta?.total / res.data?.meta?.per_page)
+        );
 
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching products:", error);
+        setProducts([]);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategories, priceRange, sortBy, currentPage]);
+
+  // console.log(" products from shop page: ", products);
+  // console.log(" categories from shop page: ", categories);
 
   return (
-    <div>
-      <Shop products={products} />
-    </div>
+    <Shop
+      products={products}
+      categories={categories}
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
+      priceRange={priceRange}
+      setPriceRange={setPriceRange}
+      sortBy={sortBy}
+      setSortBy={setSortBy}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      productsPerPage={productsPerPage}
+      setProductPerPage={setProductPerPage}
+      loading={loading}
+      totalPages={totalPages}
+    />
   );
-}
+};
 
 export default Page;

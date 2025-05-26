@@ -1,0 +1,20 @@
+   const orderData = {
+      shipping: {
+        Name: "",
+        address: "",
+        phone: "",
+        thana: "",
+        district: "",
+        country: "",
+      },
+      paymentMethod,
+      products: [
+        { name: "Product 1", price: 40, original_price: 50, id: 1, qty: 2 },
+        { name: "Product 2", price: 150, original_price: 200, id: 2, qty: 3 },
+      ],
+      promoCode: "",
+      promoType: "Fixed", // percentage or fixed
+      promoAmount: 10,
+      shippingCost: 50,
+      total: 70,
+    };

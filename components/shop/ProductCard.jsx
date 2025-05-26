@@ -16,7 +16,8 @@ const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
     id: product.id,
     name: product.name,
     price: discounted_price,
-    image: product.image,
+    original_price: original_price,
+    image: product.featured_image,
     quantity: 1,
   };
 
@@ -74,11 +75,11 @@ const discounted_price =getMetaValueFromExtraFields(product,"discounted_price")
                 {discounted_price}
               </span>
             </div>
-            {original_price > discounted_price && (
+          
               <span className="text-sm text-gray-500 line-through">
                ৳{original_price}
               </span>
-            )}
+        
           </div>
 
           <div className="flex items-center gap-2 mt-4">

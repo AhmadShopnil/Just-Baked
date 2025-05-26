@@ -1,0 +1,407 @@
+{
+  "success": true,
+  "message": "Posts retrieved successfully",
+  "data":
+   [
+    {
+      "id": 71,
+      "name": "test",
+      "sub_title": "test",
+      "slug": "test",
+      "description": null,
+      "featured_image": "https://justbakedbd.com/public/uploads/images/2025/05/23/a4-1748041622.png",
+      "term_type": "product",
+      "categories": [],
+      "meta_title": null,
+      "meta_description": null,
+      "meta_keyword": null,
+      "meta_author": null,
+      "order_column": null,
+      "template": null,
+      "is_featured": "No",
+      "extraFields": [
+        {
+          "id": 111,
+          "post_id": "71",
+          "category_id": null,
+          "meta_name": "extra_images",
+          "meta_value": null,
+          "field_type": "multiple_image",
+          "created_at": "2025-05-25T09:11:03.000000Z",
+          "updated_at": "2025-05-25T09:11:03.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 112,
+          "post_id": "71",
+          "category_id": null,
+          "meta_name": "home_section_name",
+          "meta_value": null,
+          "field_type": "select",
+          "created_at": "2025-05-25T09:11:03.000000Z",
+          "updated_at": "2025-05-25T09:11:03.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 113,
+          "post_id": "71",
+          "category_id": null,
+          "meta_name": "original_price",
+          "meta_value": "100",
+          "field_type": "text",
+          "created_at": "2025-05-25T09:11:04.000000Z",
+          "updated_at": "2025-05-25T09:11:04.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 114,
+          "post_id": "71",
+          "category_id": null,
+          "meta_name": "discounted_price",
+          "meta_value": "90",
+          "field_type": "text",
+          "created_at": "2025-05-25T09:11:05.000000Z",
+          "updated_at": "2025-05-25T09:11:05.000000Z",
+          "single_image_url": null
+        }
+      ],
+      "sections": [],
+      "author": {
+        "id": 1,
+        "full_name": "Sam",
+        "avatar": null
+      },
+      "visitor": null
+    },
+    {
+      "id": 70,
+      "name": "Burger",
+      "sub_title": "Burger",
+      "slug": "burger-2",
+      "description": "\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\u003C/p\u003E",
+      "featured_image": "https://justbakedbd.com/public/uploads/images/2025/05/23/a4-1748041622.png",
+      "term_type": "product",
+      "categories": [
+        {
+          "id": 6,
+          "name": "New Arrival",
+          "slug": "new-arrival",
+          "description": null,
+          "image": "147",
+          "parent_id": null,
+          "taxonomy_type": "product_categories",
+          "order_column": null,
+          "is_status": "publish",
+          "is_featured": "Yes",
+          "created_at": "2025-05-24T16:07:48.000000Z",
+          "updated_at": "2025-05-24T16:37:33.000000Z",
+          "media_url": "https://justbakedbd.com/public/uploads/images/2025/05/24/vector-1-1748104616.png",
+          "meta_data": []
+        },
+        {
+          "id": 7,
+          "name": "Fast Food",
+          "slug": "fast-food",
+          "description": null,
+          "image": "148",
+          "parent_id": null,
+          "taxonomy_type": "product_categories",
+          "order_column": null,
+          "is_status": "publish",
+          "is_featured": "Yes",
+          "created_at": "2025-05-24T16:08:01.000000Z",
+          "updated_at": "2025-05-24T16:37:56.000000Z",
+          "media_url": "https://justbakedbd.com/public/uploads/images/2025/05/24/vector-1748104616.png",
+          "meta_data": []
+        }
+      ],
+      "meta_title": null,
+      "meta_description": null,
+      "meta_keyword": null,
+      "meta_author": null,
+      "order_column": null,
+      "template": null,
+      "is_featured": "No",
+      "extraFields": [
+        {
+          "id": 107,
+          "post_id": "70",
+          "category_id": null,
+          "meta_name": "extra_images",
+          "meta_value": [
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a4-1748041622.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a1-1748041621.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a3-1748041621.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a2-1748041620.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/b1-1748041577.png"
+          ],
+          "field_type": "multiple_image",
+          "created_at": "2025-05-24T15:56:07.000000Z",
+          "updated_at": "2025-05-24T15:56:34.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 108,
+          "post_id": "70",
+          "category_id": null,
+          "meta_name": "home_section_name",
+          "meta_value": "Signature Series",
+          "field_type": "select",
+          "created_at": "2025-05-24T15:56:07.000000Z",
+          "updated_at": "2025-05-24T15:56:07.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 109,
+          "post_id": "70",
+          "category_id": null,
+          "meta_name": "original_price",
+          "meta_value": "50",
+          "field_type": "text",
+          "created_at": "2025-05-24T15:56:07.000000Z",
+          "updated_at": "2025-05-24T15:56:07.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 110,
+          "post_id": "70",
+          "category_id": null,
+          "meta_name": "discounted_price",
+          "meta_value": "45",
+          "field_type": "text",
+          "created_at": "2025-05-24T15:56:07.000000Z",
+          "updated_at": "2025-05-24T15:56:07.000000Z",
+          "single_image_url": null
+        }
+      ],
+      "sections": [],
+      "author": {
+        "id": 1,
+        "full_name": "Sam",
+        "avatar": null
+      },
+      "visitor": null
+    },
+    {
+      "id": 65,
+      "name": "Cheese Danish",
+      "sub_title": "Cheese Danish",
+      "slug": "cheese-danish",
+      "description": null,
+      "featured_image": "https://justbakedbd.com/public/uploads/images/2025/05/23/a1-1748041621.png",
+      "term_type": "product",
+      "categories": [
+        {
+          "id": 7,
+          "name": "Fast Food",
+          "slug": "fast-food",
+          "description": null,
+          "image": "148",
+          "parent_id": null,
+          "taxonomy_type": "product_categories",
+          "order_column": null,
+          "is_status": "publish",
+          "is_featured": "Yes",
+          "created_at": "2025-05-24T16:08:01.000000Z",
+          "updated_at": "2025-05-24T16:37:56.000000Z",
+          "media_url": "https://justbakedbd.com/public/uploads/images/2025/05/24/vector-1748104616.png",
+          "meta_data": []
+        }
+      ],
+      "meta_title": null,
+      "meta_description": null,
+      "meta_keyword": null,
+      "meta_author": null,
+      "order_column": null,
+      "template": null,
+      "is_featured": "No",
+      "extraFields": [
+        {
+          "id": 100,
+          "post_id": "65",
+          "category_id": null,
+          "meta_name": "extra_images",
+          "meta_value": [
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a4-1748041622.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a1-1748041621.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a3-1748041621.png"
+          ],
+          "field_type": "multiple_image",
+          "created_at": "2025-05-23T23:40:59.000000Z",
+          "updated_at": "2025-05-23T23:44:44.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 101,
+          "post_id": "65",
+          "category_id": null,
+          "meta_name": "original_price",
+          "meta_value": "15",
+          "field_type": "text",
+          "created_at": "2025-05-23T23:44:44.000000Z",
+          "updated_at": "2025-05-23T23:44:44.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 102,
+          "post_id": "65",
+          "category_id": null,
+          "meta_name": "discounted_price",
+          "meta_value": "10",
+          "field_type": "text",
+          "created_at": "2025-05-23T23:44:44.000000Z",
+          "updated_at": "2025-05-23T23:44:44.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 105,
+          "post_id": "65",
+          "category_id": null,
+          "meta_name": "home_section_name",
+          "meta_value": "New Arrival",
+          "field_type": "select",
+          "created_at": "2025-05-24T15:50:59.000000Z",
+          "updated_at": "2025-05-24T15:50:59.000000Z",
+          "single_image_url": null
+        }
+      ],
+      "sections": [],
+      "author": {
+        "id": 1,
+        "full_name": "Sam",
+        "avatar": null
+      },
+      "visitor": null
+    },
+    {
+      "id": 64,
+      "name": "Fresh Croissant",
+      "sub_title": "Fresh Croissant",
+      "slug": "fresh-croissant",
+      "description": "\u003Cp\u003EDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C/p\u003E",
+      "featured_image": "https://justbakedbd.com/public/uploads/images/2025/05/23/a2-1748041620.png",
+      "term_type": "product",
+      "categories": [
+        {
+          "id": 9,
+          "name": "Best Selling",
+          "slug": "best-selling",
+          "description": null,
+          "image": "146",
+          "parent_id": null,
+          "taxonomy_type": "product_categories",
+          "order_column": null,
+          "is_status": "publish",
+          "is_featured": "Yes",
+          "created_at": "2025-05-24T16:08:29.000000Z",
+          "updated_at": "2025-05-24T17:26:09.000000Z",
+          "media_url": "https://justbakedbd.com/public/uploads/images/2025/05/24/vector-3-1748104615.png",
+          "meta_data": []
+        },
+        {
+          "id": 10,
+          "name": "Honey",
+          "slug": "honey",
+          "description": null,
+          "image": null,
+          "parent_id": null,
+          "taxonomy_type": "product_categories",
+          "order_column": null,
+          "is_status": "publish",
+          "is_featured": "No",
+          "created_at": "2025-05-25T09:49:36.000000Z",
+          "updated_at": "2025-05-25T09:49:36.000000Z",
+          "media_url": "https://justbakedbd.com/public/frontend/images/noblank-images.jpg",
+          "meta_data": []
+        }
+      ],
+      "meta_title": null,
+      "meta_description": null,
+      "meta_keyword": null,
+      "meta_author": null,
+      "order_column": null,
+      "template": null,
+      "is_featured": "No",
+      "extraFields": [
+        {
+          "id": 98,
+          "post_id": "64",
+          "category_id": null,
+          "meta_name": "images",
+          "meta_value": null,
+          "field_type": "multiple_image",
+          "created_at": "2025-05-23T23:10:21.000000Z",
+          "updated_at": "2025-05-23T23:10:21.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 99,
+          "post_id": "64",
+          "category_id": null,
+          "meta_name": "extra_images",
+          "meta_value": [
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a1-1748041621.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a3-1748041621.png",
+            "https://justbakedbd.com/public/uploads/images/2025/05/23/a2-1748041620.png"
+          ],
+          "field_type": "multiple_image",
+          "created_at": "2025-05-23T23:12:28.000000Z",
+          "updated_at": "2025-05-23T23:12:28.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 103,
+          "post_id": "64",
+          "category_id": null,
+          "meta_name": "original_price",
+          "meta_value": "20",
+          "field_type": "text",
+          "created_at": "2025-05-23T23:45:04.000000Z",
+          "updated_at": "2025-05-23T23:45:04.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 104,
+          "post_id": "64",
+          "category_id": null,
+          "meta_name": "discounted_price",
+          "meta_value": "17",
+          "field_type": "text",
+          "created_at": "2025-05-23T23:45:04.000000Z",
+          "updated_at": "2025-05-23T23:45:04.000000Z",
+          "single_image_url": null
+        },
+        {
+          "id": 106,
+          "post_id": "64",
+          "category_id": null,
+          "meta_name": "home_section_name",
+          "meta_value": "Fast Food",
+          "field_type": "select",
+          "created_at": "2025-05-24T15:53:32.000000Z",
+          "updated_at": "2025-05-24T15:53:32.000000Z",
+          "single_image_url": null
+        }
+      ],
+      "sections": [],
+      "author": {
+        "id": 1,
+        "full_name": "Sam",
+        "avatar": null
+      },
+      "visitor": null
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "last_page": 1,
+    "per_page": 10,
+    "total": 4,
+    "links": {
+      "first": "https://justbakedbd.com/api/v1/posts?page=1",
+      "last": "https://justbakedbd.com/api/v1/posts?page=1",
+      "prev": null,
+      "next": null
+    }
+  }
+}

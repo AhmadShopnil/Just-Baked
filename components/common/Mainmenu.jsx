@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import CategoryDropdown from "../shared/CategoryDropdown";
 import CartDropdown from "../shared/CartDropdown";
@@ -8,12 +8,35 @@ import Link from "next/link";
 import LoginModal from "../shared/LoginModal";
 import { useCart } from "@/hooks/useCart";
 import { useMemo } from "react";
+import axiosInstance from "@/helpers/axiosInstance";
 
 const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { state } = useCart();
+
+const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    axiosInstance
+      .get(
+        "/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No"
+      )
+      .then((response) => {
+        setCategories(response?.data?.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching settings:", error);
+      });
+  }, []);
+  // console.log("categories:", categories);
+
+
+
+
+
+
 
   const cart = state.items;
   const subtotal = useMemo(
@@ -83,7 +106,7 @@ const Mainmenu = () => {
               w-full"
                 onClick={(e) => e.stopPropagation()}
               >
-                <CategoryDropdown onClose={() => setIsCategoriesOpen(false)} />
+                <CategoryDropdown categories={categories} onClose={() => setIsCategoriesOpen(false)} />
               </div>
             )}
           </div>
