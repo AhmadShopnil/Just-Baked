@@ -1,11 +1,14 @@
-"use client";
+'use client';
 
 import Shop from "@/components/shop/Shop";
 import axiosInstance from "@/helpers/axiosInstance";
-import { BASE_URL } from "@/helpers/baseUrl";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const categoryFromURL = searchParams.get("category");
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -16,14 +19,20 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch categories
+  // ✅ Set selected category from URL query
+  useEffect(() => {
+    if (categoryFromURL && !selectedCategories.includes(categoryFromURL)) {
+      setSelectedCategories([categoryFromURL]);
+    }
+  }, [categoryFromURL]);
+
+  // ✅ Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const categoryUrl = `/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No`;
         const res = await axiosInstance.get(categoryUrl);
         setCategories(res.data?.data || []);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -31,14 +40,14 @@ const Page = () => {
     fetchCategories();
   }, []);
 
-  // Fetch products
+  // ✅ Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         let query = `/posts?term_type=product&per_page=${productsPerPage}&page=${currentPage}&is_status=publish`;
 
-        // Category filters
+        // Category filter
         if (selectedCategories.length === 1) {
           query += `&category_slug=${selectedCategories[0]}`;
         }
@@ -52,7 +61,7 @@ const Page = () => {
           query += "&order_by=original_price:desc";
         }
 
-        // Price filtering
+        // Price filter
         if (priceRange[0] > 0 || priceRange[1] < 1000) {
           query += `&extra_field=original_price:gte:${priceRange[0]}|original_price:lte:${priceRange[1]}`;
         }
@@ -62,20 +71,16 @@ const Page = () => {
         setTotalPages(
           Math.ceil(res.data?.meta?.total / res.data?.meta?.per_page)
         );
-
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
         console.error("Error fetching products:", error);
         setProducts([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [selectedCategories, priceRange, sortBy, currentPage]);
-
-  // console.log(" products from shop page: ", products);
-  // console.log(" categories from shop page: ", categories);
+  }, [selectedCategories, priceRange, sortBy, currentPage, productsPerPage]);
 
   return (
     <Shop

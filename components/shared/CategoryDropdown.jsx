@@ -29,7 +29,7 @@ export default function CategoryDropdown({ onClose, categories }) {
         {categories?.map((category) => (
           <li key={category?.id}>
             <Link
-              href="#"
+              href={`/shop?category=${category?.name.toLowerCase()}`}
               className="flex justify-between pl-4 pr-2 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
               {category?.name}
@@ -43,3 +43,4 @@ export default function CategoryDropdown({ onClose, categories }) {
     </div>
   );
 }
+

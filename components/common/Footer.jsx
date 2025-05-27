@@ -88,6 +88,7 @@ const Footer = () => {
   // const settings= await useSettigs()
 
   const [settings, setSettings] = useState(null);
+
   const [paymentMethods, setPaymentMethods] = useState([]);
 
   useEffect(() => {
@@ -112,7 +113,6 @@ const Footer = () => {
 
   // console.log("paymentMethods from footer: ", paymentMethods);
 
-
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
   // const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
   const company_email = getMetaValueByMetaName(settings, "company_email") || "";
@@ -121,12 +121,17 @@ const Footer = () => {
   const instagramLink =
     getMetaValueByMetaName(settings, "instagram_url") || "#";
   const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
+  const footer_content =
+    getMetaValueByMetaName(settings, "footer_content") || "";
+  const bottom_footer_content =
+    getMetaValueByMetaName(settings, "bottom_footer_content") || "";
 
   return (
     <div className="w-full">
       <div className="w-full bg-[#FFF4DE] md:px-32 py-[60px] flex justify-center">
         <div className="flex flex-col gap-[60px] w-full lg:max-w-[1378px] px-5 2xl:px-0">
-          {/* Logo */}
+        <div>
+            {/* Logo */}
           <div className="flex justify-center">
             <Link href="/" className="cursor-pointer">
               <Image src={footerData.logo} alt="Logo" width={160} height={40} />
@@ -134,9 +139,11 @@ const Footer = () => {
           </div>
 
           {/* Description */}
-          <p className="text-center text-sm text-black leading-relaxed whitespace-pre-line">
-            {footerData.description}
-          </p>
+          <div
+            className="text-center text-sm text-black leading-relaxed whitespace-pre-line mt-3"
+            dangerouslySetInnerHTML={{ __html: footer_content }}
+          />
+        </div>
 
           {/* Footer Sections */}
           <div className="flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
@@ -201,15 +208,18 @@ const Footer = () => {
             </FooterSection>
           </div>
         </div>
+
+
       </div>
 
       {/* Copyright */}
       <div className="w-full bg-primary-strong py-2.5 md:px-32">
         <div className="w-full px-5 2xl:px-0 md:max-w-[1378px] mx-auto">
           <div className="w-full flex flex-col items-start md:flex-row md:justify-between">
-            <span className="text-white text-sm">
-              ©2021 Just Baked All rights reserved
-            </span>
+            <div
+              className="text-white text-sm"
+              dangerouslySetInnerHTML={{ __html: bottom_footer_content }}
+            />
             <div className="flex items-center gap-3 text-white text-lg">
               <Link href={facebookLink} aria-label={""}>
                 <span className="hover:text-gray-300">
