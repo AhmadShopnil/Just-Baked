@@ -22,25 +22,26 @@ export default function CategoryDropdown({ onClose, categories }) {
 
   return (
     <div
-      ref={dropdownRef}
+      // ref={dropdownRef}
       className="absolute sm:top-48 md:top-0 left-0 w-full bg-white shadow-lg z-50"
     >
       <ul>
         {categories?.map((category) => (
-          <li key={category?.id}>
-            <Link
-              href={`/shop?category=${category?.name.toLowerCase()}`}
-              className="flex justify-between pl-4 pr-2 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              {category?.name}
-              <span>
-                <ChevronRight />
-              </span>
-            </Link>
-          </li>
+          <Link
+            key={category?.id}
+            href={`/shop`}
+            // href={`/shop?category=${category?.name.toLowerCase()}`}
+            className="flex justify-between pl-4 pr-2 py-2 text-sm text-gray-700
+             hover:bg-gray-100 border-b border-gray-200"
+            
+          >
+            {category?.name}
+            <span>
+              <ChevronRight />
+            </span>
+          </Link>
         ))}
       </ul>
     </div>
   );
 }
-

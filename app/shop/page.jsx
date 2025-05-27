@@ -3,12 +3,8 @@
 import Shop from "@/components/shop/Shop";
 import axiosInstance from "@/helpers/axiosInstance";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 const Page = () => {
-  const searchParams = useSearchParams();
-  const categoryFromURL = searchParams.get("category");
-
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -18,13 +14,6 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  // ✅ Set selected category from URL query
-  useEffect(() => {
-    if (categoryFromURL && !selectedCategories.includes(categoryFromURL)) {
-      setSelectedCategories([categoryFromURL]);
-    }
-  }, [categoryFromURL]);
 
   // ✅ Fetch categories
   useEffect(() => {

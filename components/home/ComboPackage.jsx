@@ -6,34 +6,6 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import axiosInstance from "@/helpers/axiosInstance";
 
-// const comboPackages = [
-//   {
-//     title: "Spinach Pizza & Burger",
-//     description:
-//       "Goodbye to mom's worries! Serve your child healthy, nutritious snacks and tiffin.",
-//     image: "/image/ComboPackage/2.webp",
-//     link: "/order/spinach-pizza-burger",
-//   },
-//   {
-//     title: "Chicken mixed vegetable chowmein and Chicken drumsticks",
-//     description: "",
-//     image: "/image/ComboPackage/1.webp",
-//     link: "/order/chicken-veg-chowmein",
-//   },
-//   {
-//     title: "Spinach Pizza & Burger 222",
-//     description:
-//       "Goodbye to mom's worries! Serve your child healthy, nutritious snacks and tiffin 222.",
-//     image: "/image/ComboPackage/2.webp",
-//     link: "/order/spinach-pizza-burger",
-//   },
-//   {
-//     title: "Chicken mixed vegetable chowmein and Chicken drumsticks 222",
-//     description: "",
-//     image: "/image/ComboPackage/1.webp",
-//     link: "/order/chicken-veg-chowmein",
-//   },
-// ];
 
 export default function ComboPackage() {
   const [comboPackages, setComboPackages] = useState([]);
@@ -51,7 +23,7 @@ export default function ComboPackage() {
       });
   }, []);
 
-  console.log("Combos : ", comboPackages);
+  // console.log("Combos : ", comboPackages);
 
   const totalPages = Math.ceil(comboPackages.length / itemsPerPage);
 
