@@ -8,12 +8,22 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { useSettings } from "@/hooks/useSettings";
 import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
 import axiosInstance from "@/helpers/axiosInstance";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaInstagram,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const TopBar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
- const [settings, setSettings] = useState(null);
+  const [settings, setSettings] = useState(null);
 
   useEffect(() => {
     axiosInstance
@@ -26,20 +36,21 @@ const TopBar = () => {
       });
   }, []);
 
-// const { settings, loading, error } = useSettings();
-const phone = getMetaValueByMetaName(settings, "company_phone") || "";
-const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
-
-
-
-// console.log("settfing from topbar: ",settings)
+  // const { settings, loading, error } = useSettings();
+  const phone = getMetaValueByMetaName(settings, "company_phone") || "";
+  const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
+  const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
+  // console.log("settfing from topbar: ",settings)
 
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
+    { name: "Bakery ", href: "/bakery " },
+    { name: "Fast Food", href: "/fast_food" },
+    { name: "Frozen Snacks", href: "/frozen_nacks" },
     { name: "Cart", href: "/cart" },
     { name: "Dashboard", href: "/dashboard" },
-    // { name: "Dashboard2", href: "/dashboard2" },
+    { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -83,21 +94,28 @@ const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
       </div>
 
       {/* Contact Info */}
-      <div className="hidden lg:flex items-center gap-[6px]">
-        <Image
-          src="/image/Header Image/Vector (1).svg"
-          alt="Phone Icon"
-          width={50}
-          height={40}
-        />
-        <div className="grid-cols-1">
+      <div className="hidden lg:flex flex-col items-center gap-[6px] ">
+        <a
+          href={`tel:${phone}`}
+          className="flex items-center gap-2 hover:underline"
+        >
+          <FaPhoneAlt className="w-5 h-5 text-gray-700" />
           <span className="text-black text-sm font-medium leading-[16px]">
             {phone}
-            {/* +880 1711 535 658, */}
-            <br />
-          {phone2}
           </span>
-        </div>
+        </a>
+
+        <a
+          href={`https://wa.me/${whatsApp.replace(/[^0-9]/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <FaWhatsapp className="w-6 h-6 " />
+          <span className="text-black text-sm font-medium leading-[16px]">
+            {phone}
+          </span>
+        </a>
       </div>
 
       {/* Mobile Menu Icon */}
@@ -134,18 +152,28 @@ const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
               );
             })}
             {/* Contact for mobile */}
-            <div className="flex items-start gap-[6px] pt-3 border-t border-gray-200">
-              <Image
-                src="/image/Header Image/Vector (1).svg"
-                alt="Phone Icon"
-                width={30}
-                height={30}
-              />
-              <div className="text-black text-sm font-medium leading-[16px]">
-                +880 1711 535 658,
-                <br />
-                +880 1755 682 026
-              </div>
+            <div className="flex flex-col items-start gap-[6px] pt-3 border-t border-gray-200">
+              <a
+                href={`tel:${phone}`}
+                className="flex items-center gap-2 hover:underline"
+              >
+                <FaPhoneAlt className="w-5 h-5 text-gray-700" />
+                <span className="text-black text-sm font-medium leading-[16px]">
+                  {phone}
+                </span>
+              </a>
+
+              <a
+                href={`https://wa.me/${whatsApp.replace(/[^0-9]/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <FaWhatsapp className="w-6 h-6 text-green-600" />
+                <span className="text-black text-sm font-medium leading-[16px]">
+                  {whatsApp}
+                </span>
+              </a>
             </div>
           </div>
         </div>

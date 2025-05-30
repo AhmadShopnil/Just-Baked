@@ -16,7 +16,7 @@ const Mainmenu = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { state } = useCart();
 
-const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
     axiosInstance
@@ -32,19 +32,11 @@ const [categories, setCategories] = useState(null);
   }, []);
   // console.log("categories:", categories);
 
-
-
-
-
-
-
   const cart = state.items;
   const subtotal = useMemo(
     () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
     [cart]
   );
-
-
 
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
@@ -61,7 +53,6 @@ const [categories, setCategories] = useState(null);
     setIsCartOpen(false);
   };
 
-
   return (
     <div
       onClick={closeDropdowns}
@@ -74,8 +65,10 @@ const [categories, setCategories] = useState(null);
       <div className="flex py-2 lg:py-5 justify-between items-center self-stretch w-full relative">
         {/* Left group (Browse & Offer) */}
         <div className="  hidden lg:flex gap-[30px] ">
-          <div className="relative">
-            {/* Browse Category */}
+          {/* Browse Category */}
+
+          {/* <div className="relative">
+         
             <div
               className="flex h-[38px] px-5 py-[7px] items-center gap-10 rounded-[5px] bg-primary-strong cursor-pointer"
               onClick={(e) => {
@@ -109,7 +102,7 @@ const [categories, setCategories] = useState(null);
                 <CategoryDropdown categories={categories} onClose={() => setIsCategoriesOpen(false)} />
               </div>
             )}
-          </div>
+          </div> */}
           {/* Offer */}
           <button className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] bg-orange-600 cursor-pointer">
             <Image
@@ -147,7 +140,9 @@ const [categories, setCategories] = useState(null);
               width={16}
               height={16}
             />
-            <h4 className="uppercase text-primary-strong hidden xl:flex">login/register</h4>
+            <h4 className="uppercase text-primary-strong hidden xl:flex">
+              login/register
+            </h4>
           </button>
           <LoginModal
             isOpen={isLoginModalOpen}
@@ -169,11 +164,16 @@ const [categories, setCategories] = useState(null);
             />
             <span className="text-black font-bold">{cart?.length}</span>
 
-            {isCartOpen && <CartDropdown cart={cart} subtotal={subtotal} onClose={()=>setIsCartOpen(false)}/>}
+            {isCartOpen && (
+              <CartDropdown
+                cart={cart}
+                subtotal={subtotal}
+                onClose={() => setIsCartOpen(false)}
+              />
+            )}
           </div>
         </div>
       </div>
-
 
       {/* Mobile Menu */}
       <div className="lg:hidden w-full  pb-4 space-y-4 ">
@@ -208,8 +208,8 @@ const [categories, setCategories] = useState(null);
           </Link>
         </div>
 
-        {/* Browse */}
-        <div
+        {/* Browse category start */}
+        {/* <div
           className="flex items-center justify-between bg-primary-strong text-white px-4 py-2 rounded cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
@@ -231,9 +231,11 @@ const [categories, setCategories] = useState(null);
           >
             <CategoryDropdown onClose={() => setIsCategoriesOpen(false)} />
           </div>
-        )}
+        )} */}
 
-        {/* Offer */}
+        {/* Browse category end */}
+        
+        {/* Offer start */}
         <div className="flex items-center gap-2 bg-orange-600 px-4 py-2 rounded text-white font-bold uppercase">
           <Image
             src="/image/Header Image/Vector (2).svg"

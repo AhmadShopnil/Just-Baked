@@ -15,12 +15,23 @@ export default function ShoppingCart() {
 
   const cart = state.items;
 
-  // console.log("cart item ", cart);
+  console.log("cart item ", cart);
+
+  // const subtotal = useMemo(
+  //   () => cart.reduce((acc, item) => acc + item?.price * item.quantity, 0),
+  //   [cart]
+  // );
 
   const subtotal = useMemo(
-    () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    () =>
+      cart.reduce((acc, item) => {
+        const price = parseFloat(item?.price) || 0;
+        return acc + price * item.quantity;
+      }, 0),
     [cart]
   );
+  
+
 
   const total = subtotal + shipping - discount;
 

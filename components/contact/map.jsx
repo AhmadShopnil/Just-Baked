@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
-
-// Images
-
-import phoneIcon from "@/public/image/contact/phone.svg";
-import fbIcon from "@/public/image/contact/fb.svg";
-import emailIcon from "@/public/image/contact/email.svg";
-import locationIcon from "@/public/image/contact/location.svg";
 import Image from "next/image";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaInstagram,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa";
+
 import axiosInstance from "@/helpers/axiosInstance";
 import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
 
-
-
 const Map = () => {
- const [settings, setSettings] = useState(null);
+  const [settings, setSettings] = useState(null);
 
   useEffect(() => {
     axiosInstance
@@ -29,23 +30,15 @@ const Map = () => {
       });
   }, []);
 
-  // console.log("settings from footer: ", settings);
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
   const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
+  const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
   const company_email = getMetaValueByMetaName(settings, "company_email") || "";
   const facebookLink = getMetaValueByMetaName(settings, "facebook_url") || "#";
-  const linkedinLink = getMetaValueByMetaName(settings, "linkedin_url") || "#";
-  const instagramLink =
-    getMetaValueByMetaName(settings, "instagram_url") || "#";
- const youtubeLink = getMetaValueByMetaName(settings, "youtube_url") || "#";
-
-const office_location = getMetaValueByMetaName(settings, "office_location") || "";
-
-
-
+  const office_location = getMetaValueByMetaName(settings, "office_location") || "";
 
   return (
-    <div className="absolute w-full top-40 right:0 md:right-2  ">
+    <div className="absolute w-full top-40 right:0 md:right-2">
       <div className="relative max-w-screen-lg mx-auto">
         <div className="relative flex flex-col-reverse md:flex-row gap-6 items-center md:items-stretch">
           {/* Map */}
@@ -55,58 +48,61 @@ const office_location = getMetaValueByMetaName(settings, "office_location") || "
               width="100%"
               height="100%"
               style={{ border: 0 }}
-              allowFullScreen=""
+              allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
 
           {/* Contact Box */}
-          <div className="w-[90%] max-w-sm bg-[#5c4d28] text-white p-6 rounded-lg 
-          shadow-lg absolute left-1/2 transform -translate-x-1/2  md:translate-x-0 
-           top-6 md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10">
-            {/* Content unchanged */}
+          <div
+            className="w-[90%] max-w-sm bg-[#5c4d28] text-white p-6 rounded-lg 
+            shadow-lg absolute left-1/2 transform -translate-x-1/2 md:translate-x-0 
+            top-6 md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10"
+          >
             <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
             <p className="text-white text-sm font-normal">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             </p>
+
             <div className="flex flex-col gap-5 mt-2 text-sm">
               {/* Phone */}
-              <div className="flex items-center gap-[30px]">
-                <Image src={phoneIcon} alt="Phone icon" />
-                <span className="text-white font-normal">
-                 {phone}
-                  <br />
-                  {phone2}
-                </span>
+              <div className="flex items-center gap-4">
+                <FaPhoneAlt className="w-5 h-5 text-white" />
+                <span>{phone}</span>
               </div>
 
               {/* Facebook */}
-              <div className="flex items-center gap-[30px]">
-                <Image src={fbIcon} alt="Facebook icon" />
-                <span className="text-white font-normal">{facebookLink}</span>
+              <div className="flex items-center gap-4">
+                <FaFacebookF className="w-5 h-5 text-white" />
+                <span>{facebookLink}</span>
               </div>
 
               {/* Email */}
-              <div className="flex items-center gap-[30px]">
-                <Image src={emailIcon} alt="Email icon" />
-                <span className="text-white font-normal">
-                  {company_email}
-                </span>
+              <div className="flex items-center gap-4">
+                <FaEnvelope className="w-5 h-5 text-white" />
+                <span>{company_email}</span>
               </div>
 
               {/* Location */}
-              <div className="flex items-center gap-[30px]">
-                <Image src={locationIcon} alt="Location icon" />
-                <span className="text-white font-normal">
-                  {office_location}
-                  {/* W/20, Noorjahan Road
-                  <br />
-                  Mohammadpur, Dhaka-1207 */}
-                </span>
+              <div className="flex items-center gap-4">
+                <FaMapMarkerAlt className="w-5 h-5 text-white" />
+                <span>{office_location}</span>
               </div>
             </div>
+
+            {/* WhatsApp Button */}
+            <a
+              href={`https://wa.me/${whatsApp.replace(/[^0-9]/g, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-3 px-4 py-2 bg-[#5c4d28]
+               hover:bg-green-700 text-white rounded-lg
+                transition-all duration-200 border-white border-2"
+            >
+              <FaWhatsapp className="w-5 h-5" />
+              Message us on WhatsApp
+            </a>
           </div>
         </div>
       </div>

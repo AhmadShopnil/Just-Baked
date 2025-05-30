@@ -21,13 +21,24 @@ export default function Product({ product }) {
     "discounted_price"
   );
 
+  // const selectedItem = {
+  //   id: product.id,
+  //   name: product.name,
+  //   price: product.price,
+  //   image: product?.featured_image,
+  //   quantity: quantity,
+  // };
+
   const selectedItem = {
     id: product.id,
-    name: product.name,
-    price: product.price,
+    name: product?.name,
+    price: discounted_price,
+    original_price: original_price,
     image: product?.featured_image,
     quantity: quantity,
   };
+
+  console.log("from porduct page", selectedItem);
 
   const handleAddTocart = () => {
     dispatch({ type: "ADD_ITEM", payload: selectedItem });
@@ -58,7 +69,7 @@ export default function Product({ product }) {
         {/* <span className="mx-1">/</span> */}
         {/* <Link href="/frozen-snacks" className="hover:text-gray-700">Frozen Snacks</Link> */}
         {/* <span className="mx-1">/</span> */}
-        <span className="text-gray-900">{product.name}</span>
+        <span className="text-gray-900">{product?.name}</span>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 py-10">
@@ -68,7 +79,7 @@ export default function Product({ product }) {
             <div className="relative h-[450px] w-full">
               <Image
                 src={mainImage || "/placeholder.svg"}
-                alt={product.name}
+                alt={product?.name}
                 fill
                 className="object-contain"
                 priority
@@ -77,7 +88,7 @@ export default function Product({ product }) {
           </div>
 
           <div className="flex gap-4">
-            {images.map((image, index) => (
+         {images && images?.map((image, index) => (
               <div
                 key={index}
                 className={`shadow-md border rounded-md p-2 w-20 h-20 relative ${
@@ -93,7 +104,7 @@ export default function Product({ product }) {
                   onClick={() => handleThumbnailClick(image)}
                 />
               </div>
-            ))}
+            ))}   
           </div>
         </div>
 
@@ -101,10 +112,10 @@ export default function Product({ product }) {
         <div className="w-full md:w-3/5">
           <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
           <div className="text-2xl font-bold mb-4">৳ {discounted_price}/-</div>
-           <div
-              className='text-gray-600 mb-6'
-              dangerouslySetInnerHTML={{ __html: product?.description }}
-            />
+          <div
+            className="text-gray-600 mb-6"
+            dangerouslySetInnerHTML={{ __html: product?.description }}
+          />
           {/* <p className="text-gray-600 mb-6">
              
             {product?.description}
