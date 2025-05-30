@@ -1,35 +1,30 @@
 "use client";
 
 import { useCart } from "@/hooks/useCart";
-
-
-// import { addToCart } from "@/utils/cart";
+import toast from "react-hot-toast";
 
 export default function ConfirmAddToCartModal({ show, onClose, product }) {
   if (!show) return null;
 
-
-console.log("from modal", product)
-
+  // console.log("from modal", product)
 
   const { dispatch } = useCart();
-   const handleAddTocart = () => {
-     dispatch({ type: 'ADD_ITEM', payload: product });
-   };
- 
-
-
+  const handleAddTocart = () => {
+    dispatch({ type: "ADD_ITEM", payload: product });
+  };
 
   const handleConfirm = () => {
-    // addToCart(product);
-    handleAddTocart()
+    handleAddTocart();
+    toast.success(`${product?.name} added to cart!`);
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300">
       <div className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl scale-95 animate-fade-in">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Add this to your cart?</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Add this to your cart?
+        </h2>
 
         <div className="flex items-start gap-4">
           <img
@@ -38,11 +33,20 @@ console.log("from modal", product)
             className="w-24 h-24 object-cover rounded-xl shadow"
           />
           <div className="flex flex-col">
-            <h3 className="text-lg font-semibold text-gray-900">{product?.name}</h3>
-            <p className="text-sm text-gray-600 mt-1 line-clamp-2">{product?.short_description || "No description available."}</p>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {product?.name}
+            </h3>
+            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+              {product?.short_description || "No description available."}
+            </p>
             <div className="mt-2 text-sm text-gray-700">
-              <p>Price: <span className="font-medium">৳ {product.price}</span></p>
-              <p>Quantity: <span className="font-medium">{product.quantity}</span></p>
+              <p>
+                Price: <span className="font-medium">৳ {product.price}</span>
+              </p>
+              <p>
+                Quantity:{" "}
+                <span className="font-medium">{product.quantity}</span>
+              </p>
             </div>
           </div>
         </div>

@@ -3,9 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
-
 import ReduxProvider from "@/providers/ReduxProvider";
 import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +44,7 @@ export default function RootLayout({ children }) {
             </div>
           </CartProvider>
         </ReduxProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

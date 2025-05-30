@@ -45,9 +45,9 @@ const TopBar = () => {
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
-    { name: "Bakery ", href: "/bakery " },
-    { name: "Fast Food", href: "/fast_food" },
-    { name: "Frozen Snacks", href: "/frozen_nacks" },
+    { name: "Bakery ", href: "/shop " },
+    { name: "Fast Food", href: "/shop" },
+    { name: "Frozen Snacks", href: "/shop" },
     { name: "Cart", href: "/cart" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "About", href: "/about" },

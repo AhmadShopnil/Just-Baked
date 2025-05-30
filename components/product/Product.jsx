@@ -1,12 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Description from "./Description";
 import { useCart } from "@/hooks/useCart";
 import { getMetaValueFromExtra_Fields } from "@/helpers/metaHelpers";
+import ConfirmAddToCartModal from "../shared/ConfirmAddToCartModal";
 
 export default function Product({ product }) {
+  const [openModal, setOpenModal] = useState(false);
   const { dispatch } = useCart();
   const [mainImage, setMainImage] = useState(product?.featured_image);
   const [quantity, setQuantity] = useState(1);
@@ -21,14 +23,6 @@ export default function Product({ product }) {
     "discounted_price"
   );
 
-  // const selectedItem = {
-  //   id: product.id,
-  //   name: product.name,
-  //   price: product.price,
-  //   image: product?.featured_image,
-  //   quantity: quantity,
-  // };
-
   const selectedItem = {
     id: product.id,
     name: product?.name,
@@ -38,7 +32,7 @@ export default function Product({ product }) {
     quantity: quantity,
   };
 
-  console.log("from porduct page", selectedItem);
+  // console.log("from porduct page", selectedItem);
 
   const handleAddTocart = () => {
     dispatch({ type: "ADD_ITEM", payload: selectedItem });
@@ -65,10 +59,7 @@ export default function Product({ product }) {
           Home
         </Link>
         <span className="mx-1">/</span>
-        {/* <Link href="/snacks" className="hover:text-gray-700">Snacks & Drinks</Link> */}
-        {/* <span className="mx-1">/</span> */}
-        {/* <Link href="/frozen-snacks" className="hover:text-gray-700">Frozen Snacks</Link> */}
-        {/* <span className="mx-1">/</span> */}
+
         <span className="text-gray-900">{product?.name}</span>
       </div>
 
@@ -88,23 +79,24 @@ export default function Product({ product }) {
           </div>
 
           <div className="flex gap-4">
-         {images && images?.map((image, index) => (
-              <div
-                key={index}
-                className={`shadow-md border rounded-md p-2 w-20 h-20 relative ${
-                  mainImage === image ? "border-amber-600" : "border-gray-200"
-                }`}
-              >
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt={`${product.name} thumbnail ${index + 1}`}
-                  width={85}
-                  height={85}
-                  className="object-contain cursor-pointer"
-                  onClick={() => handleThumbnailClick(image)}
-                />
-              </div>
-            ))}   
+            {images &&
+              images?.map((image, index) => (
+                <div
+                  key={index}
+                  className={`shadow-md border rounded-md p-2 w-20 h-20 relative ${
+                    mainImage === image ? "border-amber-600" : "border-gray-200"
+                  }`}
+                >
+                  <Image
+                    src={image || "/placeholder.svg"}
+                    alt={`${product.name} thumbnail ${index + 1}`}
+                    width={85}
+                    height={85}
+                    className="object-contain cursor-pointer"
+                    onClick={() => handleThumbnailClick(image)}
+                  />
+                </div>
+              ))}
           </div>
         </div>
 
@@ -139,14 +131,15 @@ export default function Product({ product }) {
                 +
               </button>
             </div>
-            <Link
-              href="/cart"
-              onClick={handleAddTocart}
+            <button
+              // href="/cart"
+              onClick={() => setOpenModal(true)}
+              // onClick={handleAddTocart}
               className="bg-[#724B00] text-white py-[7px] px-6 rounded hover:bg-[#724B12]
               transition-transform duration-150 ease-in-out text-sm cursor-pointer active:scale-95"
             >
               ADD TO CART
-            </Link>
+            </button>
           </div>
 
           <div className="border border-gray-200"></div>
@@ -195,6 +188,12 @@ export default function Product({ product }) {
 
       {/* Tabs */}
       <Description />
+
+      <ConfirmAddToCartModal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        product={selectedItem}
+      />
     </div>
   );
 }

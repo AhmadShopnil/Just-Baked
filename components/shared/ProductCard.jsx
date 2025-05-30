@@ -14,12 +14,7 @@ export default function ProductCard({ product, i }) {
     buttonVariant = "primary-strong",
   } = product;
 
-
-
-
   const [openModal, setOpenModal] = useState(false);
-
-
 
   return (
     <>

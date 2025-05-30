@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function CheckoutPage() {
@@ -173,12 +174,13 @@ export default function CheckoutPage() {
             </label>
           </div>
 
-          <button
+          <Link
+          href='/order/success'
             onClick={handleSubmitOrder}
-            className="w-full bg-[#724B00] text-white py-2 rounded-md hover:bg-[#5e3d00] transition"
+            className="w-full bg-[#724B00] text-white px-5 py-2 rounded-md hover:bg-[#5e3d00] transition"
           >
             Place Order
-          </button>
+          </Link>
         </div>
       </div>
     </div>
