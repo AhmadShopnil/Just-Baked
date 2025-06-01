@@ -1,8 +1,22 @@
-import Image from "next/image";
-import Button from "../shared/Button";
+import { BASE_URL } from "@/helpers/baseUrl";
+import Link from "next/link";
 
-export default function HeroSection() {
+export default async function HeroSection() {
   const isOfferAvailable = true;
+
+  const url = `${BASE_URL}/posts?term_type=hero`;
+  // const url = `http://justbakedbd.com/api/v1/posts?term_type=product`;
+  let heroItems = [];
+  try {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error("Failed to fetch heroItems");
+    }
+    const data = await res.json();
+    heroItems = data?.data || [];
+  } catch (error) {
+    console.error("Error fetching heroItems:", error);
+  }
 
   return (
     <div
@@ -22,19 +36,27 @@ export default function HeroSection() {
         >
           <div
             className="h-full w-full bg-bottom-right md:bg-right bg-no-repeat bg-contain pl-5 
-          md:px-[76px] bg-[url('/image/BannerImage/fastFood.webp')] rounded-2xl"
+  md:px-[76px] rounded-2xl"
+            style={{
+              backgroundImage: `url(${
+                heroItems[0]?.featured_image ||
+                "/image/BannerImage/fastFood.webp"
+              })`,
+            }}
           >
             <div className="flex flex-col justify-center gap-[30px] max-w-[446px] h-full">
               <h1 className="text-2xl md:text-[38px] text-primary-strong font-semibold text-wrap">
-                Freshly Baked Delights, Delivered to You!
+                {heroItems[0]?.name}
               </h1>
               <p className="text-sm md:text-lg text-black font-normal">
-                Croissants, pizza, burgers, patties, chow mein, and fresh bread
-                daily.
+                {heroItems[0]?.sub_title}
               </p>
-              <button className="cursor-pointer py-2 md:py-2.5 px-5 rounded-[5px] bg-primary-strong mt-5 w-fit">
+              <Link
+                href="/shop"
+                className="cursor-pointer py-2 md:py-2.5 px-5 rounded-[5px] bg-primary-strong mt-5 w-fit"
+              >
                 <span className="text-sm font-bold text-white">SHOP NOW</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -53,14 +75,15 @@ export default function HeroSection() {
                 <p className="text-sm md:text-lg text-white font-normal max-w-60">
                   Enjoy 20% off when you buy one Spinach Pizza.
                 </p>
-                <button
+                <Link
+                  href="/shop"
                   className="w-fit cursor-pointer bg-white rounded-[5px]
                 mt-5 py-2 md:py-2.5 px-5"
                 >
                   <span className="uppercase text-sm font-bold text-primary-strong">
                     Shop now
                   </span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>

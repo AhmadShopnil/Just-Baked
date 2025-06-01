@@ -43,11 +43,11 @@ const TopBar = () => {
   // console.log("settfing from topbar: ",settings)
 
   const menuItems = [
-    { name: "Home", href: "/" },
-    { name: "Shop", href: "/shop" },
-    { name: "Bakery ", href: "/shop " },
-    { name: "Fast Food", href: "/shop" },
-    { name: "Frozen Snacks", href: "/shop" },
+    // { name: "Home", href: "/" },
+    // { name: "Shop", href: "/shop" },
+    { name: "Bakery ", href: "/shop/bekery" },
+    { name: "Fast Food", href: "/shop/fast-food" },
+    { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
     { name: "Cart", href: "/cart" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "About", href: "/about" },

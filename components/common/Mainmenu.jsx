@@ -15,21 +15,43 @@ const Mainmenu = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { state } = useCart();
-
   const [categories, setCategories] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    axiosInstance
-      .get(
-        "/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No"
-      )
-      .then((response) => {
-        setCategories(response?.data?.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching settings:", error);
-      });
-  }, []);
+    const fetchSuggestions = async () => {
+      if (searchTerm.length > 0) {
+        try {
+          const res = await axiosInstance.get(
+            `/posts?term_type=product&s=${searchTerm}`
+          );
+          setSuggestions(res.data.data);
+        } catch (error) {
+          console.error("Failed to fetch suggestions:", error);
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    fetchSuggestions();
+  }, [searchTerm]);
+
+  // console.log("suggetions", suggestions);
+
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get(
+  //       "/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No"
+  //     )
+  //     .then((response) => {
+  //       setCategories(response?.data?.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching settings:", error);
+  //     });
+  // }, []);
   // console.log("categories:", categories);
 
   const cart = state.items;
@@ -118,14 +140,36 @@ const Mainmenu = () => {
         </div>
 
         {/* Search */}
-        <div className="hidden lg:block">
-          <input
-            type="search"
-            placeholder="Search for product"
-            className="border border-primary-strong focus:outline-none 
+
+        <div className="relative w-64 md:w-44 lg:w-sm 2xl:w-[712px]">
+          <div className="hidden lg:block">
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onBlur={() => {
+                setTimeout(() => setSuggestions([]), 100);
+              }}
+              placeholder="Search for product"
+              className="border border-primary-strong focus:outline-none 
             h-[38px] w-64 md:w-44 lg:w-sm 2xl:w-[712px] py-[7px]
              px-5 rounded-[5px]"
-          />
+            />
+          </div>
+          {suggestions.length > 0 && (
+            <div className="absolute top-10 left-0 right-0 bg-white border border-gray-300 mt-1 z-20">
+              {suggestions.map((suggestion) => (
+                <Link
+                  key={suggestion.id}
+                  href={`/products/${suggestion?.slug}`}
+                  className="block px-3 py-2 hover:bg-gray-200"
+                  onClick={() => setSearchTerm("")}
+                >
+                  {suggestion.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Login & Cart */}
@@ -234,7 +278,7 @@ const Mainmenu = () => {
         )} */}
 
         {/* Browse category end */}
-        
+
         {/* Offer start */}
         <div className="flex items-center gap-2 bg-orange-600 px-4 py-2 rounded text-white font-bold uppercase">
           <Image

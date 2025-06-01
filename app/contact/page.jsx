@@ -1,14 +1,29 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import overlay from "@/public/image/contact/overlay.png";
-import logo from "@/public/image/Footer/Logo.svg";
-import rectBackground from "@/public/image/contact/Rectangle.png";
 import Map from "@/components/contact/map";
+import { BASE_URL } from "@/helpers/baseUrl";
+import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
 
-export default function ContactSection() {
+export default async function ContactSection() {
+  const url = `${BASE_URL}/frontend/settings`;
+  let settings = [];
+  try {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error("Failed to fetch settings");
+    }
+    const data = await res.json();
+    settings = data || [];
+  } catch (error) {
+    console.error("Error fetching best settings:", error);
+  }
+
+  const contact_us_content =
+    getMetaValueByMetaName(settings, "contact_us_content") || "";
+
+
+// console.log("contact_us_content : ", contact_us_content)
+// console.log("settings : ", settings)
+
   return (
-    // Main layer
     <div
       className="bg-[#FFE6C5] min-h-[1100px] md:min-h-[800px] "
       style={{
@@ -31,23 +46,29 @@ export default function ContactSection() {
             backgroundImage: "url('/image/contact/Rectangle.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            opacity: 0.4, // Adjust this for desired visibility
+            opacity: 0.4, 
           }}
         />
 
         <div className="">
           {/* Content */}
-          <div className="relative z-10 text-white text-center">
+          <div className="relative z-10 text-white text-center mb-8">
             <h1 className="text-[40px] font-bold">Get In Touch</h1>
-            <p className="font-semibold text-md mb-8 max-w-2xl mx-auto">
+
+            <div
+              className="font-semibold text-md  max-w-2xl mx-auto"
+              dangerouslySetInnerHTML={{ __html: contact_us_content }}
+            />
+
+            {/* <p className="font-semibold text-md  max-w-2xl mx-auto">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            </p> */}
           </div>
 
           {/* Map */}
           <div className="relative -top-44 z-10">
-            <Map />
+            <Map settings={settings} />
           </div>
         </div>
       </div>

@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import Shop from "@/components/shop/Shop";
+
+import Shop from "@/components/shop/shop2";
 import axiosInstance from "@/helpers/axiosInstance";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Page = () => {
+ 
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [sortBy, setSortBy] = useState("newest");
   const [productsPerPage, setProductPerPage] = useState(2);
@@ -15,31 +16,12 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // ✅ Fetch categories
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoryUrl = `/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No`;
-        const res = await axiosInstance.get(categoryUrl);
-        setCategories(res.data?.data || []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
-  }, []);
-
   // ✅ Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         let query = `/posts?term_type=product&per_page=${productsPerPage}&page=${currentPage}&is_status=publish`;
-
-        // Category filter
-        if (selectedCategories.length === 1) {
-          query += `&category_slug=${selectedCategories[0]}`;
-        }
 
         // Sorting
         if (sortBy === "newest") {
@@ -69,24 +51,20 @@ const Page = () => {
     };
 
     fetchProducts();
-  }, [selectedCategories, priceRange, sortBy, currentPage, productsPerPage]);
+  }, [priceRange, sortBy, currentPage, productsPerPage]);
+
+  // console.log("slug: ", slug)
 
   return (
     <Shop
       products={products}
-      categories={categories}
-      selectedCategories={selectedCategories}
-      setSelectedCategories={setSelectedCategories}
-      priceRange={priceRange}
-      setPriceRange={setPriceRange}
       sortBy={sortBy}
       setSortBy={setSortBy}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
-      productsPerPage={productsPerPage}
-      setProductPerPage={setProductPerPage}
       loading={loading}
       totalPages={totalPages}
+      slug={''}
     />
   );
 };

@@ -1,41 +1,25 @@
-"use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React from "react";
+
 import {
   FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
   FaFacebookF,
-  FaLinkedinIn,
-  FaInstagram,
-  FaYoutube,
   FaWhatsapp,
 } from "react-icons/fa";
 
-import axiosInstance from "@/helpers/axiosInstance";
+
 import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
 
-const Map = () => {
-  const [settings, setSettings] = useState(null);
-
-  useEffect(() => {
-    axiosInstance
-      .get("/frontend/settings")
-      .then((response) => {
-        setSettings(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching settings:", error);
-      });
-  }, []);
-
+const Map = ({settings}) => {
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
   const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
   const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
   const company_email = getMetaValueByMetaName(settings, "company_email") || "";
   const facebookLink = getMetaValueByMetaName(settings, "facebook_url") || "#";
   const office_location = getMetaValueByMetaName(settings, "office_location") || "";
+ 
 
   return (
     <div className="absolute w-full top-40 right:0 md:right-2">
@@ -61,9 +45,7 @@ const Map = () => {
             top-6 md:absolute md:left-6 md:top-1/2 md:transform md:-translate-y-1/2 z-10"
           >
             <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-            <p className="text-white text-sm font-normal">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            </p>
+            
 
             <div className="flex flex-col gap-5 mt-2 text-sm">
               {/* Phone */}
