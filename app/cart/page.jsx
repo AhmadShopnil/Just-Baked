@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/hooks/useCart";
+import { validateCoupon } from "@/helpers/validateCoupon";
 
 export default function ShoppingCart() {
   const [promoCode, setPromoCode] = useState("");
@@ -15,12 +16,8 @@ export default function ShoppingCart() {
 
   const cart = state.items;
 
-  console.log("cart item ", cart);
+  // console.log("cart item ", cart);
 
-  // const subtotal = useMemo(
-  //   () => cart.reduce((acc, item) => acc + item?.price * item.quantity, 0),
-  //   [cart]
-  // );
 
   const subtotal = useMemo(
     () =>
@@ -30,8 +27,6 @@ export default function ShoppingCart() {
       }, 0),
     [cart]
   );
-  
-
 
   const total = subtotal + shipping - discount;
 
@@ -51,14 +46,29 @@ export default function ShoppingCart() {
     setShipping(50);
   };
 
-  const applyPromoCode = () => {
-    if (promoCode.trim().toLowerCase() === "save10") {
-      setDiscount(10);
+  const applyPromoCode = async () => {
+    const res = await validateCoupon(promoCode);
+    // console.log(("prodo dis: ", res));
+
+    if (res?.commission_type == "Parcentage") {
+      const calculateDiscount = (res?.commission * subtotal) / 100;
+      setDiscount(calculateDiscount);
     } else {
-      setDiscount(0);
-      alert("Invalid promo code");
+      setDiscount(res?.commission);
     }
+
+    dispatch({ type: "SET_DISCOUNT", payload: { discount } });
+
+    // if (promoCode.trim().toLowerCase() === "save10") {
+    //   setDiscount(10);
+    // } else {
+    //   setDiscount(0);
+    //   alert("Invalid promo code");
+    // }
   };
+
+console.log("state from cart page: ", state)
+
 
   return (
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">

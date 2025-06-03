@@ -1,5 +1,15 @@
+import React, { createContext, useReducer, useContext, useEffect } from "react";
+
+// 1️⃣ Initial State
+const initialState = {
+  cart: [],
+  total_item: 0,
+  total_amount: 0,
+  discount: 0, // ✅ discount added
+};
+
+// 2️⃣ Reducer
 const cartReducer = (state, action) => {
-  
   switch (action.type) {
     case "ADD_TO_CART": {
       const { product, quantity } = action.payload;
@@ -61,7 +71,7 @@ const cartReducer = (state, action) => {
     }
 
     case "SET_DISCOUNT": {
-      const discount = action.payload; // percentage (e.g. 15 for 15%)
+      const discount = action.payload; // percentage like 15 for 15%
       return {
         ...state,
         discount,
@@ -69,6 +79,7 @@ const cartReducer = (state, action) => {
     }
 
     default:
+      console.warn("Unhandled action:", action.type);
       return state;
   }
 };
