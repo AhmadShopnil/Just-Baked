@@ -1,11 +1,10 @@
 "use client";
-import Link from "next/link";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useCart } from "@/hooks/useCart";
 import { placeOrder } from "@/helpers/placeOrder";
-import { redirect } from "next/navigation";
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("Cash");
@@ -21,8 +20,7 @@ export default function CheckoutPage() {
   const cartItems = state.items;
   const router = useRouter();
 
-console.log("state from checkout page: ", state)
-
+  // console.log("state from checkout page: ", state)
 
   // 🧮 Dynamic totals
   const shippingCost = 50;
@@ -31,7 +29,7 @@ console.log("state from checkout page: ", state)
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const total = subtotal + shippingCost - discount;
+  const total = subtotal + shippingCost - discount?.amount;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,9 +60,9 @@ console.log("state from checkout page: ", state)
         color: "",
         size: "",
       })),
-      promoCode: "check_promo",
+      promoCode: discount?.promoCode,
       promoType: "Fixed",
-      promoAmount,
+      promoAmount: discount?.amount,
       shippingCost,
       total,
     };
@@ -73,7 +71,9 @@ console.log("state from checkout page: ", state)
     try {
       const response = await placeOrder(orderData); // Calling the server action
       toast.success("Order placed successfully!");
-      router.push(`/order/success?orderId=${response.unique_id}&total=${response.total}`);
+      router.push(
+        `/order/success?orderId=${response.unique_id}&total=${response.total}`
+      );
 
       // redirect(`order/success?orderId=${response.id}&total=${response.total}`);
       // console.log("success", responce);
@@ -164,7 +164,7 @@ console.log("state from checkout page: ", state)
               </li>
               <li className="flex justify-between border-b pb-2">
                 <span>Discount</span>
-                <span>-৳ {discount}</span>
+                <span>-৳ {discount?.amount}</span>
               </li>
               <li className="flex justify-between font-semibold pt-2">
                 <span>Total</span>

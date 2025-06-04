@@ -18,7 +18,6 @@ export default function ShoppingCart() {
 
   // console.log("cart item ", cart);
 
-
   const subtotal = useMemo(
     () =>
       cart.reduce((acc, item) => {
@@ -53,22 +52,19 @@ export default function ShoppingCart() {
     if (res?.commission_type == "Parcentage") {
       const calculateDiscount = (res?.commission * subtotal) / 100;
       setDiscount(calculateDiscount);
+
+      dispatch({
+        type: "SET_DISCOUNT",
+        payload: { amount: calculateDiscount,promoCode },
+      });
+
     } else {
       setDiscount(res?.commission);
     }
 
-    dispatch({ type: "SET_DISCOUNT", payload: { discount } });
-
-    // if (promoCode.trim().toLowerCase() === "save10") {
-    //   setDiscount(10);
-    // } else {
-    //   setDiscount(0);
-    //   alert("Invalid promo code");
-    // }
   };
 
-console.log("state from cart page: ", state)
-
+  // console.log("state from cart page: ", state);
 
   return (
     <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
@@ -230,7 +226,7 @@ console.log("state from cart page: ", state)
               </div>
             </div>
             <Link href={"/checkout"} className="cursor-pointer">
-              <button className="bg-primary-strong rounded-md text-white py-2 w-full mt-6 font-bold">
+              <button className="bg-primary-strong rounded-md cursor-pointer text-white py-2 w-full mt-6 font-bold">
                 PROCEED TO CHECKOUT
               </button>
             </Link>

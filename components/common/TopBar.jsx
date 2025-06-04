@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { useSettings } from "@/hooks/useSettings";
@@ -18,12 +18,14 @@ import {
   FaYoutube,
   FaWhatsapp,
 } from "react-icons/fa";
+import { UserContext } from "@/context/UserContext";
 
 const TopBar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [settings, setSettings] = useState(null);
+  
+const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     axiosInstance

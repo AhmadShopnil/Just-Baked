@@ -31,7 +31,7 @@ export default function CartDropdown({ cart, subtotal, onClose }) {
   return (
     <div
       ref={dropdownRef}
-      className="absolute right-0 top-[50px] bg-white rounded-b-sm shadow-xl z-50 p-4 w-64"
+      className="absolute right-0  top-[50px] bg-white rounded-b-sm shadow-xl z-50 p-4 w-64"
     >
       <div className="text-end">
         <button onClick={onClose}>x</button>

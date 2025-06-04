@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import CategoryDropdown from "../shared/CategoryDropdown";
 import CartDropdown from "../shared/CartDropdown";
@@ -9,6 +9,7 @@ import LoginModal from "../shared/LoginModal";
 import { useCart } from "@/hooks/useCart";
 import { useMemo } from "react";
 import axiosInstance from "@/helpers/axiosInstance";
+import { UserContext } from "@/context/UserContext";
 
 const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -18,6 +19,9 @@ const Mainmenu = () => {
   const [categories, setCategories] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const { state: userState, dispatch } = useContext(UserContext);
+
+  const userName = userState?.user?.full_name;
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -171,49 +175,67 @@ const Mainmenu = () => {
             </div>
           )}
         </div>
+        <div>
+          <div className="hidden lg:flex items-center gap-[26px] relative">
+            {/* cart icon */}
 
-        {/* Login & Cart */}
-        <div className="hidden lg:flex items-center gap-[26px] relative">
-          <button
-            className="cursor-pointer flex items-center gap-2.5"
-            onClick={() => setIsLoginModalOpen(true)}
-          >
-            <Image
-              src="/image/Header Image/Vector (4).svg"
-              alt="Login Icon"
-              width={16}
-              height={16}
-            />
-            <h4 className="uppercase text-primary-strong hidden xl:flex">
-              login/register
-            </h4>
-          </button>
-          <LoginModal
-            isOpen={isLoginModalOpen}
-            onClose={() => setIsLoginModalOpen(false)}
-          />
-
-          <div
-            className="flex items-center gap-2.5 cursor-pointer relative"
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleCart();
-            }}
-          >
-            <Image
-              src="/image/Header Image/Vector (5).svg"
-              alt="Cart Icon"
-              width={16}
-              height={16}
-            />
-            <span className="text-black font-bold">{cart?.length}</span>
-
-            {isCartOpen && (
-              <CartDropdown
-                cart={cart}
-                subtotal={subtotal}
-                onClose={() => setIsCartOpen(false)}
+            <div
+              className="flex items-center gap-2.5 cursor-pointer relative"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCart();
+              }}
+            >
+              <Image
+                src="/image/Header Image/Vector (5).svg"
+                alt="Cart Icon"
+                width={16}
+                height={16}
               />
+              <span className="text-black font-bold">{cart?.length}</span>
+
+              {isCartOpen && (
+                <CartDropdown
+                  cart={cart}
+                  subtotal={subtotal}
+                  onClose={() => setIsCartOpen(false)}
+                />
+              )}
+            </div>
+
+            {/* Login & Cart and user info */}
+            {userName ? (
+              <div className="flex gap-2 justify-center items-center">
+                <Image
+                  src="/image/Header Image/Vector (4).svg"
+                  alt="Login Icon"
+                  width={16}
+                  height={16}
+                />
+
+                <span> {userName}</span>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="cursor-pointer flex items-center gap-2.5"
+                  onClick={() => setIsLoginModalOpen(true)}
+                >
+                  <Image
+                    src="/image/Header Image/Vector (4).svg"
+                    alt="Login Icon"
+                    width={16}
+                    height={16}
+                  />
+                  <h4 className="uppercase text-primary-strong hidden xl:flex">
+                    login/register
+                  </h4>
+                </button>
+                <LoginModal
+                  isOpen={isLoginModalOpen}
+                  onClose={() => setIsLoginModalOpen(false)}
+                />
+              </div>
             )}
           </div>
         </div>

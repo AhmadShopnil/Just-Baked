@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useContext, useState } from "react";
-import { X, Facebook } from "lucide-react";
-import { authAxios } from "@/helpers/axiosInstance";
-import { UserContext } from "@/context/UserContext";
+import { useState } from 'react';
+import { X, Facebook } from 'lucide-react';
+import axiosInstance from '@/lib/axiosInstance';
+
+
 
 export default function LoginModal({ isOpen, onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { state, dispatch } = useContext(UserContext);
 
   if (!isOpen) return null;
 
@@ -20,26 +20,18 @@ export default function LoginModal({ isOpen, onClose }) {
     setError(null);
 
     try {
-      const res = await authAxios.post("/login", { email, password });
+      const res = await axiosInstance.post('/login', { email, password });
       const { access_token, user_data } = res.data;
 
-      const user = {
-        full_name: user_data?.full_name,
-        email: user_data?.email,
-        phone: user_data?.phone,
-      };
-
-      dispatch({ type: "LOGIN", payload: { user: user, token: access_token } });
-
       // Save token to localStorage (or cookie if needed)
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem('token', access_token);
+      localStorage.setItem('user', JSON.stringify(user_data));
 
       // Optional: show success toast, redirect, etc.
       onClose(); // Close modal
     } catch (err) {
       const message =
-        err?.response?.data?.message || "Login failed. Please try again.";
+        err?.response?.data?.message || 'Login failed. Please try again.';
       setError(message);
     } finally {
       setLoading(false);
@@ -52,10 +44,7 @@ export default function LoginModal({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold">Log In</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={20} />
           </button>
         </div>
@@ -127,7 +116,7 @@ export default function LoginModal({ isOpen, onClose }) {
             className="w-full text-sm bg-primary-strong text-white py-2 rounded"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "LOG IN"}
+            {loading ? 'Logging in...' : 'LOG IN'}
           </button>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
