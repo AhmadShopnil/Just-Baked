@@ -24,12 +24,12 @@ export default function CheckoutPage() {
 
   // 🧮 Dynamic totals
   const shippingCost = 50;
-  const discount = state?.discount || 0; // Hardcoded promo discount
+  const discount = state?.discount ; // Hardcoded promo discount
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const total = subtotal + shippingCost - discount?.amount;
+  const total = subtotal + shippingCost - (discount?.amount || 0);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -92,6 +92,7 @@ export default function CheckoutPage() {
             <h2 className="text-xl font-semibold mb-4">Shipping Details</h2>
             <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
+                required
                 type="text"
                 name="name"
                 placeholder="Recipient Name"
@@ -99,6 +100,7 @@ export default function CheckoutPage() {
                 onChange={handleChange}
               />
               <input
+                required
                 type="text"
                 name="address"
                 placeholder="Shipping Address"
@@ -106,6 +108,7 @@ export default function CheckoutPage() {
                 onChange={handleChange}
               />
               <input
+                required
                 type="text"
                 name="thana"
                 placeholder="Thana"
@@ -113,6 +116,7 @@ export default function CheckoutPage() {
                 onChange={handleChange}
               />
               <input
+                required
                 type="text"
                 name="district"
                 placeholder="District"
@@ -120,6 +124,7 @@ export default function CheckoutPage() {
                 onChange={handleChange}
               />
               <input
+                required
                 type="text"
                 name="phone"
                 placeholder="Phone"
@@ -127,6 +132,7 @@ export default function CheckoutPage() {
                 onChange={handleChange}
               />
               <input
+                required
                 type="text"
                 name="country"
                 placeholder="Country"
@@ -164,7 +170,7 @@ export default function CheckoutPage() {
               </li>
               <li className="flex justify-between border-b pb-2">
                 <span>Discount</span>
-                <span>-৳ {discount?.amount}</span>
+                <span>-৳ {discount?.amount || 0}</span>
               </li>
               <li className="flex justify-between font-semibold pt-2">
                 <span>Total</span>

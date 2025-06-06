@@ -51,9 +51,10 @@ const { state, dispatch } = useContext(UserContext);
     { name: "Fast Food", href: "/shop/fast-food" },
     { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
     { name: "Cart", href: "/cart" },
-    { name: "Dashboard", href: "/dashboard" },
+    // { name: "Dashboard", href: "/dashboard" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
+    { name: "MyOrders", href: "/dashboard/orders" },
   ];
 
   return (

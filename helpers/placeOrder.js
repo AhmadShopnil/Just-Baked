@@ -1,9 +1,11 @@
 // app/actions/placeOrder.ts
 "use server";
 
+import { BASE_URL } from "./baseUrl";
+
 export async function placeOrder(orderData) {
   try {
-    const response = await fetch("http://justbakedbd.com/api/orders", {
+    const response = await fetch(`${BASE_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,8 +1,10 @@
 "use server";
 
+import { BASE_URL } from "./baseUrl";
+
 export async function validateCoupon(code) {
   try {
-    const response = await fetch(`http://justbakedbd.com/api/coupon/${code}`, {
+    const response = await fetch(`${BASE_URL}/coupon/${code}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

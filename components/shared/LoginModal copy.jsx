@@ -1,8 +1,50 @@
 "use client";
+
+import { useContext, useState } from "react";
 import { X, Facebook } from "lucide-react";
+import { authAxios } from "@/helpers/axiosInstance";
+import { UserContext } from "@/context/UserContext";
 
 export default function LoginModal({ isOpen, onClose }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { state, dispatch } = useContext(UserContext);
+
   if (!isOpen) return null;
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await authAxios.post("/login", { email, password });
+      const { access_token, user_data } = res.data;
+
+      const user = {
+        full_name: user_data?.full_name,
+        email: user_data?.email,
+        phone: user_data?.phone,
+      };
+
+      dispatch({ type: "LOGIN", payload: { user: user, token: access_token } });
+
+      // Save token to localStorage (or cookie if needed)
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Optional: show success toast, redirect, etc.
+      onClose(); // Close modal
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || "Login failed. Please try again.";
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300">
@@ -10,7 +52,10 @@ export default function LoginModal({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold">Log In</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700"
+          >
             <X size={20} />
           </button>
         </div>
@@ -54,21 +99,44 @@ export default function LoginModal({ isOpen, onClose }) {
 
         {/* Divider */}
         <div className="flex items-center justify-center mb-4">
-          <span className="text-black-500 font-semibold text-sm">OR LOG IN WITH EMAIL</span>
+          <span className="text-black-500 font-semibold text-sm">
+            OR LOG IN WITH EMAIL
+          </span>
         </div>
 
-        {/* Email Login */}
-        <form className="space-y-4 text-sm">
-          <input type="email" className="w-full border border-gray-300 rounded p-2" placeholder="Email Address" required />
-          <input type="password" className="w-full border border-gray-300 rounded p-2" placeholder="Password" required />
-          <button type="submit" className="w-full text-sm bg-primary-strong text-white py-2 rounded">
-            LOG IN
+        {/* Email Login Form */}
+        <form onSubmit={handleLogin} className="space-y-4 text-sm">
+          <input
+            type="email"
+            className="w-full border border-gray-300 rounded p-2"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="w-full border border-gray-300 rounded p-2"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="w-full text-sm bg-primary-strong text-white py-2 rounded"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "LOG IN"}
           </button>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
 
         {/* Forgot Password */}
         <div className="mt-4 text-center">
-          <a href="#" className="text-blue-500 text-sm">Forgot Password?</a>
+          <a href="#" className="text-blue-500 text-sm">
+            Forgot Password?
+          </a>
         </div>
       </div>
 

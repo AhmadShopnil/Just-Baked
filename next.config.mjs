@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: "/api/login",
-        destination: "http://justbakedbd.com/api/login", // Direct (no v1)
+        destination: "http://justbakedbd.com/api/v1/login", // Direct (no v1)
       },
       {
         source: "/api/:path*",

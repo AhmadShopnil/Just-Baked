@@ -5,22 +5,39 @@ import { X, Facebook } from "lucide-react";
 import { authAxios } from "@/helpers/axiosInstance";
 import { UserContext } from "@/context/UserContext";
 
-export default function LoginModal({ isOpen, onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function AuthModal({ isOpen, onClose }) {
+  const [tab, setTab] = useState("login");
+
+  // Shared state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { state, dispatch } = useContext(UserContext);
+
+  // Login form state
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  // Register form state
+  const [regFullName, setRegFullName] = useState("");
+  const [regEmail, setRegEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [regPassword, setRegPassword] = useState("");
+  const [regConfirmPassword, setRegConfirmPassword] = useState("");
+
+  const { dispatch } = useContext(UserContext);
 
   if (!isOpen) return null;
 
+  // Login handler
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const res = await authAxios.post("/login", { email, password });
+      const res = await authAxios.post("/login", {
+        email: loginEmail,
+        password: loginPassword,
+      });
       const { access_token, user_data } = res.data;
 
       const user = {
@@ -29,17 +46,61 @@ export default function LoginModal({ isOpen, onClose }) {
         phone: user_data?.phone,
       };
 
-      dispatch({ type: "LOGIN", payload: { user: user, token: access_token } });
-
-      // Save token to localStorage (or cookie if needed)
+      dispatch({ type: "LOGIN", payload: { user, token: access_token } });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-
-      // Optional: show success toast, redirect, etc.
-      onClose(); // Close modal
+      onClose();
     } catch (err) {
       const message =
         err?.response?.data?.message || "Login failed. Please try again.";
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Register handler
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    if (regPassword !== regConfirmPassword) {
+
+      // console.log("regPassword not match:", regPassword);
+      // console.log("regConfirmPassword not match:", regConfirmPassword);
+
+      setError("Password and Confirm Password do not match");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await authAxios.post("/register", {
+        full_name: regFullName,
+        email: regEmail,
+        phone: phoneNo,
+        password: regPassword,
+        password_confirmation: regConfirmPassword,
+      });
+
+      // Optionally auto-login user after registration
+      const { access_token, user_data } = res.data;
+
+      const user = {
+        full_name: user_data?.full_name,
+        email: user_data?.email,
+        phone: user_data?.phone,
+      };
+
+      dispatch({ type: "LOGIN", payload: { user, token: access_token } });
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      onClose();
+    } catch (err) {
+      const message =
+        err?.response?.data?.message ||
+        "Registration failed. Please try again.";
       setError(message);
     } finally {
       setLoading(false);
@@ -51,12 +112,44 @@ export default function LoginModal({ isOpen, onClose }) {
       <div className="bg-white rounded-md w-full max-w-md p-6 relative animate-fade-in scale-95 shadow-2xl">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold">Log In</h2>
+          <h2 className="text-lg font-semibold">
+            {tab === "login" ? "Log In" : "Register"}
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
             <X size={20} />
+          </button>
+        </div>
+
+        {/* Tab Buttons */}
+        <div className="flex mb-6 gap-2 justify-center">
+          <button
+            onClick={() => {
+              setTab("login");
+              setError(null);
+            }}
+            className={`flex-1 py-2 rounded ${
+              tab === "login"
+                ? "bg-primary-strong text-white"
+                : "border border-gray-300 text-gray-700"
+            }`}
+          >
+            Login
+          </button>
+          <button
+            onClick={() => {
+              setTab("register");
+              setError(null);
+            }}
+            className={`flex-1 py-2 rounded ${
+              tab === "register"
+                ? "bg-primary-strong text-white"
+                : "border border-gray-300 text-gray-700"
+            }`}
+          >
+            Register
           </button>
         </div>
 
@@ -92,55 +185,114 @@ export default function LoginModal({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Phone Login */}
-        <button className="w-full border border-primary-strong text-primary-strong py-2 rounded mb-4 text-sm">
-          LOG IN WITH PHONE
-        </button>
+        {/* Phone Login Button (only for login tab) */}
+        {tab === "login" && (
+          <button className="w-full border border-primary-strong text-primary-strong py-2 rounded mb-4 text-sm">
+            LOG IN WITH PHONE
+          </button>
+        )}
 
         {/* Divider */}
         <div className="flex items-center justify-center mb-4">
           <span className="text-black-500 font-semibold text-sm">
-            OR LOG IN WITH EMAIL
+            {tab === "login"
+              ? "OR LOG IN WITH EMAIL"
+              : "OR REGISTER WITH EMAIL"}
           </span>
         </div>
 
-        {/* Email Login Form */}
-        <form onSubmit={handleLogin} className="space-y-4 text-sm">
-          <input
-            type="email"
-            className="w-full border border-gray-300 rounded p-2"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="w-full border border-gray-300 rounded p-2"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="w-full text-sm bg-primary-strong text-white py-2 rounded"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "LOG IN"}
-          </button>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-        </form>
+        {/* Forms */}
+        {tab === "login" ? (
+          <form onSubmit={handleLogin} className="space-y-4 text-sm">
+            <input
+              type="email"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Email Address"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full text-sm bg-primary-strong text-white py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "LOG IN"}
+            </button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </form>
+        ) : (
+          <form onSubmit={handleRegister} className="space-y-4 text-sm">
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Full Name"
+              value={regFullName}
+              onChange={(e) => setRegFullName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Email Address"
+              value={regEmail}
+              onChange={(e) => setRegEmail(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Phone Number"
+              value={phoneNo}
+              onChange={(e) => setPhoneNo(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Password"
+              value={regPassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded p-2"
+              placeholder="Confirm Password"
+              value={regConfirmPassword}
+              onChange={(e) => setRegConfirmPassword(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full text-sm bg-primary-strong text-white py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "REGISTER"}
+            </button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </form>
+        )}
 
-        {/* Forgot Password */}
-        <div className="mt-4 text-center">
-          <a href="#" className="text-blue-500 text-sm">
-            Forgot Password?
-          </a>
-        </div>
+        {/* Forgot Password (only for login tab) */}
+        {tab === "login" && (
+          <div className="mt-4 text-center">
+            <a href="#" className="text-blue-500 text-sm">
+              Forgot Password?
+            </a>
+          </div>
+        )}
       </div>
 
-      {/* Custom Animation */}
+      {/* Animation styles */}
       <style jsx>{`
         .animate-fade-in {
           animation: fadeIn 0.25s ease-out;

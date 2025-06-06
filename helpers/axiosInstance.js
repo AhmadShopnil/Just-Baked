@@ -11,6 +11,20 @@ const axiosInstance = axios.create({
   },
 });
 
+// ⬇️ Add interceptor to include Authorization token from localStorage
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 export default axiosInstance;
 
 // lib/authAxios.ts
@@ -24,6 +38,25 @@ export const authAxios = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+
+// ⬇️ Add interceptor to include Authorization token from localStorage
+authAxios.interceptors.request.use(
+  (config) => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+
+
+
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
