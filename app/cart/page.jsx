@@ -6,6 +6,7 @@ import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/hooks/useCart";
 import { validateCoupon } from "@/helpers/validateCoupon";
+import toast from "react-hot-toast";
 
 export default function ShoppingCart() {
   const [promoCode, setPromoCode] = useState("");
@@ -37,8 +38,9 @@ export default function ShoppingCart() {
     dispatch({ type: "DECREASE_QUANTITY", payload: id });
   };
 
-  const removeFromCart = (id) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id });
+  const removeFromCart = (item) => {
+    dispatch({ type: "REMOVE_ITEM", payload: item?.id });
+    toast.success(`${item?.name} remove from cart!`);
   };
 
   const calculateShipping = () => {
@@ -102,7 +104,7 @@ export default function ShoppingCart() {
                       <td className="px-4 py-4 font-semibold">
                         <div className="flex items-center gap-4">
                           <button
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item)}
                             className="text-gray-400 hover:text-gray-600"
                           >
                             <Trash2 size={18} />

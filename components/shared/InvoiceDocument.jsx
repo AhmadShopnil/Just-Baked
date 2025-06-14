@@ -1,17 +1,29 @@
 import React from "react"
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer"
 
+// Styles
 const styles = StyleSheet.create({
   page: {
     padding: 30,
     fontSize: 12,
+    fontFamily: "Helvetica",
+  },
+  header: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   section: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
-  title: {
-    fontSize: 18,
-    marginBottom: 10,
+  label: {
     fontWeight: "bold",
   },
   row: {
@@ -19,33 +31,91 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 5,
   },
+  tableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#eee",
+    padding: 5,
+    fontWeight: "bold",
+  },
+  tableRow: {
+    flexDirection: "row",
+    padding: 5,
+    borderBottom: "1px solid #ccc",
+  },
+  col: {
+    width: "20%",
+  },
+  colWide: {
+    width: "40%",
+  },
+  footer: {
+    marginTop: 30,
+    textAlign: "center",
+    fontStyle: "italic",
+  },
 })
 
+// Invoice PDF Component
 export default function InvoiceDocument({ order }) {
+  const date = new Date(order.created_at).toLocaleDateString()
+
+  const calculateSubtotal = () =>
+    order.order_item.reduce((acc, item) => acc + item.grand_total, 0)
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.title}>Invoice - #{order.id}</Text>
+        <Text style={styles.header}>Invoice #{order.unique_id}</Text>
 
+        {/* Customer and Order Info */}
         <View style={styles.section}>
-          <Text>Customer: John Doe</Text>
-          <Text>Email: john@example.com</Text>
-          <Text>Date: {order.date}</Text>
+          <Text><Text style={styles.label}>Customer:</Text> John Doe</Text>
+          <Text><Text style={styles.label}>Email:</Text> john@example.com</Text>
+          <Text><Text style={styles.label}>Date:</Text> {date}</Text>
+          <Text><Text style={styles.label}>Payment Status:</Text> {order.payment_status}</Text>
+          <Text><Text style={styles.label}>Payment Method:</Text> {order.transactions?.[0]?.payment_method || "N/A"}</Text>
+          <Text><Text style={styles.label}>Promo Code:</Text> {order.promo_code || "N/A"}</Text>
         </View>
 
+        {/* Items Table */}
         <View style={styles.section}>
-          <Text style={{ marginBottom: 5 }}>Order Summary:</Text>
-          <View style={styles.row}>
-            <Text>Status:</Text>
-            <Text>{order.status}</Text>
+          <Text style={{ fontSize: 14, marginBottom: 5, fontWeight: "bold" }}>Order Items</Text>
+
+          <View style={styles.tableHeader}>
+            <Text style={styles.colWide}>Product</Text>
+            <Text style={styles.col}>Qty</Text>
+            <Text style={styles.col}>Unit Price</Text>
+            <Text style={styles.col}>Total</Text>
+          </View>
+
+          {order?.order_item?.map((item, idx) => (
+            <View key={idx} style={styles.tableRow}>
+              <Text style={styles.colWide}>{item.item_name}</Text>
+              <Text style={styles.col}>{item.quantity}</Text>
+              <Text style={styles.col}>{item.current_price}</Text>
+              <Text style={styles.col}>{item.grand_total}</Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Summary */}
+        <View style={styles.section}>
+          {/* <View style={styles.row}>
+            <Text>Subtotal:</Text>
+            <Text>৳{calculateSubtotal()}</Text>
           </View>
           <View style={styles.row}>
-            <Text>Total:</Text>
-            <Text>${order.total}</Text>
+            <Text>Discount:</Text>
+            <Text>৳{order.discount || 0}</Text>
+          </View> */}
+          <View style={styles.row}>
+            <Text style={styles.label}>Total:</Text>
+            <Text style={styles.label}>Tk.{order.grand_total}</Text>
           </View>
         </View>
 
-        <Text>Thank you for your order!</Text>
+        {/* Footer */}
+        <Text style={styles.footer}>Thank you for shopping with us!</Text>
       </Page>
     </Document>
   )

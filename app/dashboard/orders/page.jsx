@@ -34,7 +34,7 @@ export default function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axiosInstance.get("admin/orders");
+        const response = await axiosInstance.get("admin/orders/");
         setOrders(response.data?.data);
       } catch (error) {
         console.error("Failed to fetch orders:", error);
@@ -54,7 +54,7 @@ export default function Orders() {
       {/* Header */}
       <div className="flex items-center mb-6">
         <Link
-          href="/dashboard"
+          href="/"
           className="p-2 mr-2 rounded-lg hover:bg-gray-100"
         >
           <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -147,12 +147,12 @@ export default function Orders() {
                           <button className="p-1 rounded-md hover:bg-gray-100">
                             <DownloadInvoiceButton order={order} />
                           </button>
-                          <Link
+                          {/* <Link
                             href={`/dashboard/orders/${order?.unique_id}`}
                             className="p-1 rounded-md hover:bg-gray-100"
                           >
                             <ChevronRight className="w-4 h-4 text-gray-500" />
-                          </Link>
+                          </Link> */}
                         </div>
                       </td>
                     </tr>

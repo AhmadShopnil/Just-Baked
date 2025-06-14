@@ -67,7 +67,7 @@ export default function Product({ product }) {
         {/* Product Images */}
         <div className="w-full md:w-2/5">
           <div className="shadow-md rounded-md p-4 mb-4 bg-white">
-            <div className="relative h-[450px] w-full bg-green-500">
+            <div className="relative h-[450px] w-full ">
               <Image
                 src={mainImage || "/placeholder.svg"}
                 alt={product?.name}

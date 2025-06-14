@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BASE_URL } from "@/helpers/baseUrl";
 
 export default async function ShopLayout({ children }) {
-  const url = `${BASE_URL}/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=No`;
+  const url = `${BASE_URL}/categories?taxonomy_type=product_categories&order_direction=desc`;
   
   let categories = [];
   try {
@@ -23,14 +23,13 @@ export default async function ShopLayout({ children }) {
 
 
   return (
-    <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 py-8">
+    <div className="max-w-[1700px] h-screen mx-auto w-full px-4 md:px-10 py-8 ">
     
-
       {/* Layout Grid */}
       <div className="flex flex-col lg:flex-row gap-2">
         {/* Left Sidebar: Filters */}
-        <aside className="w-full lg:w-64 space-y-6">
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <aside className="w-full lg:w-64 space-y-6 ">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 ">
             <h2 className="font-semibold text-lg mb-3">Categories</h2>
             <div className="space-y-2 text-sm">
               {categories.map((cat) => (

@@ -5,13 +5,16 @@ import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 
 export default function CartDropdown({ cart, subtotal, onClose }) {
   const { dispatch } = useCart();
   const dropdownRef = useRef(null);
 
-  const removeFromCart = (id) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id });
+ 
+  const removeFromCart = (item) => {
+    dispatch({ type: "REMOVE_ITEM", payload:item?.id });
+    toast.success(`${item?.name} remove from cart!`);
   };
 
   // Detect outside click
@@ -60,7 +63,7 @@ export default function CartDropdown({ cart, subtotal, onClose }) {
               </div>
             </div>
             <button
-              onClick={() => removeFromCart(item.id)}
+              onClick={() => removeFromCart(item)}
               className="text-gray-400 hover:text-gray-600"
             >
               <Trash2 size={18} />

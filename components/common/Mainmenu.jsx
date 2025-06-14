@@ -11,7 +11,6 @@ import axiosInstance from "@/helpers/axiosInstance";
 import { UserContext } from "@/context/UserContext";
 import { LogOut } from "lucide-react";
 
-
 const Mainmenu = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -20,7 +19,8 @@ const Mainmenu = () => {
   const [categories, setCategories] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const { state: userState, dispatch } = useContext(UserContext); 
+  const [isOfferAvailable, setIsOfferAvailable] = useState(false);
+  const { state: userState, dispatch } = useContext(UserContext);
 
   const userName = userState?.user?.full_name;
   const cart = state.items;
@@ -29,10 +29,9 @@ const Mainmenu = () => {
     [cart]
   );
 
-  // ✅ Logout handler
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Or use cookies if needed
-    dispatch({ type: "LOGOUT" }); // Assuming you have a LOGOUT case in reducer
+    localStorage.removeItem("token");
+    dispatch({ type: "LOGOUT" });
   };
 
   useEffect(() => {
@@ -54,6 +53,23 @@ const Mainmenu = () => {
     fetchSuggestions();
   }, [searchTerm]);
 
+  useEffect(() => {
+    const fetchOfferItems = async () => {
+      try {
+        const res = await axiosInstance.get(
+          "/posts?term_type=product&category_slug=20-offer"
+        );
+        const offerItems = res.data.data;
+        setIsOfferAvailable(offerItems.length > 0);
+      } catch (error) {
+        console.error("Failed to fetch offer items:", error);
+        setIsOfferAvailable(false);
+      }
+    };
+
+    fetchOfferItems();
+  }, []);
+
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
     if (isCartOpen) setIsCartOpen(false);
@@ -69,6 +85,39 @@ const Mainmenu = () => {
     setIsCartOpen(false);
   };
 
+  const OfferOrContactButton = () =>
+    isOfferAvailable ? (
+      <Link
+        href="/shop?category=20-offer"
+        className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer bg-orange-600"
+      >
+        <Image
+          src="/image/Header Image/Vector (2).svg"
+          alt="Offer Icon"
+          width={17}
+          height={17}
+        />
+        <h4 className="text-white text-base font-bold leading-normal uppercase">
+          Offer
+        </h4>
+      </Link>
+    ) : (
+      <Link
+        href="/contact"
+        className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer bg-primary-strong"
+      >
+        {/* <Image
+          src="/image/Header Image/Vector (3).svg"
+          alt="Contact Icon"
+          width={17}
+          height={17}
+        /> */}
+        <h4 className="text-white text-base font-bold leading-normal uppercase">
+          Contact
+        </h4>
+      </Link>
+    );
+
   return (
     <div
       onClick={closeDropdowns}
@@ -79,21 +128,8 @@ const Mainmenu = () => {
     >
       {/* Desktop Header */}
       <div className="flex py-2 lg:py-5 justify-between items-center self-stretch w-full relative">
-        {/* Left Group */}
         <div className="hidden lg:flex gap-[30px]">
-          <button className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px]
-          cursor-pointer
-          bg-orange-600 cursor-pointer">
-            <Image
-              src="/image/Header Image/Vector (2).svg"
-              alt="Offer Icon"
-              width={17}
-              height={17}
-            />
-            <h4 className="text-white text-base font-bold leading-normal uppercase">
-              Offer
-            </h4>
-          </button>
+          <OfferOrContactButton />
         </div>
 
         {/* Search */}
@@ -106,8 +142,7 @@ const Mainmenu = () => {
               setTimeout(() => setSuggestions([]), 100);
             }}
             placeholder="Search for product"
-            className="border border-primary-strong focus:outline-none 
-              h-[38px] w-full py-[7px] px-5 rounded-[5px]"
+            className="border border-primary-strong focus:outline-none h-[38px] w-full py-[7px] px-5 rounded-[5px]"
           />
           {suggestions.length > 0 && (
             <div className="absolute top-10 left-0 right-0 bg-white border border-gray-300 mt-1 z-20">
@@ -163,9 +198,11 @@ const Mainmenu = () => {
                 />
                 <span>{userName}</span>
               </div>
-              {/* ✅ Logout icon */}
               <button onClick={handleLogout} title="Logout">
-                <LogOut size={16} className="text-red-600 hover:text-red-800 cursor-pointer" />
+                <LogOut
+                  size={16}
+                  className="text-red-600 hover:text-red-800 cursor-pointer"
+                />
               </button>
             </div>
           ) : (
@@ -206,9 +243,11 @@ const Mainmenu = () => {
                 height={16}
               />
               <span className="text-primary-strong font-bold">{userName}</span>
-              {/* ✅ Logout icon */}
               <button onClick={handleLogout} title="Logout">
-                <LogOut size={16} className="text-red-600 hover:text-red-800 cursor-pointer" />
+                <LogOut
+                  size={16}
+                  className="text-red-600 hover:text-red-800 cursor-pointer"
+                />
               </button>
             </div>
           ) : (
@@ -241,15 +280,9 @@ const Mainmenu = () => {
           </Link>
         </div>
 
-        {/* Offer Button */}
-        <div className="flex items-center gap-2 bg-orange-600 px-4 py-2 rounded text-white font-bold uppercase">
-          <Image
-            src="/image/Header Image/Vector (2).svg"
-            alt="Offer"
-            width={16}
-            height={16}
-          />
-          Offer
+        {/* Mobile Offer/Contact Button */}
+        <div className="px-4">
+          <OfferOrContactButton />
         </div>
 
         {/* Search Input */}

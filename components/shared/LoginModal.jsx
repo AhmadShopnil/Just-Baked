@@ -256,7 +256,7 @@ export default function AuthModal({ isOpen, onClose }) {
               required
             />
             <input
-              type="text"
+              type="password"
               className="w-full border border-gray-300 rounded p-2"
               placeholder="Password"
               value={regPassword}
@@ -264,7 +264,7 @@ export default function AuthModal({ isOpen, onClose }) {
               required
             />
             <input
-              type="text"
+              type="password"
               className="w-full border border-gray-300 rounded p-2"
               placeholder="Confirm Password"
               value={regConfirmPassword}
