@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 import {
   Document,
   Page,
   Text,
   View,
   StyleSheet,
-} from "@react-pdf/renderer"
+} from "@react-pdf/renderer";
 
 // Styles
 const styles = StyleSheet.create({
@@ -53,14 +53,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
   },
-})
+});
 
 // Invoice PDF Component
 export default function InvoiceDocument({ order }) {
-  const date = new Date(order.created_at).toLocaleDateString()
+  const date = new Date(order.created_at).toLocaleDateString();
+  const SHIPPING_CHARGE = 50;
 
-  const calculateSubtotal = () =>
-    order.order_item.reduce((acc, item) => acc + item.grand_total, 0)
+  const subtotal = order.order_item.reduce((acc, item) => acc + parseFloat(item.grand_total), 0);
+  const discount = order.discount || 0;
+  const total = subtotal - discount + SHIPPING_CHARGE;
 
   return (
     <Document>
@@ -69,8 +71,8 @@ export default function InvoiceDocument({ order }) {
 
         {/* Customer and Order Info */}
         <View style={styles.section}>
-          <Text><Text style={styles.label}>Customer:</Text> John Doe</Text>
-          <Text><Text style={styles.label}>Email:</Text> john@example.com</Text>
+          <Text><Text style={styles.label}>Customer:</Text> {order?.shippings[0]?.name}</Text>
+          <Text><Text style={styles.label}>Email:</Text> {order?.shippings[0]?.email}</Text>
           <Text><Text style={styles.label}>Date:</Text> {date}</Text>
           <Text><Text style={styles.label}>Payment Status:</Text> {order.payment_status}</Text>
           <Text><Text style={styles.label}>Payment Method:</Text> {order.transactions?.[0]?.payment_method || "N/A"}</Text>
@@ -100,17 +102,21 @@ export default function InvoiceDocument({ order }) {
 
         {/* Summary */}
         <View style={styles.section}>
-          {/* <View style={styles.row}>
+          <View style={styles.row}>
             <Text>Subtotal:</Text>
-            <Text>৳{calculateSubtotal()}</Text>
+            <Text>{subtotal}</Text>
           </View>
           <View style={styles.row}>
             <Text>Discount:</Text>
-            <Text>৳{order.discount || 0}</Text>
-          </View> */}
+            <Text>{discount}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text>Shipping Charge:</Text>
+            <Text>{SHIPPING_CHARGE}</Text>
+          </View>
           <View style={styles.row}>
             <Text style={styles.label}>Total:</Text>
-            <Text style={styles.label}>Tk.{order.grand_total}</Text>
+            <Text style={styles.label}>{total}</Text>
           </View>
         </View>
 
@@ -118,5 +124,5 @@ export default function InvoiceDocument({ order }) {
         <Text style={styles.footer}>Thank you for shopping with us!</Text>
       </Page>
     </Document>
-  )
+  );
 }

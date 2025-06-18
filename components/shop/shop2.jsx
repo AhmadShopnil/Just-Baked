@@ -22,7 +22,7 @@ export default function Shop({
   const [viewMode, setViewMode] = useState("grid");
 
   return (
-    <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 ">
+    <div className=" w-ful">
       {/* Header */}
       <div className="md:flex justify-between items-center mb-8 ">
         {/* Breadcrumb */}
@@ -40,10 +40,10 @@ export default function Shop({
           </Link>
         </div>
 
-        <div className="flex  justify-center gap-2">
+        <div className="flex  justify-end gap-4 ">
           <button
             onClick={() => setViewMode("grid")}
-            className={`p-2 ${
+            className={` ${
               viewMode === "grid" ? "text-[#724b00]" : "text-gray-500"
             } hover:bg-gray-100 rounded-md transition-colors`}
             aria-label="Grid view"
@@ -52,25 +52,15 @@ export default function Shop({
           </button>
           <button
             onClick={() => setViewMode("list")}
-            className={`p-2 ${
+            className={` ${
               viewMode === "list" ? "text-[#724b00]" : "text-gray-500"
             } hover:bg-gray-100 rounded-md transition-colors`}
             aria-label="List view"
           >
             <List className="w-5 h-5" />
           </button>
-          {/* <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="border rounded-md px-3 py-2 text-sm bg-white"
-            aria-label="Sort products"
-          >
-            <option value="newest">Newest Arrivals</option>
-            <option value="price-low-high">Price: Low to High</option>
-            <option value="price-high-low">Price: High to Low</option>
-          </select> */}
+        
         </div>
-
 
       </div>
 

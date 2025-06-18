@@ -28,7 +28,7 @@ export default function ThankYouPage() {
             <span className="font-medium">Order ID:</span> {orderId}
           </p>
           <p className="text-gray-700 text-sm">
-            <span className="font-medium">Total Paid:</span> ${parseFloat(total).toFixed(2)}
+            <span className="font-medium">Total Paid:</span> ৳ {parseFloat(total).toFixed(2)}
           </p>
         </div>
       )}

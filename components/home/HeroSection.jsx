@@ -96,7 +96,7 @@ export default async function HeroSection() {
                     "Enjoy 20% off when you buy one Spinach Pizza."} */}
                 </p>
                 <Link
-                  href="/shop"
+                  href="/shop/20-offer"
                   className="w-fit cursor-pointer bg-white rounded-[5px]
                   mt-5 py-2 md:py-2.5 px-5"
                 >

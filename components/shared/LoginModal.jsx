@@ -7,15 +7,12 @@ import { UserContext } from "@/context/UserContext";
 
 export default function AuthModal({ isOpen, onClose }) {
   const [tab, setTab] = useState("login");
-
   // Shared state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   // Login form state
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
   // Register form state
   const [regFullName, setRegFullName] = useState("");
   const [regEmail, setRegEmail] = useState("");

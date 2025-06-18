@@ -26,12 +26,12 @@ export default async function ShopLayout({ children }) {
     <div className="max-w-[1700px] h-screen mx-auto w-full px-4 md:px-10 py-8 ">
     
       {/* Layout Grid */}
-      <div className="flex flex-col lg:flex-row gap-2">
+      <div className="flex flex-col lg:flex-row gap-10">
         {/* Left Sidebar: Filters */}
-        <aside className="w-full lg:w-64 space-y-6 ">
+        <aside className="w-full lg:w-56 space-y-6 ">
           <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 ">
             <h2 className="font-semibold text-lg mb-3">Categories</h2>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-6 text-sm">
               {categories.map((cat) => (
                 <Link
                   key={cat.id}

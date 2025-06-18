@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useCart } from "@/hooks/useCart";
 import { placeOrder } from "@/helpers/placeOrder";
+import { UserContext } from "@/context/UserContext";
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("Cash");
-  const { state, dispatch } = useCart();
+  const { state } = useCart();
+  const { state: userState } = useContext(UserContext);
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -16,15 +18,19 @@ export default function CheckoutPage() {
     thana: "",
     district: "",
     country: "Bangladesh",
+    email: "",
+    note: "",
   });
   const cartItems = state.items;
   const router = useRouter();
-
+  const { dispatch } = useContext(UserContext);
+  const isLoggedIn = userState?.user?.full_name ? true : false;
+  const { dispatch: cartDispatch } = useCart();
   // console.log("state from checkout page: ", state)
 
   // 🧮 Dynamic totals
   const shippingCost = 50;
-  const discount = state?.discount ; // Hardcoded promo discount
+  const discount = state?.discount; // Hardcoded promo discount
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -44,6 +50,8 @@ export default function CheckoutPage() {
         thana: form.thana,
         district: form.district,
         country: form.country,
+        email: form.email,
+        note: form.note,
       },
       paymentMethod,
       products: cartItems.map((item) => ({
@@ -68,16 +76,30 @@ export default function CheckoutPage() {
     };
 
     // console.log("Order data: ", orderData);
+    const token = localStorage.getItem("token");
+
     try {
-      const response = await placeOrder(orderData); // Calling the server action
+      const response = await placeOrder(orderData, token, isLoggedIn); // Calling the server action
+
+      // Optionally auto-login user after registration
+      const { access_token, user_data } = response;
+
+      const user = {
+        full_name: user_data?.full_name,
+        email: user_data?.email,
+        phone: user_data?.phone,
+      };
+
+      dispatch({ type: "LOGIN", payload: { user, token: access_token } });
+      cartDispatch({ type: "CLEAR_CART" });
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+
       toast.success("Order placed successfully!");
       router.push(
-        `/order/success?orderId=${response.unique_id}&total=${response.total}`
+        `/order/success?orderId=${response?.order?.unique_id}&total=${response?.order?.total}`
       );
-
-      // redirect(`order/success?orderId=${response.id}&total=${response.total}`);
-      // console.log("success", responce);
-      // router.push("/order/success");
+      
     } catch (error) {
       toast.error(error.message || "Order failed.");
     }
@@ -134,10 +156,28 @@ export default function CheckoutPage() {
               <input
                 required
                 type="text"
+                name="email"
+                placeholder="Email"
+                className="border p-2 rounded-md w-full"
+                value={form.email}
+                onChange={handleChange}
+              />
+              <input
+                required
+                type="text"
                 name="country"
                 placeholder="Country"
                 className="border p-2 rounded-md w-full"
                 value={form.country}
+                onChange={handleChange}
+              />
+              <input
+                required
+                type="text"
+                name="note"
+                placeholder="Note"
+                className="border p-2 rounded-md w-full"
+                value={form.note}
                 onChange={handleChange}
               />
             </form>
@@ -196,7 +236,7 @@ export default function CheckoutPage() {
 
           <button
             onClick={handleSubmitOrder}
-            className="w-full bg-[#724B00] text-white px-5 py-2 rounded-md hover:bg-[#5e3d00] transition"
+            className="w-full bg-[#724B00] text-white px-5 py-2 rounded-md hover:bg-[#5e3d00] transition cursor-pointer"
           >
             Place Order
           </button>
