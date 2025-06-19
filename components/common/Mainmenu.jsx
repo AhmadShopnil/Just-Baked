@@ -88,7 +88,7 @@ const Mainmenu = () => {
   };
 
   const OfferOrContactButton = () =>
-    !isOfferAvailable ? (
+    isOfferAvailable ? (
       <Link
         href="/shop/20-offer"
         className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer bg-orange-600"
@@ -123,23 +123,16 @@ const Mainmenu = () => {
     >
       {/* Desktop Header */}
       <div className="flex py-2 lg:py-5 justify-between items-center self-stretch w-full relative">
-        <div className="hidden lg:flex gap-[30px]">
+        <div className="hidden lg:flex gap-4">
           <OfferOrContactButton />
 
           {/* Desktop Search with Toggle */}
           {/* search section */}
-          <div className="hidden lg:flex  gap-5">
-            <button
-              onClick={() => setIsSearchOpen((prev) => !prev)}
-              className="p-2 rounded-full hover:bg-gray-200 transition-colors"
-            >
-              <Search className="text-primary-strong" size={20} />
-            </button>
+          <div className="hidden lg:flex  gap-2">
             <div className="relative  items-center">
               <div
-                className={`transition-all duration-300 ${
-                  isSearchOpen ? "w-[500px] opacity-100" : "w-0 opacity-0"
-                } overflow-hidden`}
+                className={`transition-all duration-300 w-[500px] opacity-100 
+               overflow-hidden`}
               >
                 <input
                   type="search"
@@ -167,6 +160,9 @@ const Mainmenu = () => {
                 )}
               </div>
             </div>
+            {/* <button className="p-2  rounded-full  hover:bg-gray-200 transition-colors ">
+              <Search className="text-primary-strong" size={26} />
+            </button> */}
           </div>
         </div>
 

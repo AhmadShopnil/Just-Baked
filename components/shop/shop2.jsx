@@ -7,25 +7,29 @@ import ProductSkeleton from "../shared/ProductSkeleton ";
 import ProductCard from "./ProductCard";
 import ProductListCard from "./ProductListCard";
 import Pagination from "../shared/Pagination";
+import { getCategoryNameBySlug } from "@/helpers/getCategoryNameBySlug";
 
 export default function Shop({
   products,
-
   sortBy,
   setSortBy,
   currentPage,
   setCurrentPage,
   totalPages,
   loading,
-  slug={slug}
+  slug = { slug },
 }) {
   const [viewMode, setViewMode] = useState("grid");
 
+  console.log("frm category", products);
+const categoryName = getCategoryNameBySlug(products, slug);
+ 
   return (
     <div className=" w-full h-full ">
       {/* Header */}
       <div className="md:flex justify-between items-center mb-8 ">
         {/* Breadcrumb */}
+
         <div className="  text-xs md:text-sm text-gray-500">
           <Link href="/" className="hover:text-gray-700">
             Home
@@ -36,7 +40,7 @@ export default function Shop({
           </Link>
            <span className="mx-1">/</span>
           <Link href={`/shop/${slug}`} className="hover:text-gray-700">
-            {slug}
+            {categoryName}
           </Link>
         </div>
 
@@ -59,9 +63,7 @@ export default function Shop({
           >
             <List className="w-5 h-5" />
           </button>
-        
         </div>
-
       </div>
 
       {/* Product Listing */}
@@ -92,7 +94,6 @@ export default function Shop({
               </p>
               <button
                 onClick={() => {
-                 
                   setSortBy("newest");
                   setCurrentPage(1);
                 }}

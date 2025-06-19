@@ -19,7 +19,7 @@ export default function Description({ product }) {
 
               {product?.description ? (
                 <div
-                  className=""
+                  className=" text-sm "
                   dangerouslySetInnerHTML={{ __html: product?.description }}
                 />
               ) : (

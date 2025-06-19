@@ -114,7 +114,7 @@ const user=state?.user
         >
           <FaWhatsapp className="w-6 h-6 " />
           <span className="text-black text-sm font-medium leading-[16px]">
-            {phone}
+            {whatsApp}
           </span>
         </a>
       </div>
@@ -172,7 +172,7 @@ const user=state?.user
               >
                 <FaWhatsapp className="w-6 h-6 text-green-600" />
                 <span className="text-black text-sm font-medium leading-[16px]">
-                  {whatsApp}
+                {whatsApp}
                 </span>
               </a>
             </div>

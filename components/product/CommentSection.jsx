@@ -103,7 +103,8 @@ setError('')
         </div>
 
         <div className="flex gap-2 sm:gap-4 items-start">
-          <div className="w-9 h-9 px-2 flex items-center justify-center bg-blue-100 text-blue-800 font-semibold rounded-full">
+          <div className="w-9 h-9 px-2 flex items-center justify-center bg-blue-100
+           text-blue-800 font-semibold rounded-full">
             {user?.full_name?.[0] || "U"}
           </div>
           <input

@@ -148,7 +148,7 @@ const Footer = () => {
           {/* Footer Sections */}
           <div className="flex flex-col lg:flex-row justify-between gap-5 lg:gap-0">
             {/* Contact Us */}
-            <div className="w-[216px] mt-3">
+            <div className="w-[216px] ">
               <FooterSection title="Contact Us">
                 <ContactItem
                   icon={"/image/Footer/Phone.svg"}
@@ -252,8 +252,8 @@ const Footer = () => {
 
 // Reusable Components
 const FooterSection = ({ title, children }) => (
-  <div className="flex flex-col gap-[12px]">
-    <h3 className="text-base text-black font-bold uppercase leading-4">
+  <div className="flex flex-col gap-[15px]">
+    <h3 className="text-base text-primary-strong font-bold uppercase leading-4">
       {title}
     </h3>
     {children}
@@ -263,21 +263,21 @@ const FooterSection = ({ title, children }) => (
 const ContactItem = ({ icon, text }) => (
   <div className="flex items-start gap-3">
     <Image src={icon} alt="" width={24} height={24} />
-    <span className="text-[11px] text-black font-medium leading-4 whitespace-pre-line">
+    <span className="text-sm text-primary-strong font-medium leading-4 whitespace-pre-line">
       {text}
     </span>
   </div>
 );
 
 const FooterLinkList = ({ links }) => (
-  <div className="flex flex-col gap-[8px] mt-1">
-    <h3 className="text-base text-black font-bold leading-2.5 uppercase">
+  <div className="flex flex-col gap-[12px] mt-1">
+    <h3 className="text-base text-primary-strong font-bold leading-2.5 uppercase">
       Useful Links
     </h3>
     <div className="flex flex-col">
       {links.map((link, idx) => (
         <Link key={idx} href={link.href}>
-          <span className="text-[11px] text-black font-medium leading-2.5">
+          <span className="text-sm text-primary-strong font-medium leading-2.5">
             {link.label}
           </span>
         </Link>

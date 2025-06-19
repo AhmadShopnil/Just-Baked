@@ -100,7 +100,7 @@ export default function Product({ product }) {
             {images?.map((image, index) => (
               <div
                 key={index}
-                className={`shadow-md border rounded-md p-2 w-20 h-20 relative cursor-pointer ${
+                className={`shadow-md border rounded-md p-2 w-20 h-20 relative cursor-pointer overflow-hidden ${
                   mainImage === image ? "border-amber-600" : "border-gray-200"
                 }`}
                 onClick={() => handleThumbnailClick(image)}

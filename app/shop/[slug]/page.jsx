@@ -54,7 +54,7 @@ const Page = () => {
 
 
 
-  console.log("slug: ", slug)
+  // console.log("slug: ", slug)
 
 
   return (
