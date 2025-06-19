@@ -22,7 +22,7 @@ export default function Shop({
   const [viewMode, setViewMode] = useState("grid");
 
   return (
-    <div className=" w-ful">
+    <div className=" w-full h-full ">
       {/* Header */}
       <div className="md:flex justify-between items-center mb-8 ">
         {/* Breadcrumb */}

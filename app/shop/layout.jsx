@@ -23,7 +23,7 @@ export default async function ShopLayout({ children }) {
 
 
   return (
-    <div className="max-w-[1700px] h-screen mx-auto w-full px-4 md:px-10 py-8 ">
+    <div className="max-w-[1700px]  mx-auto w-full px-4 md:px-10 py-8 ">
     
       {/* Layout Grid */}
       <div className="flex flex-col lg:flex-row gap-10">

@@ -151,9 +151,9 @@ export default function Orders() {
                             </button>
                             <Link
                               href={`/dashboard/orders/${order?.unique_id}`}
-                              className="p-1 rounded-md hover:bg-gray-100"
+                              className="p-1 rounded-md hover:bg-gray-100 flex items-center justify-center"
                             >
-                              <ChevronRight className="w-4 h-4 text-gray-500" />
+                              <ChevronRight className="w-4 h-4 text-gray-500 " />
                             </Link>
                           </div>
                         </td>

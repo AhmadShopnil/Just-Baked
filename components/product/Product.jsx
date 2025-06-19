@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Description from "./Description";
 import { useCart } from "@/hooks/useCart";
 import { getMetaValueFromExtra_Fields } from "@/helpers/metaHelpers";
 import ConfirmAddToCartModal from "../shared/ConfirmAddToCartModal";
+import {
+  FaFacebookF,
+  FaWhatsapp,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
+import toast from "react-hot-toast";
+
 
 export default function Product({ product }) {
   const [openModal, setOpenModal] = useState(false);
@@ -13,15 +22,10 @@ export default function Product({ product }) {
   const [mainImage, setMainImage] = useState(product?.featured_image);
   const [quantity, setQuantity] = useState(1);
   const images = getMetaValueFromExtra_Fields(product, "extra_images");
-
-  const original_price = getMetaValueFromExtra_Fields(
-    product,
-    "original_price"
-  );
-  const discounted_price = getMetaValueFromExtra_Fields(
-    product,
-    "discounted_price"
-  );
+  const original_price = getMetaValueFromExtra_Fields(product, "original_price");
+  const discounted_price = getMetaValueFromExtra_Fields(product, "discounted_price");
+  const ingredients = getMetaValueFromExtra_Fields(product, "ingredients");
+   const [origin, setOrigin] = useState("");
 
   const selectedItem = {
     id: product.id,
@@ -32,12 +36,18 @@ export default function Product({ product }) {
     quantity: quantity,
   };
 
-  // console.log("from porduct page", selectedItem);
+ 
 
-  const handleAddTocart = () => {
-    dispatch({ type: "ADD_ITEM", payload: selectedItem });
-  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
+  const shareUrl = `${origin}/product/${product?.slug}`;
+  const shareText = `Check out this product: ${product?.name}`;
+
+ 
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
@@ -53,68 +63,63 @@ export default function Product({ product }) {
   };
 
   return (
-    <div className="py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10">
-      <div className="flex items-center text-xs md:text-[14px] text-gray-500 justify-center md:justify-start">
-        <Link href="/" className="hover:text-gray-700">
-          Home
-        </Link>
+    <div className="py-0 md:py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10 ">
+      {/* Breadcrumb */}
+      <div className="flex items-center text-xs md:text-[14px] text-gray-500 
+      justify-center md:justify-start ">
+        <Link href="/" className="hover:text-gray-700">Home</Link>
         <span className="mx-1">/</span>
-
         <span className="text-gray-900">{product?.name}</span>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 py-10">
+      {/* Product Section */}
+      <div className="flex flex-col md:flex-row gap-8 py-4 md:py-10">
         {/* Product Images */}
         <div className="w-full md:w-2/5">
           <div className="shadow-md rounded-md p-4 mb-4 bg-white">
-            <div className="relative h-[450px] w-full ">
+            <div className="relative h-[450px] w-full bg-gray-100 rounded-md">
               <Image
                 src={mainImage || "/placeholder.svg"}
                 alt={product?.name}
                 fill
-                className="object-contain"
+                className="object-cover rounded-md"
                 priority
               />
             </div>
           </div>
 
-          <div className="flex gap-4">
-            {images &&
-              images?.map((image, index) => (
-                <div
-                  key={index}
-                  className={`shadow-md border rounded-md p-2 w-20 h-20 relative ${
-                    mainImage === image ? "border-amber-600" : "border-gray-200"
-                  }`}
-                >
-                  <Image
-                    src={image || "/placeholder.svg"}
-                    alt={`${product.name} thumbnail ${index + 1}`}
-                    width={85}
-                    height={85}
-                    className="object-contain cursor-pointer"
-                    onClick={() => handleThumbnailClick(image)}
-                  />
-                </div>
-              ))}
+          {/* Thumbnails */}
+          <div className="flex gap-4 flex-wrap">
+            {images?.map((image, index) => (
+              <div
+                key={index}
+                className={`shadow-md border rounded-md p-2 w-20 h-20 relative cursor-pointer ${
+                  mainImage === image ? "border-amber-600" : "border-gray-200"
+                }`}
+                onClick={() => handleThumbnailClick(image)}
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`${product.name} thumbnail ${index + 1}`}
+                  width={85}
+                  height={85}
+                  className="object-contain"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Product Details */}
         <div className="w-full md:w-3/5">
           <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
-          <div className="text-2xl font-bold mb-4">৳ {discounted_price}/-</div>
+          <div className="text-2xl font-bold mb-4 text-amber-600">৳ {discounted_price}/-</div>
           <div
             className="text-gray-600 mb-6"
             dangerouslySetInnerHTML={{ __html: product?.description }}
           />
-          {/* <p className="text-gray-600 mb-6">
-             
-            {product?.description}
-            
-            </p> */}
 
-          {/* Quantity and Cart */}
+          {/* Quantity and Cart Button */}
           <div className="flex items-center mb-6 gap-4">
             <div className="flex border border-gray-300 rounded">
               <button
@@ -132,11 +137,8 @@ export default function Product({ product }) {
               </button>
             </div>
             <button
-              // href="/cart"
               onClick={() => setOpenModal(true)}
-              // onClick={handleAddTocart}
-              className="bg-[#724B00] text-white py-[7px] px-6 rounded hover:bg-[#724B12]
-              transition-transform duration-150 ease-in-out text-sm cursor-pointer active:scale-95"
+              className="bg-[#724B00] text-white py-[7px] px-6 rounded hover:bg-[#724B12] transition-transform duration-150 ease-in-out text-sm cursor-pointer active:scale-95"
             >
               ADD TO CART
             </button>
@@ -144,13 +146,8 @@ export default function Product({ product }) {
 
           <div className="border border-gray-200"></div>
 
-          {/* Product Info */}
+          {/* Info */}
           <div className="my-6">
-            <div className="flex mb-2 gap-6">
-              <span className="font-semibold w-24">SKU</span>
-              <span>{product.sku}</span>
-            </div>
-
             <div className="flex mb-2 gap-6">
               <span className="font-semibold w-24">Categories</span>
               <span>
@@ -161,33 +158,74 @@ export default function Product({ product }) {
                         {index !== product.categories.length - 1 && ", "}
                       </span>
                     ))
-                  : typeof product.categories === "object"
-                  ? product.categories.name
-                  : product.categories}
+                  : product.categories?.name || product.categories}
               </span>
             </div>
 
             <div className="flex gap-6">
               <span className="font-semibold w-24">Ingredients</span>
-              <span>{product.ingredients}</span>
+              <span>{ingredients}</span>
             </div>
           </div>
 
-          {/* Share Buttons */}
-          <div className="flex items-center gap-5">
-            <span className="w-24">Share:</span>
-            <div className="flex gap-2">
-              <button className="w-6 h-6 rounded-full bg-red-500"></button>
-              <button className="w-6 h-6 rounded-full bg-blue-500"></button>
-              <button className="w-6 h-6 rounded-full bg-green-500"></button>
-              <button className="w-6 h-6 rounded-full bg-purple-500"></button>
+          {/* Social Share */}
+          <div className="flex items-center gap-5 mt-4">
+            <span className="w-24 font-semibold">Share:</span>
+            <div className="flex gap-3 text-lg [&>a]:transition [&>a:hover]:scale-110">
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  shareUrl
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-500"
+              >
+                <FaWhatsapp />
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                  shareUrl
+                )}&text=${encodeURIComponent(shareText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                  shareUrl
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700"
+              >
+                <FaLinkedinIn />
+              </a>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(shareUrl);
+                  toast.success(`Link Copied`);
+                }}
+                className="text-gray-500 text-sm underline ml-2"
+              >
+                Copy Link
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <Description />
+      <Description product={product} />
 
       <ConfirmAddToCartModal
         show={openModal}

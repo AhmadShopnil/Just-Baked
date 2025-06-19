@@ -14,7 +14,7 @@ export default function CommentItem({ comment, onInteraction }) {
             <h3 className="font-bold">{comment.user}</h3>
           </div>
           <p className="text-gray-700 mt-1">{comment.text}</p>
-          {/* <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+          <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
             <button className="hover:text-gray-700">Reply</button>
             <button className="hover:text-gray-700">Share</button>
             <span>{comment.time}</span>
@@ -25,10 +25,10 @@ export default function CommentItem({ comment, onInteraction }) {
               <ThumbsUp className="w-4 h-4" />
               {comment.likes}
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
-{/* 
+
       {comment.replies.length > 0 && (
         <div className="ml-12 space-y-4">
           {comment.replies.map((reply) => (
@@ -39,7 +39,7 @@ export default function CommentItem({ comment, onInteraction }) {
             />
           ))}
         </div>
-      )} */}
+      )}
     </div>
   );
 }

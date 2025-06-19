@@ -26,7 +26,7 @@ const TopBar = () => {
   const [settings, setSettings] = useState(null);
   
 const { state, dispatch } = useContext(UserContext);
-
+const user=state?.user
   useEffect(() => {
     axiosInstance
       .get("/frontend/settings")
@@ -44,18 +44,16 @@ const { state, dispatch } = useContext(UserContext);
   const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
   // console.log("settfing from topbar: ",settings)
 
-  const menuItems = [
-    // { name: "Home", href: "/" },
-    // { name: "Shop", href: "/shop" },
-    { name: "Bakery ", href: "/shop/bekery" },
-    { name: "Fast Food", href: "/shop/fast-food" },
-    { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
-    { name: "Cart", href: "/cart" },
-    // { name: "Dashboard", href: "/dashboard" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "MyOrders", href: "/dashboard/orders" },
-  ];
+ const menuItems = [
+  { name: "Bakery", href: "/shop/bekery" },
+  { name: "Fast Food", href: "/shop/fast-food" },
+  { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
+  { name: "Cart", href: "/cart" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  ...(user ? [{ name: "My Orders", href: "/dashboard/orders" }] : []),
+];
+
 
   return (
     <div className="flex py-3 md:py-4 justify-between items-center self-stretch">
