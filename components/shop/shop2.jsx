@@ -1,36 +1,69 @@
 "use client";
 
 import { Grid, List } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import ProductSkeleton from "../shared/ProductSkeleton ";
 import ProductCard from "./ProductCard";
 import ProductListCard from "./ProductListCard";
 import Pagination from "../shared/Pagination";
+import axiosInstance from "@/helpers/axiosInstance";
 import { getCategoryNameBySlug } from "@/helpers/getCategoryNameBySlug";
 
-export default function Shop({
-  products,
-  sortBy,
-  setSortBy,
-  currentPage,
-  setCurrentPage,
-  totalPages,
-  loading,
-  slug = { slug },
-}) {
+export default function Shop({ slug }) {
   const [viewMode, setViewMode] = useState("grid");
+  const [products, setProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [sortBy, setSortBy] = useState("newest");
+  const [productsPerPage, setProductPerPage] = useState(8);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  // const [categoryName, setCategoryName] = useState("Loading...");
 
-  console.log("frm category", products);
-const categoryName = getCategoryNameBySlug(products, slug);
- 
+  const categoryName = getCategoryNameBySlug(products, slug);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // ✅ Fetch products
+        let query = `/posts?term_type=product&category_slug=${slug}&per_page=${productsPerPage}&page=${currentPage}&is_status=publish`;
+
+        if (sortBy === "newest") {
+          query += "&order_by=id:desc";
+        } else if (sortBy === "price-low-high") {
+          query += "&order_by=original_price:asc";
+        } else if (sortBy === "price-high-low") {
+          query += "&order_by=original_price:desc";
+        }
+
+        if (priceRange[0] > 0 || priceRange[1] < 1000) {
+          query += `&extra_field=original_price:gte:${priceRange[0]}|original_price:lte:${priceRange[1]}`;
+        }
+
+        const res = await axiosInstance.get(query);
+        setProducts(res.data?.data || []);
+        setTotalPages(
+          Math.ceil(res.data?.meta?.total / res.data?.meta?.per_page)
+        );
+      } catch (err) {
+        console.error("Error fetching shop data:", err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [slug, sortBy, priceRange, currentPage, productsPerPage]);
+
   return (
-    <div className=" w-full h-full ">
+    <div className="w-full h-full">
       {/* Header */}
-      <div className="md:flex justify-between items-center mb-8 ">
-        {/* Breadcrumb */}
-
-        <div className="  text-xs md:text-sm text-gray-500">
+      <div className="md:flex justify-between items-center mb-8">
+        <div className="text-xs md:text-sm text-gray-500">
           <Link href="/" className="hover:text-gray-700">
             Home
           </Link>
@@ -38,13 +71,13 @@ const categoryName = getCategoryNameBySlug(products, slug);
           <Link href="/shop" className="hover:text-gray-700">
             Shop
           </Link>
-           <span className="mx-1">/</span>
+          <span className="mx-1">/</span>
           <Link href={`/shop/${slug}`} className="hover:text-gray-700">
             {categoryName}
           </Link>
         </div>
 
-        <div className="flex  justify-end gap-4 ">
+        <div className="flex justify-end gap-4">
           <button
             onClick={() => setViewMode("grid")}
             className={` ${
@@ -93,10 +126,7 @@ const categoryName = getCategoryNameBySlug(products, slug);
                 No products found matching your criteria.
               </p>
               <button
-                onClick={() => {
-                  setSortBy("newest");
-                  setCurrentPage(1);
-                }}
+                onClick={() => setCurrentPage(1)}
                 className="mt-4 px-4 py-2 bg-[#724b00] text-white rounded-md hover:bg-[#5e3d00] transition-colors"
               >
                 Reset Filters
@@ -106,7 +136,6 @@ const categoryName = getCategoryNameBySlug(products, slug);
         </div>
 
         {/* Pagination */}
-        {/* {products.length > 0 && totalPages > 1 && ( */}
         <div className="mt-12 flex justify-center">
           <Pagination
             currentPage={currentPage}
@@ -114,7 +143,6 @@ const categoryName = getCategoryNameBySlug(products, slug);
             onPageChange={setCurrentPage}
           />
         </div>
-        {/* )} */}
       </div>
     </div>
   );

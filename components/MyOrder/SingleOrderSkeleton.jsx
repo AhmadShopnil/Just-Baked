@@ -12,8 +12,8 @@ export default function SingleOrderSkeleton() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Order Summary Skeleton */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white border rounded-xl shadow-sm">
-            <div className="p-6 border-b">
+          <div className="bg-white  rounded-xl shadow-sm">
+            <div className="p-6 -b">
               <div className="h-6 w-48 bg-gray-200 rounded animate-pulse" />
             </div>
             <div className="p-6 overflow-x-auto">
@@ -34,11 +34,11 @@ export default function SingleOrderSkeleton() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y">
+                <tbody className="">
                   {[...Array(3)].map((_, i) => (
                     <tr key={i}>
                       <td className="flex items-center gap-4 px-4 py-3">
-                        <div className="w-12 h-12 bg-gray-200 rounded border animate-pulse" />
+                        <div className="w-12 h-12 bg-gray-200 rounded  animate-pulse" />
                         <div className="h-5 w-32 bg-gray-200 rounded animate-pulse" />
                       </td>
                       <td className="text-center">
@@ -79,8 +79,8 @@ export default function SingleOrderSkeleton() {
         {/* Right: Shipping and Payment Info Skeleton */}
         <div className="space-y-6">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="bg-white border rounded-xl shadow-sm p-6">
-              <div className="border-b pb-4 mb-4">
+            <div key={i} className="bg-white  rounded-xl shadow-sm p-6">
+              <div className=" pb-4 mb-4">
                 <div className="h-6 w-40 bg-gray-200 rounded animate-pulse" />
               </div>
               <div className="space-y-2">

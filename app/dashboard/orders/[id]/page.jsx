@@ -19,7 +19,7 @@ const DownloadInvoiceButton = dynamic(
 );
 
 export default function OrderDetails({ params }) {
-  const orderId = params.id;
+  const orderId = params?.id;
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function OrderDetails({ params }) {
   const transaction = order?.transactions?.[0];
 
   return (
-    <div className="min-h-screen py-6 px-4 md:px-10 max-w-7xl mx-auto">
+    <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10">
       {/* Header */}
       <div className="flex flex-wrap items-center mb-6 gap-2">
         <Link
@@ -110,6 +110,12 @@ export default function OrderDetails({ params }) {
                   ))}
                 </tbody>
                 <tfoot className="bg-gray-50">
+                   <tr>
+                    <td colSpan={3} className="text-right font-medium px-4 py-2">
+                      Discount
+                    </td>
+                    <td className="text-right px-4 py-2">৳ -{order?.discount}</td>
+                  </tr>
                   <tr>
                     <td colSpan={3} className="text-right font-medium px-4 py-2">
                       Subtotal

@@ -1,74 +1,70 @@
-"use client";
+// app/shop/[slug]/page.tsx
 import Shop from "@/components/shop/shop2";
-import axiosInstance from "@/helpers/axiosInstance";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { BASE_URL } from "@/helpers/baseUrl";
+import {
+  getCategoryBySlug,
+  getCategoryNameBySlug,
+} from "@/helpers/getCategoryNameBySlug";
 
-const Page = () => {
-  const { slug } = useParams();
-  const [products, setProducts] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [sortBy, setSortBy] = useState("newest");
-  const [productsPerPage, setProductPerPage] = useState(2);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
 
-  // ✅ Fetch products
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        let query = `/posts?term_type=product&category_slug=${slug}&per_page=${productsPerPage}&page=${currentPage}&is_status=publish`;
+  const catUrl = `${BASE_URL}/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=Yes`;
 
-        // Sorting
-        if (sortBy === "newest") {
-          query += "&order_by=id:desc";
-        } else if (sortBy === "price-low-high") {
-          query += "&order_by=original_price:asc";
-        } else if (sortBy === "price-high-low") {
-          query += "&order_by=original_price:desc";
-        }
-
-        // Price filter
-        if (priceRange[0] > 0 || priceRange[1] < 1000) {
-          query += `&extra_field=original_price:gte:${priceRange[0]}|original_price:lte:${priceRange[1]}`;
-        }
-
-        const res = await axiosInstance.get(query);
-        setProducts(res.data?.data || []);
-        setTotalPages(
-          Math.ceil(res.data?.meta?.total / res.data?.meta?.per_page)
-        );
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setProducts([]);
-      } finally {
-        setLoading(false);
+  let categories;
+  try {
+    const res = await fetch(
+      catUrl,
+      // `${BASE_URL}/posts?term_type=product&category_slug=${slug}`,
+      {
+        cache: "no-store",
       }
+    );
+    const data = await res.json();
+    categories = data?.data;
+
+    const category = getCategoryBySlug(categories, slug);
+
+    return {
+      title: `${category?.name || "Shop"} - Products | JustBaked`,
+      description: `Browse products in category ${category?.slug || "Shop"}`,
+      openGraph: {
+        title: category?.name,
+        description: `Browse products in category ${category?.slug || "Shop"}`,
+        images: [
+          {
+            url: category?.image || "/default-og-image.jpg",
+            alt: category?.name,
+          },
+        ],
+      },
     };
+  } catch (error) {
+    return {
+      title: "Shop - Products | Your Site Name",
+      description: "Browse our latest products",
+    };
+  }
+}
 
-    fetchProducts();
-  }, [priceRange, sortBy, currentPage, productsPerPage,slug]);
+export default async function Page({ params }) {
+  const { slug } = await params;
+  let categories;
+  const catUrl = `${BASE_URL}/categories?taxonomy_type=product_categories&order_direction=desc&is_featured=Yes`;
+  try {
+    const res = await fetch(
+      catUrl,
+    
+      {
+        cache: "no-store",
+      }
+    );
+    const data = await res.json();
+    categories = data?.data;
+    // const category = getCategoryBySlug(categories, slug);
+   
+  } catch (error) {}
 
 
-
-
-  // console.log("slug: ", slug)
-
-
-  return (
-    <Shop
-      products={products}
-      sortBy={sortBy}
-      setSortBy={setSortBy}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      loading={loading}
-      totalPages={totalPages}
-      slug={slug}
-    />
-  );
-};
-
-export default Page;
+  return <Shop slug={slug} />;
+}
