@@ -73,7 +73,7 @@ setError('')
   // };
 
   return (
-    <div className=" px-4 py-8 bg-white rounded-lg">
+    <div className="py-8 bg-white rounded-lg">
       {/* Input Header */}
       <h2 className="text-lg font-semibold mb-4 text-gray-800">
         Leave a Comment
@@ -115,7 +115,8 @@ setError('')
           />
           <button
             onClick={handlePostComment}
-            className="bg-primary-strong text-white px-2 sm:px-4 py-2 rounded-md cursor-pointer text-sm transition"
+            className="bg-primary-strong text-white px-2 sm:px-4 py-2 rounded-md cursor-pointer
+             text-xs sm:text-sm transition"
           >
             Post
           </button>

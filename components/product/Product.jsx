@@ -14,7 +14,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
-
+import { Copy } from "lucide-react";
 
 export default function Product({ product }) {
   const [openModal, setOpenModal] = useState(false);
@@ -22,10 +22,16 @@ export default function Product({ product }) {
   const [mainImage, setMainImage] = useState(product?.featured_image);
   const [quantity, setQuantity] = useState(1);
   const images = getMetaValueFromExtra_Fields(product, "extra_images");
-  const original_price = getMetaValueFromExtra_Fields(product, "original_price");
-  const discounted_price = getMetaValueFromExtra_Fields(product, "discounted_price");
+  const original_price = getMetaValueFromExtra_Fields(
+    product,
+    "original_price"
+  );
+  const discounted_price = getMetaValueFromExtra_Fields(
+    product,
+    "discounted_price"
+  );
   const ingredients = getMetaValueFromExtra_Fields(product, "ingredients");
-   const [origin, setOrigin] = useState("");
+  const [origin, setOrigin] = useState("");
 
   const selectedItem = {
     id: product.id,
@@ -36,8 +42,6 @@ export default function Product({ product }) {
     quantity: quantity,
   };
 
- 
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       setOrigin(window.location.origin);
@@ -47,7 +51,6 @@ export default function Product({ product }) {
   const shareUrl = `${origin}/product/${product?.slug}`;
   const shareText = `Check out this product: ${product?.name}`;
 
- 
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
@@ -65,9 +68,13 @@ export default function Product({ product }) {
   return (
     <div className="py-0 md:py-8 max-w-[1700px] mx-auto w-full px-4 md:px-10 ">
       {/* Breadcrumb */}
-      <div className="flex items-center text-xs md:text-[14px] text-gray-500 
-      justify-center md:justify-start ">
-        <Link href="/" className="hover:text-gray-700">Home</Link>
+      <div
+        className="flex items-center text-xs md:text-[14px] text-gray-500 
+      justify-center md:justify-start "
+      >
+        <Link href="/" className="hover:text-gray-700">
+          Home
+        </Link>
         <span className="mx-1">/</span>
         <span className="text-gray-900">{product?.name}</span>
       </div>
@@ -113,7 +120,9 @@ export default function Product({ product }) {
         {/* Product Details */}
         <div className="w-full md:w-3/5">
           <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
-          <div className="text-2xl font-bold mb-4 text-amber-600">৳ {discounted_price}/-</div>
+          <div className="text-2xl font-bold mb-4 text-amber-600">
+            ৳ {discounted_price}/-
+          </div>
           <div
             className="text-gray-600 mb-6"
             dangerouslySetInnerHTML={{ __html: product?.description }}
@@ -183,7 +192,9 @@ export default function Product({ product }) {
                 <FaFacebookF />
               </a>
               <a
-                href={`https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`}
+                href={`https://wa.me/?text=${encodeURIComponent(
+                  shareText + " " + shareUrl
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-500"
@@ -215,9 +226,10 @@ export default function Product({ product }) {
                   navigator.clipboard.writeText(shareUrl);
                   toast.success(`Link Copied`);
                 }}
-                className="text-gray-500 text-sm underline ml-2"
+                className="text-gray-500 ml-2 hover:text-gray-700 transition cursor-pointer"
+                aria-label="Copy link"
               >
-                Copy Link
+                <Copy className="w-5 h-5" />
               </button>
             </div>
           </div>

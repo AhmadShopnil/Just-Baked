@@ -88,7 +88,7 @@ const Mainmenu = () => {
   };
 
   const OfferOrContactButton = () =>
-    isOfferAvailable ? (
+    !isOfferAvailable ? (
       <Link
         href="/shop/20-offer"
         className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer bg-orange-600"
@@ -106,11 +106,10 @@ const Mainmenu = () => {
     ) : (
       <Link
         href="/contact"
-        className="flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer bg-primary-strong"
+        className="hidden lg:flex items-center gap-[7px] p-[7px_20px] rounded-[5px] cursor-pointer
+         bg-primary-strong text-white text-base font-bold leading-normal uppercase "
       >
-        <h4 className="text-white text-base font-bold leading-normal uppercase">
-          Contact
-        </h4>
+        Contact
       </Link>
     );
 
@@ -243,7 +242,17 @@ const Mainmenu = () => {
 
       {/* Mobile Header */}
       <div className="lg:hidden w-full pb-4 space-y-4">
-        <div className="flex justify-between items-center px-4">
+        <div className="flex justify-between items-center">
+          <Link href="/cart" className="flex items-center gap-2 cursor-pointer">
+            <Image
+              src="/image/Header Image/Vector (5).svg"
+              alt="Cart"
+              width={16}
+              height={16}
+            />
+            <span className="font-bold">{subtotal}</span>
+          </Link>
+
           {userName ? (
             <div className="flex items-center gap-2">
               <Image
@@ -278,37 +287,17 @@ const Mainmenu = () => {
             isOpen={isLoginModalOpen}
             onClose={() => setIsLoginModalOpen(false)}
           />
-
-          <Link href="/cart" className="flex items-center gap-2 cursor-pointer">
-            <Image
-              src="/image/Header Image/Vector (5).svg"
-              alt="Cart"
-              width={16}
-              height={16}
-            />
-            <span className="font-bold">{subtotal}</span>
-          </Link>
         </div>
 
-        <div className="px-4">
+        <div className="">
           <OfferOrContactButton />
         </div>
 
         {/* Mobile Search with toggle */}
-        <div className="px-4">
-          <button
-            onClick={() => setIsMobileSearchOpen((prev) => !prev)}
-            className="flex items-center gap-2 text-primary-strong font-semibold"
-          >
-            <Search size={20} />
-            <span>Search</span>
-          </button>
+        <div className="">
           <div
-            className={`mt-2 transition-all duration-300 ${
-              isMobileSearchOpen
-                ? "max-h-[100px] opacity-100"
-                : "max-h-0 opacity-0"
-            } overflow-hidden`}
+            className={`mt-2 transition-all duration-300  max-h-[100px] opacity-100
+           overflow-hidden`}
           >
             <input
               type="search"
