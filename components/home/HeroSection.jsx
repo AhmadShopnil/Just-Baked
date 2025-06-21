@@ -10,7 +10,9 @@ export default async function HeroSection() {
 
   try {
     // Fetch hero items
-    const res = await fetch(heroUrl, { cache: "no-store" });
+    const res = await fetch(heroUrl, {
+  next: { revalidate: 60 }, // revalidate every 60 seconds
+});
     if (!res.ok) {
       throw new Error("Failed to fetch heroItems");
     }
@@ -24,7 +26,9 @@ export default async function HeroSection() {
 
   try {
     // Fetch offer items
-    const offerRes = await fetch(offerUrl, { cache: "no-store" });
+    const offerRes = await fetch(offerUrl, {
+  next: { revalidate: 30 }, // revalidate every 60 seconds
+});
     if (!offerRes.ok) {
       throw new Error("Failed to fetch offerItems");
     }

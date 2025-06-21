@@ -4,11 +4,15 @@ import React from "react";
 
 // 1. Generate Metadata
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug } =await  params;
   const url = `${BASE_URL}/post?slug=${slug}`;
 
+ const fullUrl = `https://my-app-weld-six.vercel.app/product/${slug}`;
+
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url,{
+  next: { revalidate: 60 }, // revalidate every 60 seconds
+});
     if (!res.ok) throw new Error("Failed to fetch product for metadata");
 
     const data = await res.json();
@@ -23,6 +27,8 @@ export async function generateMetadata({ params }) {
       openGraph: {
         title: product?.meta_title,
         description: product?.meta_description || product?.meta_title || product?.name,
+        url: fullUrl, 
+        type: "article", 
         images: [
           {
             url: product?.featured_image || "/default-og-image.jpg",
@@ -42,12 +48,14 @@ export async function generateMetadata({ params }) {
 
 // 2. Page Component
 const Page = async ({ params }) => {
-  const { slug } = params;
+  const { slug } =await params;
   const url = `${BASE_URL}/post?slug=${slug}`;
 
   let product = {};
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, {
+  next: { revalidate: 60 }, // revalidate every 60 seconds
+});
     if (!res.ok) throw new Error("Failed to fetch single product");
 
     const data = await res.json();

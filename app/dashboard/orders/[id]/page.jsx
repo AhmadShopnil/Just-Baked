@@ -12,14 +12,15 @@ import dynamic from "next/dynamic";
 import axiosInstance from "@/helpers/axiosInstance";
 import Image from "next/image";
 import SingleOrderSkeleton from "@/components/MyOrder/SingleOrderSkeleton";
+import { useParams } from "next/navigation";
 
 const DownloadInvoiceButton = dynamic(
   () => import("@/components/shared/DownloadInvoiceButton"),
   { ssr: false }
 );
 
-export default function OrderDetails({ params }) {
-  const orderId = params?.id;
+export default function OrderDetails() {
+   const { id: orderId } = useParams();
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function OrderDetails({ params }) {
   const transaction = order?.transactions?.[0];
 
   return (
-    <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10">
+    <div className="max-w-[1700px] mx-auto w-full px-4 md:px-10 mb-10">
       {/* Header */}
       <div className="flex flex-wrap items-center mb-6 gap-2">
         <Link

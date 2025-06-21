@@ -44,7 +44,9 @@ export const useSettigs = async () => {
   let settings = [];
 
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // revalidate every 60 seconds
+    });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch products. Status: ${res.status}`);

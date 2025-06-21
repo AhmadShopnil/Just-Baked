@@ -11,8 +11,12 @@ const Featured = async () => {
 
   try {
     const [productRes, categoryRes] = await Promise.all([
-      fetch(productUrl, { cache: "no-store" }),
-      fetch(catUrl, { cache: "no-store" }),
+      fetch(productUrl, {
+      next: { revalidate: 60 }, // revalidate every 60 seconds
+    }),
+      fetch(catUrl, {
+      next: { revalidate: 60 }, // revalidate every 60 seconds
+    }),
     ]);
 
     if (!productRes.ok) throw new Error("Failed to fetch products");
@@ -27,7 +31,7 @@ const Featured = async () => {
     console.error("Error fetching data:", error);
   }
 
-  //   console.log("from fetures :", categories);
+    // console.log("from fetures :", products);
 
   return (
      <div>
@@ -43,7 +47,8 @@ const Featured = async () => {
             <ProductSlider
               titleImage={category?.image}
               bg={hasBackground ? "bg-white" : "bg-[#FFF5E6]"}
-              products={category?.posts || []}
+              // products={category?.posts || []}
+              products={products}
               title={category?.name}
               category={category}
             />

@@ -5,34 +5,40 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import ProductCard from "../shop/ProductCard";
 import axiosInstance from "@/helpers/axiosInstance";
+import { filterProductsByCategoryId } from "@/helpers/filterProductsByCategoryIds";
 
 export default function ProductSlider({
   title,
   titleImage,
   bg = "",
   category,
+  products:allProducts
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const itemsPerPage = 4;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let endpoint = `/posts?term_type=product`;
-        if (category?.id) {
-          endpoint += `&category_id=${category.id}`;
-        }
 
-        const res = await axiosInstance.get(endpoint);
-        setProducts(res.data?.data || []);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+const products = filterProductsByCategoryId(allProducts, category?.id);
 
-    fetchProducts();
-  }, [category?.id]);
+
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       let endpoint = `/posts?term_type=product`;
+  //       if (category?.id) {
+  //         endpoint += `&category_id=${category.id}`;
+  //       }
+
+  //       const res = await axiosInstance.get(endpoint);
+  //       setProducts(res.data?.data || []);
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     }
+  //   };
+
+  //   fetchProducts();
+  // }, [category?.id]);
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
 

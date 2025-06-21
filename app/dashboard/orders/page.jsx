@@ -30,7 +30,7 @@ export default function Orders() {
     const fetchOrders = async () => {
       try {
         const response = await axiosInstance.get("orders/");
-        setOrders(response.data?.data || []);
+        setOrders(response.data?.data.reverse() || []);
       } catch (error) {
         console.error("Failed to fetch orders:", error);
       } finally {

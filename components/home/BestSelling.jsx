@@ -9,7 +9,9 @@ const BestSelling = async () => {
   // const url = `http://justbakedbd.com/api/v1/posts?term_type=product`;
   let products = [];
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // revalidate every 60 seconds
+    });
     if (!res.ok) {
       throw new Error("Failed to fetch products");
     }

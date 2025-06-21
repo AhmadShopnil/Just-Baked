@@ -24,9 +24,9 @@ const TopBar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [settings, setSettings] = useState(null);
-  
-const { state, dispatch } = useContext(UserContext);
-const user=state?.user
+
+  const { state } = useContext(UserContext);
+  const user = state?.user;
   useEffect(() => {
     axiosInstance
       .get("/frontend/settings")
@@ -42,24 +42,29 @@ const user=state?.user
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
   const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
   const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
+
+  // const logo =
+  //   getMetaValueByMetaName(settings, "site_logoimg_id") ||
+  //   "/image/Footer/Logo.svg";
+
   // console.log("settfing from topbar: ",settings)
 
- const menuItems = [
-  { name: "Bakery", href: "/shop/bekery" },
-  { name: "Fast Food", href: "/shop/fast-food" },
-  { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
-  { name: "Cart", href: "/cart" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-  ...(user ? [{ name: "My Orders", href: "/dashboard/orders" }] : []),
-];
-
+  const menuItems = [
+    { name: "Bakery", href: "/shop/bakery" },
+    { name: "Fast Food", href: "/shop/fast-food" },
+    { name: "Frozen Snacks", href: "/shop/frozen-snacks" },
+    { name: "Cart", href: "/cart" },
+    // { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+    ...(user ? [{ name: "My Orders", href: "/dashboard/orders" }] : []),
+  ];
 
   return (
     <div className="flex py-3 md:py-4 justify-between items-center self-stretch">
       {/* Logo */}
       <Link href="/">
         <Image
+          // src={logo}
           src="/image/Header Image/Vector.svg"
           alt="Logo"
           width={95}
@@ -172,7 +177,7 @@ const user=state?.user
               >
                 <FaWhatsapp className="w-6 h-6 text-green-600" />
                 <span className="text-black text-sm font-medium leading-[16px]">
-                {whatsApp}
+                  {whatsApp}
                 </span>
               </a>
             </div>

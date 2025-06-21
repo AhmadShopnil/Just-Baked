@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
@@ -63,9 +63,14 @@ function cartReducer(state, action) {
       };
 
     case "SET_DISCOUNT": {
+      const discount = action.payload; 
+      
+      console.log("from reducer", discount)
+      
+      // percentage like 15 for 15%
       return {
         ...state,
-        discount: action.payload,
+        discount:discount,
       };
     }
 
@@ -79,24 +84,7 @@ function cartReducer(state, action) {
 }
 
 export function CartProvider({ children }) {
-  // Load initial state from localStorage
-  const getInitialState = () => {
-    if (typeof window !== "undefined") {
-      const storedState = localStorage.getItem("cart");
-      return storedState ? JSON.parse(storedState) : initialState;
-    }
-    return initialState;
-  };
-
-  const [state, dispatch] = useReducer(cartReducer, getInitialState());
-
-  // Persist to localStorage on state change
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cart", JSON.stringify(state));
-    }
-  }, [state]);
-
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}

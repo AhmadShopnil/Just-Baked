@@ -149,7 +149,7 @@ const Mainmenu = () => {
                     {suggestions.map((suggestion) => (
                       <Link
                         key={suggestion.id}
-                        href={`/products/${suggestion.slug}`}
+                        href={`/product/${suggestion.slug}`}
                         className="block px-3 py-2 hover:bg-gray-200"
                         onClick={() => setSearchTerm("")}
                       >
@@ -310,7 +310,7 @@ const Mainmenu = () => {
                 {suggestions.map((suggestion) => (
                   <Link
                     key={suggestion.id}
-                    href={`/products/${suggestion.slug}`}
+                    href={`/product/${suggestion.slug}`}
                     className="block px-3 py-2 hover:bg-gray-200"
                     onClick={() => setSearchTerm("")}
                   >

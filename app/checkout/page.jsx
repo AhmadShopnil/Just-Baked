@@ -26,6 +26,8 @@ export default function CheckoutPage() {
   const { dispatch } = useContext(UserContext);
   const isLoggedIn = userState?.user?.full_name ? true : false;
   const { dispatch: cartDispatch } = useCart();
+  const [loading, setLoading] = useState(false);
+
   // console.log("state from checkout page: ", state)
 
   // 🧮 Dynamic totals
@@ -42,6 +44,8 @@ export default function CheckoutPage() {
   };
 
   const handleSubmitOrder = async () => {
+    setLoading(true); // Start loading
+
     const orderData = {
       shipping: {
         name: form.name,
@@ -99,9 +103,10 @@ export default function CheckoutPage() {
       router.push(
         `/order/success?orderId=${response?.order?.unique_id}&total=${response?.order?.total}`
       );
-      
     } catch (error) {
       toast.error(error.message || "Order failed.");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -236,9 +241,32 @@ export default function CheckoutPage() {
 
           <button
             onClick={handleSubmitOrder}
-            className="w-full bg-[#724B00] text-white px-5 py-2 rounded-md hover:bg-[#5e3d00] transition cursor-pointer"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 bg-[#724B00] text-white px-5 py-2 rounded-md hover:bg-[#5e3d00] transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Place Order
+            {loading && (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+            )}
+            {loading ? "Placing Order..." : "Place Order"}
           </button>
         </div>
       </div>
