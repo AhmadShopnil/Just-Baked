@@ -4,18 +4,15 @@ import { BASE_URL } from "@/helpers/baseUrl";
 import { getCategoryBySlug } from "@/helpers/getCategoryNameBySlug";
 
 export async function generateMetadata({ params }) {
-  const { slug } =await params;
+  const { slug } = await params;
   const catUrl = `${BASE_URL}/categories?taxonomy_type=product_categories&order_direction=desc`;
   const fullUrl = `https://my-app-weld-six.vercel.app/shop/${slug}`;
   let categories;
 
   try {
-    const res = await fetch(
-      catUrl,
-     {
-  next: { revalidate: 60 }, // revalidate every 60 seconds
-}
-    );
+    const res = await fetch(catUrl, {
+      next: { revalidate: 60 }, // revalidate every 60 seconds
+    });
     const data = await res.json();
     categories = data?.data;
     const category = getCategoryBySlug(categories, slug);
@@ -30,13 +27,15 @@ export async function generateMetadata({ params }) {
         type: "website",
         images: [
           {
-            url: category.image || "/default-og-image.jpg",
+            url: category?.image || "/default-og-image.jpg",
+            width: 1200,
+            height: 630,
             alt: category.name || "Category",
           },
         ],
       },
       other: {
-        "og:image": category?.image || "/default-og-image.jpg", 
+        "og:image": category?.image || "/default-og-image.jpg",
         "og:image:alt": category?.name || "Category",
       },
     };
@@ -57,14 +56,12 @@ export default async function Page({ params }) {
       catUrl,
 
       {
-  next: { revalidate: 60 }, // revalidate every 60 seconds
-}
+        next: { revalidate: 60 }, // revalidate every 60 seconds
+      }
     );
     const data = await res.json();
     categories = data?.data;
     const category = getCategoryBySlug(categories, slug);
-
- 
   } catch (error) {}
 
   return <Shop slug={slug} />;

@@ -61,25 +61,25 @@ export default function Orders() {
     <div className="min-h-screen py-4 md:py-6 max-w-[1700px] mx-auto w-full px-4 md:px-10">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <Link href="/" className="p-2 mr-2 rounded-lg hover:bg-gray-100">
+        <Link href="/" className="p-2 mr-2 rounded-md hover:bg-gray-100">
           <ArrowLeft className="w-5 h-5 text-gray-600" />
         </Link>
         <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden">
         <div className="p-6 border-b border-gray-200">
           {/* Filters */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center space-x-2">
-              <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 <Filter className="w-4 h-4 mr-2" />
                 Filter
               </button>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="pl-4 pr-8 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="pl-4 pr-8 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 <option>All Orders</option>
                 <option>Processing</option>

@@ -2,7 +2,10 @@
 
 import { UserContext } from "@/context/UserContext";
 import axiosInstance from "@/helpers/axiosInstance";
-import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
+import {
+  getMediaLinkByMetaName,
+  getMetaValueByMetaName,
+} from "@/helpers/metaHelpers";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
@@ -62,9 +65,7 @@ const Footer = () => {
   const bottom_footer_content =
     getMetaValueByMetaName(settings, "bottom_footer_content") || "";
 
-  // const logo =
-  //   getMetaValueByMetaName(settings, "site_logoimg_id") ||
-  //   "/image/Footer/Logo.svg";
+  const logo = getMediaLinkByMetaName(settings, "site_logoimg_id");
 
   return (
     <div className="w-full">
@@ -74,13 +75,21 @@ const Footer = () => {
             {/* Logo */}
             <div className="flex justify-center">
               <Link href="/" className="cursor-pointer">
-                <Image
-                  // src={logo}
-                  src="/image/Footer/Logo.svg"
-                  alt="Logo"
-                  width={160}
-                  height={40}
-                />
+                {logo ? (
+                  <Image
+                    src={`http://justbakedbd.com${logo}`}
+                    alt="Logo"
+                    width={160}
+                    height={40}
+                  />
+                ) : (
+                  <Image
+                    src="/image/Footer/Logo.svg"
+                    alt="Logo"
+                    width={160}
+                    height={40}
+                  />
+                )}
               </Link>
             </div>
 

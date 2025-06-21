@@ -5,19 +5,12 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { useSettings } from "@/hooks/useSettings";
-import { getMetaValueByMetaName } from "@/helpers/metaHelpers";
-import axiosInstance from "@/helpers/axiosInstance";
 import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaFacebookF,
-  FaLinkedinIn,
-  FaInstagram,
-  FaYoutube,
-  FaWhatsapp,
-} from "react-icons/fa";
+  getMediaLinkByMetaName,
+  getMetaValueByMetaName,
+} from "@/helpers/metaHelpers";
+import axiosInstance from "@/helpers/axiosInstance";
+import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { UserContext } from "@/context/UserContext";
 
 const TopBar = () => {
@@ -38,17 +31,11 @@ const TopBar = () => {
       });
   }, []);
 
-  // const { settings, loading, error } = useSettings();
   const phone = getMetaValueByMetaName(settings, "company_phone") || "";
-  const phone2 = getMetaValueByMetaName(settings, "company_phone_2") || "";
   const whatsApp = getMetaValueByMetaName(settings, "whats_app") || "";
+  const logo = getMediaLinkByMetaName(settings, "site_logoimg_id");
 
-  // const logo =
-  //   getMetaValueByMetaName(settings, "site_logoimg_id") ||
-  //   "/image/Footer/Logo.svg";
-
-  // console.log("settfing from topbar: ",settings)
-
+ 
   const menuItems = [
     { name: "Bakery", href: "/shop/bakery" },
     { name: "Fast Food", href: "/shop/fast-food" },
@@ -63,14 +50,24 @@ const TopBar = () => {
     <div className="flex py-3 md:py-4 justify-between items-center self-stretch">
       {/* Logo */}
       <Link href="/">
-        <Image
-          // src={logo}
-          src="/image/Header Image/Vector.svg"
-          alt="Logo"
-          width={95}
-          height={40}
-          className="cursor-pointer"
-        />
+        {logo ? (
+          <Image
+            src={`http://justbakedbd.com${logo}`}
+            // src="/image/Header Image/Vector.svg"
+            alt="Logo"
+            width={95}
+            height={40}
+            className="cursor-pointer"
+          />
+        ) : (
+          <Image
+            src="/image/Header Image/Vector.svg"
+            alt="Logo"
+            width={95}
+            height={40}
+            className="cursor-pointer"
+          />
+        )}
       </Link>
 
       {/* Desktop Menu */}

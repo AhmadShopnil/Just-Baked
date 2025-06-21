@@ -40,7 +40,7 @@ export default function OrderDetails() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Order Summary */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white border rounded-xl shadow-sm">
+          <div className="bg-white border rounded-md shadow-sm">
             <div className="p-6 border-b">
               <h2 className="text-lg font-semibold">Order Summary</h2>
             </div>
@@ -114,7 +114,7 @@ export default function OrderDetails() {
 
         {/* Right: Shipping and Payment Info */}
         <div className="space-y-6">
-          <div className="bg-white border rounded-xl shadow-sm">
+          <div className="bg-white border rounded-md shadow-sm">
             <div className="p-6 border-b">
               <h2 className="text-lg font-semibold">Shipping Information</h2>
             </div>
@@ -130,7 +130,7 @@ export default function OrderDetails() {
             </div>
           </div>
 
-          <div className="bg-white border rounded-xl shadow-sm">
+          <div className="bg-white border rounded-md shadow-sm">
             <div className="p-6 border-b">
               <h2 className="text-lg font-semibold">Payment Information</h2>
             </div>
@@ -141,7 +141,7 @@ export default function OrderDetails() {
             </div>
           </div>
 
-          {/* <div className="bg-white border rounded-xl shadow-sm">
+          {/* <div className="bg-white border rounded-md shadow-sm">
             <div className="p-6 border-b">
               <h2 className="text-lg font-semibold">Need Help?</h2>
             </div>

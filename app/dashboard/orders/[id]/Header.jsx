@@ -19,7 +19,7 @@ const OrderDetailsHeader = ({order}) => {
        <div className="flex flex-wrap items-center mb-6 gap-2">
         <Link
           href="/dashboard/orders"
-          className="p-2 mr-2 rounded-lg hover:bg-gray-100"
+          className="p-2 mr-2 rounded-md hover:bg-gray-100"
         >
           <ArrowLeft className="w-5 h-5 text-gray-600" />
         </Link>
@@ -30,7 +30,7 @@ const OrderDetailsHeader = ({order}) => {
           <DownloadInvoiceButton
            order={order}
           >
-            <button className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition">
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition">
               <Download className="w-4 h-4" />
               Download Invoice
             </button>
