@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       >
         <UserProvider>
           <CartProvider>
-            <div className="bg-white flex flex-col">
+            <div className="bg-white flex flex-col ">
               <Header />
               <main>{children}</main>
               <Footer />

@@ -32,6 +32,8 @@ export async function generateMetadata({ params }) {
         images: [
           {
             url: product?.featured_image || "/default-og-image.jpg",
+            width: 1200,
+            height: 630,
             alt: product?.meta_title,
           },
         ],
